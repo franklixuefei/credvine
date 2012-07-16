@@ -1,0 +1,148 @@
+
+ <% if @ref_form_selector.campaigns.find_by_status(true) %>
+
+ 
+ <script type="text/javascript">
+ 	$(document).ready(function() {
+ 		<% token = SecureRandom.base64.delete("=").delete("\n\r").tr("+/", "-_") %>
+ 		// $('.green_button').click(function(event) {
+ 			// event.preventDefault();
+ 			// if ($('textarea#customer_frien_welc').val() == $('textarea#customer_frien_welc').attr('placehold')) {
+ 				// alert('works');
+ 				// $('textarea#customer_frien_welc').val('');
+ 				// alert($('textarea#customer_frien_welc').val());
+ 			// }
+ 			// //$(this).submit();
+ 		 });
+ 	</script>
+
+
+<div class="ref_header">Refer a friend to <%= @ref_form_selector.full_name %>!</div>
+
+<div id="user_nav">
+	<% if !session[:auth] %>
+		<img src="/email_icon_green.png" />
+  		<a href="/auth/facebook"><img src="/facebook_icon_inactive.png" /></a>
+  		<!-- <a href=#><img src="/twitter48x48.png" /></a> -->
+    <% else %>
+    	<a href=<%= signout_path %>><img src="/email_icon_inactive.png" /></a>
+  		<a href="/auth/facebook"><img src="/facebook48x48.png" /></a>
+  		<!-- <a href=#><img src="/twitter48x48.png" /></a> -->
+  		
+  	<% end %>
+
+</div>
+
+<!-- <center><div id="ex_popup">
+			<select id="ex1">
+				<option selected="selected" value="prof">Professional Style</option>
+				<option value="casual">Casual Style</option>
+				<option value="fun">Fun Style</option>
+			</select><br/>
+			
+			<textarea id="ex_content" style="position:relative; width: 80%; height:80%"></textarea>
+	<img id="ex_close" src="/assets/btn_close_x.png"></img>
+</div></center> -->
+
+
+
+
+<%= form_for [@ref_form_selector, @customer], :html => { :multipart => true }, :validate => true do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :auth_token, :value =>  token %>
+  
+  <% if session[:auth] %>
+  	<%= f.hidden_field :avatar_url, :value =>  session[:auth][:info][:image] %>
+  <% end %>
+  
+  <% if !session[:auth] %>
+  
+	  <%= f.fields_for :friends do |builder|%>
+	  	  <div class="field">
+		  	<%= builder.email_field :email, :placeholder => "Your friend's e-mail address" %>
+		  </div>
+	  	  <div class="field">
+		  	<%= builder.text_field :fullname, :placeholder => "Your friend's full name", :style => "margin-bottom: 29px;" %>
+		  	<% if !session[:auth] %>
+		  	<br/>
+		  	<%= f.check_box :send_to_another, :style => "margin-left: 0px;" %>
+			<%= f.label :send_to_another, "Want to hook up another friend afterwards?" %>
+			<% end %>
+		  </div>
+	  <% end %>
+  <% end %>
+    <div class="field">
+    <div class="reason">Note to your friend (optional)?</div>
+    <!-- <label id="ex_mobile">See examples</label> -->
+    <% if flash[:customer].present? %>
+    	<%= f.text_area :frien_welc, :rows => 3, :cols => 50, :value => flash[:customer][:frien_welc], :placehold => "Why is " + @ref_form_selector.full_name + " perfect for your friend?" %>
+    <% else %>
+    	<%= f.text_area :frien_welc, :rows => 3, :cols => 50, :placehold => "Why is " + @ref_form_selector.full_name + " perfect for your friend?" %>
+    <% end %>
+  </div>
+  
+  <%= f.fields_for :codes do |builder| %>
+  	<div class="field">
+		<%= builder.collection_select :incentive_id, @ref_form_selector.campaigns.find_by_status(true).incentives.find(:all, :conditions => ['frien_incentive != ? and frien_incentive is not ?', "", nil]), :id, :frien_incentive, :prompt => "Select an incentive for your friend" %>  		
+  	</div>
+  <% end %>
+  <div class="field">
+    <% if flash[:customer].present? %>
+    	<%= f.text_field :fullname, :value => flash[:customer][:fullname], :placeholder => "Your full name" %>
+    <% else %>
+    	<% if session[:auth] %>
+    		<%= f.text_field :fullname, :value => session[:auth][:info][:name], :placeholder => "Your full name" %>
+    	<% else %>
+    		<%= f.text_field :fullname, :placeholder => "Your full name"  %>
+    	<% end %>
+    <% end %>
+  </div>
+  <!-- <div class="field">
+    <%= f.label :phone %><br />
+    <% if flash[:customer].present? %>
+    	<%= f.telephone_field :phone, :value => flash[:customer][:phone] %>
+    <% else %>
+    	<%= f.telephone_field :phone %>
+    <% end %>
+  </div> -->
+
+  <div class="field" style="margin-bottom: 0px;">
+    <% if flash[:customer].present? %>
+    	<%= f.email_field :email, :value => flash[:customer][:email], :placeholder => "Your e-mail address" %>
+    <% else %>
+       	<% if session[:auth] %>
+    		<%= f.email_field :email, :value => session[:auth][:info][:email], :placeholder => "Your e-mail address"  %>
+    	<% else %>
+    		<%= f.email_field :email, :placeholder => "Your e-mail address"  %>
+    	<% end %>
+    <% end %>
+  </div>
+<!--  <div class="field">
+    <%= f.label :photo %><br />
+    <%= f.text_field :photo %>
+</div> -->
+  
+ 	 <div id="button1" class="actions">
+ 	 	<% text = (session[:auth])? "NEXT" : "SEND" %>
+    	<%= f.submit "#{text}", :class => "green_button"%>
+  	</div>
+<% end %>
+
+
+
+</div>
+<% else %>
+<center><div>Shoot! It looks like <%= @ref_form_selector.full_name %> has no active campaign right now. Make sure to check them out anyway!</div></center>
+<% end %>
+

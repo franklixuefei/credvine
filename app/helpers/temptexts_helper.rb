@@ -1,0 +1,2 @@
+module TemptextsHelper
+end

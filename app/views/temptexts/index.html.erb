@@ -1,0 +1,29 @@
+<h1>Listing temptexts</h1>
+
+<table>
+  <tr>
+    <th>Cust init</th>
+    <th>Cust success</th>
+    <th>Frien welc ref</th>
+    <th>Frien post redemp</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @temptexts.each do |temptext| %>
+  <tr>
+    <td><%= temptext.cust_init %></td>
+    <td><%= temptext.cust_success %></td>
+    <td><%= temptext.frien_welc_ref %></td>
+    <td><%= temptext.frien_post_redemp %></td>
+    <td><%= link_to 'Show', temptext %></td>
+    <td><%= link_to 'Edit', edit_temptext_path(temptext) %></td>
+    <td><%= link_to 'Destroy', temptext, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Temptext', new_temptext_path %>

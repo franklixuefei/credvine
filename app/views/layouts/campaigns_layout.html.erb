@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Campaigns</title>
+  <%= stylesheet_link_tag    "application" %>
+   
+
+  <%= javascript_include_tag "application" %>
+<script type="text/javascript">
+
+ var _gaq = _gaq || [];
+ _gaq.push(['_setAccount', 'UA-30616718-1']);
+ _gaq.push(['_setDomainName', 'credvine.com']);
+ _gaq.push(['_trackPageview']);
+
+ (function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+</script>
+
+<script type='text/javascript'>
+var __wtw_lucky_setup_key = {};
+__wtw_lucky_setup_key.id = '1229';
+__wtw_lucky_setup_key.key = 'wThY8SmnDaWFzFCAzp8bnz9EvzVEMC2e';
+
+       (function() {
+               var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+               wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://ca178876') + '.luckyorange.com/w.js';
+               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+         })();
+</script>
+
+  
+  <%= csrf_meta_tags %>
+	<link rel="shortcut icon" href="/favicon.png" />
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	// If something wrong, restore the following code
+	// if ($('[placeholder]').val() != '' && $('[placeholder]').val() != $('[placeholder]').attr('placeholder')) $('[placeholder]').css('font-style', 'normal').css('color', '#66cc00');
+	// $('[placeholder]').keydown(function() {
+		// $(this).css('font-style','normal').css('color', '#66cc00');
+	// }).blur(function () {
+		// if ($(this).val() == '') $(this).css('font-style', '').css('color', '');
+	// });
+	// end of above
+	
+	// if something wrong, comment out the following code
+	//if ($('[placeholder]').val() == $('[placeholder]').attr('placeholder')) $('[placeholder]').val('');  // maybe not right TODO
+	//if ($('[placehold]').val() == $('[placehold]').attr('placehold')) $('[placehold]').val('');  // maybe not right TODO
+	$('[placeholder]').each(function() {
+		if ($(this).val() != '' && $(this).val() != $(this).attr('placeholder')) $(this).css('font-style', 'normal').css('color', '#66cc00'); // initialize
+		if ($(this).val() == $(this).attr('placeholder')) $(this).val('');
+	});
+	$('[placehold]').each(function() {
+		if ($(this).val() != '' && $(this).val() != $(this).attr('placehold')) $(this).css('font-style', 'normal').css('color', '#66cc00'); // initialize
+		if ($(this).val() == $(this).attr('placehold')) $(this).val('');
+	});
+	$('[placeholder]').live('keydown', function() {
+		$(this).css('font-style','normal').css('color', '#66cc00');
+		$('.autosave_text').text('autosaving...');
+	}).live('blur', function () {
+		if ($(this).val() == '') $(this).css('font-style', '').css('color', '');
+	}).live('focus', function() {
+		if ($(this).val() == $(this).attr('placeholder') || $(this).val() == $(this).attr('placehold')) $(this).val('');
+	});
+	// end of above
+	$('textarea').focus(function() {
+		var textarea = $(this);
+		if (textarea.val() == textarea.attr('placehold')) {
+			textarea.css('font-style','normal').css('color', '#66cc00');
+			textarea.val('');
+			textarea.removeClass('placeholder');
+		}
+	}).keydown(function() {
+		$('.autosave_text').text('autosaving...');
+	}).blur(function() {
+		var textarea = $(this);
+		if (textarea.val() == '' || textarea.val() == textarea.attr('placehold')) {
+			textarea.css('font-style',''); // to make font-style in style attr disappear so that placeholder class can be added normally
+		    textarea.addClass('placeholder');
+		    textarea.val(textarea.attr('placehold'));
+		} else {
+			textarea.css('font-style','normal').css('color', '#66cc00');
+		}
+	}).blur();
+	$('select').change(function() {
+		if ($(this).val() == '') {
+			$(this).css('font-style','italic');
+			$(this).find("option").css('font-style','normal');
+			$(this).find("option[value='']").css('font-style','italic');
+		} else {
+			$(this).css('font-style','');
+		}
+	}).change();
+	
+	$('input[type=checkbox]').change(function() {
+		$('.autosave_text').text('autosaving...');
+	});
+	
+});
+</script>
+	
+</head>
+<body>
+ 
+	<% if flash[:notice] %>
+		<p class="notice"><%= flash[:notice] %></p>
+		<% flash[:notice] = nil %>
+	<% end %>
+	    
+	<% if flash[:error] %>
+	 	<p class="error"><%= flash[:error] %></p>
+	 	<% flash[:error] = nil %>
+	<% end %>
+	<%= yield %>
+<!--[if IE]>
+<script src="/ie_placeholder.js" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$('input').each(function() {
+				$(this).blur();
+			});
+			$('textarea').each(function() {
+				$(this).blur();
+			});
+		}, 0);
+	});
+</script>
+<![endif]-->
+</body>
+</html>

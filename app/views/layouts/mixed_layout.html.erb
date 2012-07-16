@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credvine<%= @title %></title>
+  <%= stylesheet_link_tag    "application" %>
+  <link rel="stylesheet" type="text/css" href="/mobile.css" />
+   
+  <%= javascript_include_tag "https://js.stripe.com/v1/","application" %>
+ <script type="text/javascript">
+
+ var _gaq = _gaq || [];
+ _gaq.push(['_setAccount', 'UA-30616718-1']);
+ _gaq.push(['_setDomainName', 'credvine.com']);
+ _gaq.push(['_trackPageview']);
+
+ (function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+</script>
+<script type='text/javascript'>
+var __wtw_lucky_setup_key = {};
+__wtw_lucky_setup_key.id = '1229';
+__wtw_lucky_setup_key.key = 'wThY8SmnDaWFzFCAzp8bnz9EvzVEMC2e';
+
+       (function() {
+               var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+               wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://ca178876') + '.luckyorange.com/w.js';
+               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+         })();
+</script>
+
+<!--[if IE]>
+<script type="text/javascript" src="http://fbug.googlecode.com/svn/lite/branches/firebug1.4/content/firebug-lite-dev.js"></script>
+<script type="text/javascript" src="/application_layout_ie.js"></script>
+<![endif]-->
+<![if !IE]>
+<script type="text/javascript" src="/application_layout.js"></script>
+<![endif]>
+  
+  <meta name="viewport" content="width=640" />
+  
+  <%= csrf_meta_tags %>
+	<%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+	<link rel="shortcut icon" href="/favicon.png" />
+<script type="text/javascript" charset="utf-8">
+//$(document).ready(function() {
+
+//	if ($('[placeholder]').val() != '' && $('[placeholder]').val() != $('[placeholder]').attr('placeholder')) $('[placeholder]').css('font-style', 'normal').css('color', '#66cc00');
+//	$('[placeholder]').keydown(function() {
+//		$(this).css('font-style','normal').css('color', '#66cc00');
+//	}).blur(function () {
+//		if ($(this).val() == '') $(this).css('font-style', '').css('color', '');
+//	});
+//	
+//	$('textarea').focus(function() {
+//		var textarea = $(this);
+//		if (textarea.val() == textarea.attr('placehold')) {
+//			textarea.css('font-style','normal').css('color', '#66cc00');
+//			textarea.val('');
+//			textarea.removeClass('placeholder');
+//		}
+//	}).blur(function() {
+//		var textarea = $(this);
+//		if (textarea.val() == '' || textarea.val() == textarea.attr('placehold')) {
+//		    textarea.addClass('placeholder');
+//		    textarea.val(textarea.attr('placehold'));
+//		} else {
+//			textarea.css('font-style','normal').css('color', '#66cc00');
+//		}
+//	}).blur();
+//	
+//	$('select').change(function() {
+//		if ($(this).val() == '') {
+//			$(this).css('font-style','italic');
+//			$(this).find("option").css('font-style','normal');
+//			$(this).find("option[value='']").css('font-style','italic');
+//		} else {
+//			$(this).css('font-style','');
+//		}
+//	}).change();
+//});
+</script>
+</head>
+<body>
+	
+	<div class="body_container">
+		<% if flash[:notice] %>
+			<p class="notice"><%= flash[:notice] %></p>
+		<% end %>
+		    
+		<% if flash[:error] %>
+		 	<p class="error"><%= flash[:error] %></p>
+		<% end %>
+		<div class="container">
+			<%= yield %>
+		</div>
+	</div>
+	<div class="whitespace"></div>
+	<div class="footer">
+		<div class="footer_container">
+			<a href="http://credvine.com/"><img src="/credvine_icon_transparent.png" />
+			<span class="footer_text">
+				powered by credvine
+			</span>
+			</a>
+		</div>
+	</div>
+	
+<!--[if IE]>
+<script src="/ie_placeholder.js" type="text/javascript"></script>
+<![endif]-->
+</body>
+</html>

@@ -1,0 +1,47 @@
+<table class="fields">
+
+		<tr>
+  			<td>
+  				<div class="a3">
+  					<%= f.label :incentive_type_fi_id, "Incentive Type" %>
+  					<% if flash[:n] == 1 %>
+  						<img class="tool_tip" src="/credvine_tooltip.png" title="How are you hooking up your customers and their friends?<br/><ul style='margin-left:15px; padding-left:0px;'><li><b>Monetary Bonus:</b>  $$ based credit (e.g., save $5 at a coffee shop)</li><li><b>Upgrade:</b> Upgrade an order (e.g., Large coffee for the price of a small)</li><li><b>VIP Service:</b> Give the special treatment (e.g., skip the line at the coffee shop)</li><li><b>Free give-away:</b> Give something away for free (e.g., free coffee)</li></ul>"/><%= f.hidden_field :_destroy %><br/>
+  					<% else %>
+  						<br/>
+					<% end %>
+  					<%= f.collection_select :incentive_type_fi_id, IncentiveTypeFi.find(:all), :id, :type_of_incentive, :prompt => "Select a Type", :row => 3, :style => "width: 170px"%><%= f.hidden_field :_destroy %>
+  					<br/>
+					<br/>
+					<%= f.label :incentive_val_fi, "Incentive Value" %><%= f.hidden_field :_destroy %>
+					<% if flash[:n] == 1 %>
+						<img class="tool_tip" src="/credvine_tooltip.png" title="Assign a value to the incentive, based on what it is worth to your business. This will help us analyze the results of the campaign, and provide a total cost per acquisition (CPA) and other helpful metrics."/>
+					<% end %>
+					<br/>
+					<%= f.text_field :incentive_val_fi, :size => 10, :row => 1, :autosave => true, :class => "incentive_input", :placeholder => "Incentive value ($)", :style => "width:156px" %><%= f.hidden_field :_destroy %>
+  				</div>
+  			</td>
+  			<td>
+  				<div class="a3">
+  					<%= f.label :frien_incentive_long, "Long description" %><%= f.hidden_field :_destroy %>
+  					<% if flash[:n] == 1 %>
+  						<img class="tool_tip" src="/credvine_tooltip.png" title="You now have 120 characters to describe your bonus in more detail. This will be used on the vouchers/coupons sent to your customer/their friend."/>
+  					<% end %>
+  					<%= f.label "(max 120 chars)", :style => "float:right" %><%= f.hidden_field :_destroy %><br/>
+  					<%= f.text_area :frien_incentive_long, :rows => 4, :cols => 28, :row => 1, :maxlength => "120", :style => "width: 200px"  %><%= f.hidden_field :_destroy %>
+  					
+  				</div>
+  			</td>
+  			<td>
+  				<div class="a3">
+  					<%= f.label :term_of_use_fi, "Terms of Use" %><%= f.hidden_field :_destroy %>
+  					<% if flash[:n] == 1 %>
+  						<img class="tool_tip" src="/credvine_tooltip.png" title="Get down to business and add terms of use for your customers (e.g., cannot be redeemed with other promotional offers, or must be redeemed at 123 Oak Street location in Brooklyn).  To avoid customer/friend disappointment, we recommend avoiding overly constraining terms (e.g., can only be redeemed in the morning). <br>You will need to keep your terms to a maximum of 200 characters, as they will be printed on the coupons provided to customers/their friends"/><br/>
+  					<% else %>
+	  					<br/>
+  					<% end %>
+					<%= f.text_area :term_of_use_fi, :rows => 4, :cols => 28, :row => 1, :style => "width:200px" %><%= f.hidden_field :_destroy %>
+  				</div>
+  			</td>
+  		</tr>
+  	</table>
+

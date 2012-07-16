@@ -1,0 +1,172 @@
+ <title>Send a referral</title>
+ <% if @selector.campaigns.find_by_status(true) %>
+ <!-- <script src="http://connect.facebook.net/en_US/all.js"></script> -->
+ 
+ <script type="text/javascript">
+ 	$(document).ready(function() {
+ 		<% token = SecureRandom.base64.delete("=").delete("\n\r").tr("+/", "-_") %>
+ 		$("#ex_popup").hide();
+ 		$("#ex_mobile").click(function() {
+ 			$("#ex_popup").fadeIn(500);
+
+ 		});
+ 		$("#ex_close").click(function() {
+ 			$("#ex_popup").fadeOut(300);
+ 		});
+ 		onSelectChange();
+		$("#ex1").change(onSelectChange);
+ 	});
+ 	function onSelectChange(){
+		var selected = $("#ex1 option:selected");		
+		var output = "";
+		//alert("aaa");
+		if(selected.val() == "prof") {
+			output = "<%= Temptext.find(1).frien_welc_ref %>";
+		} else if (selected.val() == "casual") {
+			output = "<%= Temptext.find(2).frien_welc_ref %>";
+		} else if (selected.val() == "fun") {
+			output = "<%= Temptext.find(3).frien_welc_ref %>";
+		}
+		$("#ex_content").val(output);
+	}
+ 	
+ 	</script>
+ 	
+
+
+<div id="user_nav">
+	<% if !session[:auth] %>
+  		<%= link_to "Sign in with Facebook", "/auth/facebook" %>
+    <% else %>
+    	Welcome, <%= session[:auth][:info][:name] %>
+  		<%= link_to "Sign Out", signout_path %>
+  	<% end %>
+
+</div>
+
+<h1>Send a referral</h1>
+<center><div id="ex_popup">
+			<select id="ex1">
+				<option selected="selected" value="prof">Professional Style</option>
+				<option value="casual">Casual Style</option>
+				<option value="fun">Fun Style</option>
+			</select><br/>
+			
+			<textarea id="ex_content" style="position:relative; width: 80%; height:80%"></textarea>
+	<img id="ex_close" src="/assets/btn_close_x.png"></img>
+</div></center>
+
+
+
+
+<%= form_for [@selector, @customer], :html => { :multipart => true }, :validate => true do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <!--  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div> -->
+  
+  <%= f.hidden_field :auth_token, :value =>  token %>
+  
+  <% if !session[:auth] %>
+  
+	  <%= f.fields_for :friends do |builder|%>
+	  	  <div class="field">
+		  	<%= builder.label :fullname, "Your friend's full name:"%><br />
+		  	<%= builder.text_field :fullname %>
+		  </div>
+		  <div class="field">
+		  	<%= builder.label :email, "Your friend's email address:"%><br />
+		  	<%= builder.email_field :email %>
+		  </div>
+	  <% end %>
+  <% end %>
+    <div class="field" style="width: 370px">
+    <%= f.label :frien_welc, "What do you want to say to your friend:" %><br />
+    <% if flash[:customer].present? %>
+    	<%= f.text_area :frien_welc, :rows => 6, :cols => 50, :value => flash[:customer][:frien_welc] %>
+    <% else %>
+    	<%= f.text_area :frien_welc, :rows => 6, :cols => 50 %>
+    <% end %>
+    <label id="ex_mobile">See examples</label><br/>
+  </div>
+  
+  <%= f.fields_for :codes do |builder| %>
+  	<div class="field">
+  		<%= builder.label :incentive_id, "Please select an incentive for your friend: "%><br/>
+		<%= builder.collection_select :incentive_id, @selector.campaigns.find_by_status(true).incentives.find(:all), :id, :frien_incentive, :prompt => "Select an Incentive" %>  		
+  	</div>
+  <% end %>
+  <div class="field">
+    <%= f.label :fullname %><br />
+    <% if flash[:customer].present? %>
+    	<%= f.text_field :fullname, :value => flash[:customer][:fullname] %>
+    <% else %>
+    	<% if session[:auth] %>
+    		<%= f.text_field :fullname, :value => session[:auth][:info][:name] %>
+    	<% else %>
+    		<%= f.text_field :fullname %>
+    	<% end %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <% if flash[:customer].present? %>
+    	<%= f.telephone_field :phone, :value => flash[:customer][:phone] %>
+    <% else %>
+    	<%= f.telephone_field :phone %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "Your email address" %><br />
+    <% if flash[:customer].present? %>
+    	<%= f.email_field :email, :value => flash[:customer][:email] %>
+    <% else %>
+       	<% if session[:auth] %>
+    		<%= f.email_field :email, :value => session[:auth][:info][:email] %>
+    	<% else %>
+    		<%= f.email_field :email %>
+    	<% end %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :photo %><br />
+    <%= f.text_field :photo %>
+  </div>
+  
+  <% if !session[:auth] %>
+  <div class="field">
+  	<%= f.check_box :send_to_another %>
+  	<%= f.label :send_to_another, "Send another referral afterwards?" %>
+  </div>  
+  <% end %>
+
+ 	 <div id="button1" class="actions">
+ 	 	<% text = (session[:auth])? "Next, send a message to your friend" : "Send" %>
+    	<%= f.submit "#{text}"%>
+  	</div>
+<% end %>
+
+
+
+</div>
+<% else %>
+<center><h1>Sorry, but this campany (<%= @selector.full_name %>) has no active campaign right now.</h1></center>
+<% end %>
+

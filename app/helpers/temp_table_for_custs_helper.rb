@@ -1,0 +1,2 @@
+module TempTableForCustsHelper
+end

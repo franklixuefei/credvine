@@ -1,0 +1,57 @@
+      <div class="green_content">
+
+		<p class="greetings">
+			<%= @campaign.thx_frien_greeting.gsub(/\[Friend First Name\]/, @friend.fullname.split(' ').first) %>
+		</p>
+		<p class="text">
+			<%= @campaign.thx_frien.gsub(/\[Business Name\]/, @smb.full_name).gsub(/\n/, "<br />").gsub(/\[Business Referral Form Link\]/, "<a style='color:white;text-decoration:underline;' href='http://credvine.com/#{@smb.username}'>credvine.com/#{@smb.username}</a>").gsub(/\[Customer First Name\]/, @customer.fullname.split(' ').first).html_safe %>
+		</p>
+	  </div>
+   <% if @smb.featured_photo.present? %>
+		<div class="image">
+			<img src="http://credvine.com/<%= @smb.featured_photo.url(:original) %>" style="max-width: 640px" />
+		</div>
+	<% end %>
+		 <div class="green_content">
+		<p class="text">
+			Please find our details below. We look forward to staying connected with you!
+		</p>
+	  </div>
+	  <div class="bus_info">
+		<div class="bus_info_container">
+			<div class="bus_desc_container">
+				<p class="bus_name"><%= @smb.full_name %></p>
+				<div class="bus_desc">
+					<p class="bus_desc_content" style="font-size:14px;"><%= @smb.business_description %></p>
+					<p class="bus_desc_content"><%= @smb.st_name_num %></p>
+					<p class="bus_desc_content"><%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %></p>
+					<p class="bus_desc_content"><%= @smb.zip_pos %></p>
+					<p class="bus_desc_content"><%= @smb.phone %></p>
+				</div>
+				<div class="bus_soc">
+					<div class="soc_icons">
+						<% if @smb.linkedin_url.present? %>
+						<a href='http://<%= @smb.linkedin_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_linkedin.png" /></a>
+						<% end %>
+						<% if @smb.yelp_url.present? %>
+						<a href='http://<%= @smb.yelp_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_yelp.png" /></a>
+						<% end %>
+						<% if @smb.twitter_url.present? %>
+						<a href='http://<%= @smb.twitter_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_twitter.png" /></a>
+						<% end %>
+						<% if @smb.facebook_url.present? %>
+						<a href='http://<%= @smb.facebook_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_facebook.png" /></a>
+						<% end %>
+					</div><br/><br/>
+					<p class="bus_desc_content" style="text-align:right;padding-top:10px;"><a href="http://<%= @smb.site_url.gsub(/http:\/\//, "") %>"><%= @smb.site_url %></a></p>
+					<p class="bus_desc_content" style="text-align:right"><a href="mailto:<%= @smb.email %>"><%= @smb.email %></a></p>
+				</div>
+			</div>
+			<% if @smb.insert_map %>
+			<div class="bus_map">
+				<img src="http://maps.google.com/maps/api/staticmap?zoom=15&markers=<%= @smb.st_name_num %>, <%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %>&size=580x220&sensor=false" style="width: 580px;" />
+			</div>
+			<% end %>
+		</div>
+	  </div>
+	  

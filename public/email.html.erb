@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>RailsCasts Weekly</title>
+  <style type="text/css">
+@font-face {
+    font-family: 'AvenirLTStd-Light';
+    src: url('/avenirltstd-light-webfont.eot');
+    src: url('/avenirltstd-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/avenirltstd-light-webfont.woff') format('woff'),
+         url('/avenirltstd-light-webfont.ttf') format('truetype'),
+         url('/avenirltstd-light-webfont.svg#AvenirLTStd35Light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AvenirLTStd-Medium';
+    src: url('/avenirltstd-medium-webfont.eot');
+    src: url('/avenirltstd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/avenirltstd-medium-webfont.woff') format('woff'),
+         url('/avenirltstd-medium-webfont.ttf') format('truetype'),
+         url('/avenirltstd-medium-webfont.svg#AvenirLTStd65Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}  
+
+body {
+    background-color: black;
+    color: #000000;
+    font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+    font-size: 14px;
+    margin: 0;
+    min-width: 640px;
+    width: 100%;
+}
+
+p {
+    text-align: left;
+}
+
+a img {
+	border:0;
+}
+
+a {
+	color: white;
+}
+
+div.body_container {
+    background-color: white;
+    min-width: 640px;
+}
+div.container {
+    background-color: white;
+    border: 1px solid #66cc35;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 400px;
+    width: 640px;
+}
+div.green_content {
+    background-color: #66CC35;
+    color: white;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-top: 30px;
+    padding: 25px;
+    width: 560px;
+}
+p.greetings {
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.text {
+    font-size: 14px;
+    margin-bottom: 5px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.their_message_container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 580px;
+}
+p.their_message_header {
+    color: #66CC33;
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.their_message_text {
+    font-size: 16px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.image {
+	text-align: center;
+}
+div.bus_info {
+    background-color: black;
+}
+div.bus_info_container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 28px;
+    width: 580px;
+}
+div.bus_desc_container {
+    width: 580px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.bus_map {
+    width: 580px;
+}
+p.bus_name {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+div.bus_desc {
+    display: inline-block;
+    padding-bottom: 20px;
+}
+p.bus_desc_content {
+    color: white;
+    font-size: 10px;
+    line-height: 5px;
+}
+div.bus_soc {
+    display: inline-block;
+    float: right;
+    width: 200px;
+}
+div.soc_icons {
+    float: right;
+    height: 32px;
+}
+div.soc_icons img {
+    margin-left: 6px;
+    padding-top: 4px;
+    float:right;
+}
+
+
+
+.footer {
+    background-color: black;
+    height: 96px;
+}
+
+.footer_container {
+    height: 32px;
+    padding: 32px 30px;
+}
+
+.footer_text {
+    color: #66CC00;
+    float: right;
+    font-size: 22px;
+    margin-right: 132px;
+    width: 400px;
+}
+
+   
+  
+  </style>
+</head>
+
+<body>
+<div class="body_container">
+<div class="container">  
+	<%= yield %>
+	  <div class="footer">
+		<div class="footer_container">
+			<img src="http://credvine.com/credvine_icon_transparent.png" />
+			<span class="footer_text">
+				powered by credvine
+			</span>
+		</div>
+	</div>
+   </div>
+</div>
+</div>
+
+</body>
+</html>
+

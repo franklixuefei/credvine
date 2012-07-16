@@ -1,0 +1,62 @@
+<style>
+.steps#step2, .steps#step3, .steps#step4 {
+	display:none;
+}
+</style>
+
+<script>
+	$(document).ready(function() {
+			$('#c1').fadeIn(700, function() {
+				$('#step2').fadeIn(700, function() {
+					$('#step3').fadeIn(700, function(){
+						$('#step4').fadeIn(700);
+					});
+				});
+			});
+	});
+</script>
+
+<div class="page_header FTUX_header">WELCOME TO CREDVINE, <%= @smb.username.upcase %>!</div>
+<div class="FTUX_container">
+	<div class="FTUX_container_header">JUST A FEW MORE STEPS...</div>
+	<div class="steps" id="step1">1. Your email address has been verified<img style="margin-left:50px;display:none;" id="c1" src="/small_check_active.png" /></div>
+	<%= link_to "2. FILL OUT YOUR BUSINESS PROFILE", edit_smb_path(@smb), :class => "steps active_step", :id => "step2" %>
+	<div class="steps" id="step3" style="margin-top:20px;">3. Create your own campaign</div>
+	<div class="steps" id="step4">4. Print your Poster, Referral Card, QR Code and GO!</div>
+	
+</div>
+
+
+<!-- <style>
+	div.FTUX_nav {
+		width: 600px;
+		height: 400px;
+		opacity: 0.8;
+		background-color: lightGreen;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+		-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	    box-shadow: 0 8px 6px -6px black;
+	    padding: 10px;
+	    text-align: left;
+	}
+</style> -->
+
+
+
+<!-- <center>
+	<div class="FTUX_nav" style="display:none">
+		<h1 style="margin-left: 50px;" id="more_steps"> Just a few more steps ... </h1><br/>
+		
+		<h2 id="step1" style="display:none">1. Click the link in the verification e-mail</h2><br/>
+		
+		<h2 id="step2" style="display:none">2. Fill out your Business Profile</h2><br/>
+		
+		<h2 id="step3" style="display:none">3. Create your own campaign</h2><br/>
+		
+		<h2 id="step4" style="display:none">4. Download your QR Code and GO!</h2><br/>
+		
+	</div>
+</center> -->
+	

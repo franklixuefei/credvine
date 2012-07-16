@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Frien incentive:</b>
+  <%= @incentive.frien_incentive %>
+</p>
+
+<p>
+  <b>Frien incentive long:</b>
+  <%= @incentive.frien_incentive_long %>
+</p>
+
+<p>
+  <b>Incentive Type:</b>
+  <% if !@incentive.incentive_type_fi_id.nil? %>
+  	<%= IncentiveTypeFi.find(@incentive.incentive_type_fi_id).type_of_incentive %>
+  <% end %>
+</p>
+
+<p>
+  <b>Frien incentive value:</b>
+  <%= @incentive.incentive_val_fi %>
+</p>
+
+
+<% if (params[:campaign_id].present? and params[:smb_id].present?)%>
+<%= link_to 'Edit', edit_smb_campaign_incentive_path(@smb, @selector, @incentive) %> |
+<%= link_to 'Back', smb_campaign_incentives_path(@smb, @selector) %>
+<% elsif params[:campaign_id].present? %>
+<%= link_to 'Edit', edit_campaign_incentive_path(@selector, @incentive) %> |
+<%= link_to 'Back', campaign_incentives_path(@selector) %>
+<% else %>
+<%= link_to 'Edit', edit_incentive_path(@incentive) %> |
+<%= link_to 'Back', incentives_path %>
+<% end %>

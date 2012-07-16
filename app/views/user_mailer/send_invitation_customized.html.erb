@@ -1,0 +1,15 @@
+<div style="padding:20px">
+<p>Hello,</p>
+
+<p>The invitation you requested to Credvine Referrals has been confirmed. Please click <%= link_to "here", sign_up_url(:host => "credvine.com", :bk => @request.beta_key, :pc => @promo.promo_code), :style => "color:#66cc00;" %> to get started
+	<% if @promo.promo_credit == "0" %> 
+.
+	<% elsif @promo.promo_credit != "free" %>
+.  We've added a special credit of $<%= @promo.promo_credit %> to your account!
+	<% else %>
+ with your special beta tester account, which will be free for the first 2 months.
+	<% end %>
+</p>
+	
+<%= @customized_text.gsub(/\n/, "<br/>").html_safe %>
+</div>

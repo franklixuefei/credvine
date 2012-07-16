@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credvine - Poster</title>
+  <%= javascript_include_tag "application" %>
+<link rel=stylesheet href="/poster.css" type="text/css" media=screen>
+<script>
+$(document).ready(function() {
+	$('button.generate').click(function() {
+		
+		window.open('http://credvine.com/posters/1/poster.pdf', 'my_window', 'width=' + screen.width + ', height=' + screen.height + ', toolbar=yes, location=yes, directories=yes, status=yes, menubar=yes, scrollbars=yes, copyhistory=yes, resizable=yes');
+	});
+});
+</script>
+</head>
+<body>
+	<div class="body_container">
+		<div class="container">
+			<div class="poster_header">
+				<%= @smb.full_name %>
+			</div>
+			<div class="poster_subheading1">
+			Know a friend who
+			<br>
+			would love us too?
+			</div>
+			<div class="poster_subheading2">
+			Refer a friend and hook
+			<br>
+			them up for their first visit!
+			</div>
+			<div class="qr_container">
+				<img src="poster.png" width="200px"/>
+				
+				<div class="right_text">Instantly send a
+				<br>
+				recommendation to
+				<br>
+				check us out, along
+				<br>
+				with a bonus offer
+				</div>
+			</div>
+			<div class="poster_footer">
+				<img src="/credvine_icon_poster.png" style="vertical-align: -20px;" />
+				<p class="poster_footer_text">credvine.com/<%= @smb.username %></p>
+			</div>
+			
+		</div>
+		<!-- <div class="button_container">
+			<button class="generate">GENERATE PDF</button>
+		</div> -->
+	</div>
+</body>
+</html>

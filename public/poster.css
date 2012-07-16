@@ -1,0 +1,108 @@
+@font-face {
+    font-family: "AvenirLTStd-Light";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../../../avenirltstd-light-webfont.eot?#iefix") format("embedded-opentype"), url("../../../avenirltstd-light-webfont.woff") format("woff"), url("../../../avenirltstd-light-webfont.ttf") format("truetype"), url("../../../avenirltstd-light-webfont.svg#AvenirLTStd35Light") format("svg");
+}
+
+@font-face {
+    font-family: "AvenirLTStd-Medium";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../../../avenirltstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../../../avenirltstd-medium-webfont.woff") format("woff"), url("../../../avenirltstd-medium-webfont.ttf") format("truetype"), url("../../../avenirltstd-medium-webfont.svg#AvenirLTStd65Medium") format("svg");
+}
+
+@font-face {
+    font-family: "AvenirLTStd-Roman";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../../../avenirltstd-roman-webfont.eot?#iefix") format("embedded-opentype"), url("../../../avenirltstd-roman-webfont.woff") format("woff"), url("../../../avenirltstd-roman-webfont.ttf") format("truetype"), url("../../../avenirltstd-roman-webfont.svg#AvenirLTStd55Roman") format("svg");
+}
+@font-face {
+    font-family: "AvenirLTStd-Black";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../../../avenirltstd-black-webfont.eot?#iefix") format("embedded-opentype"), url("../../../avenirltstd-black-webfont.woff") format("woff"), url("../../../avenirltstd-black-webfont.ttf") format("truetype"), url("../../../avenirltstd-black-webfont.svg#AvenirLTStd95Black") format("svg");
+}
+body {
+    background-color: white;
+    color: black;
+    font-family: AvenirLTStd-Light;
+    font-size: 14px;
+    line-height: 22px;
+    margin-left: 0;
+    min-width: 800px;
+    width: 100%;
+}
+.body_container {
+    background-color: white;
+    min-height: 400px;
+    min-width: 960px;
+}
+.container {
+    border: 1px dashed #66CC00;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 400px;
+    padding: 130px;
+    width: 700px;
+}
+
+.poster_header {
+    font-size: 70px;
+    margin-bottom: 110px;
+}
+
+.poster_subheading1 {
+    font-size: 60px;
+    line-height: 80px;
+    margin-bottom: 50px;
+}
+
+.poster_subheading2 {
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 90px;
+}
+
+.qr_container {
+	margin-bottom: 100px;
+}
+
+.right_text {
+	float: right;
+    font-size: 40px;
+    line-height: 56px;
+    margin-right: 87px;
+    margin-top: -11px;
+    text-align: justify;
+}
+
+.poster_footer {
+	width:100%; 
+	height:64px; 
+	background-color:#66cc00;
+}
+
+.poster_footer_text {
+	color: white; 
+	margin-bottom: 10px; 
+	display: inline; 
+	margin-top: 0px; 
+	margin-left: 14px; 
+	font-size: 31px;
+}
+
+.button_container {
+	margin-left: auto;
+	margin-right: auto;
+	width:960px;
+}
+
+.generate {
+	background-color:black;
+	padding: 5px;
+	border: 0px;
+	border-radius: 0px;
+	color: white;
+}

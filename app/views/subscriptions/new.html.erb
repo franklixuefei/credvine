@@ -1,0 +1,58 @@
+
+<!--[if IE]>
+<script type="text/javascript" src="/signup_ie.js"></script>
+<![endif]-->
+<![if !IE]>
+<script type="text/javascript" src="/signup.js"></script>
+<![endif]>
+
+<div class="page_header signup_header">SIGN UP</div>
+
+<%= form_for [@selector, @smb], :html => { :multipart => true } do |f| %>
+  <% if @smb.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@smb.errors.count, "error") %> prohibited this smb from being saved:</h2>
+
+      <ul>
+      <% @smb.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.text_field :username, :placeholder => "Username" %>
+  </div>
+  
+  <div class="field">
+    <%= f.email_field :email, :placeholder => "Email" %>
+  </div>
+ 
+  <div class="field">
+    <input name="smb[password]" id="smb_password" type="password" placeholder="Password" autocomplete="off" value="" style="display:none;">
+    <!--[if IE]>
+    	<input id="smb_password" type="text" value="" placeholder="Password">
+    <![endif]-->
+   </div>
+  <div class="field">
+    <input id="smb_password_confirmation" type="password" placeholder="Password confirmation" name="smb[password_confirmation]" style="display:none;">
+    <!--[if IE]>
+  		<input id="smb_password_confirmation" type="text" value="" placeholder="Password confirmation">
+  	<![endif]-->
+  </div>
+
+  <div class="actions">
+    <%= f.submit "CREATE SMB", :class => "signup_button" %>
+  </div>
+<% end %>
+
+
+<!-- <% if params[:customer_id].present?%>
+<%= link_to 'Back', customer_smbs_path(@selector) %>
+<% elsif params[:friend_id].present?%>
+<%= link_to 'Back', friend_smbs_path(@selector) %>
+<% else %>
+<%= link_to 'Back', smbs_path %>
+<% end %> -->

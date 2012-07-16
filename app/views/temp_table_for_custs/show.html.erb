@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fullname:</b>
+  <%= @temp_table_for_cust.fullname %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @temp_table_for_cust.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @temp_table_for_cust.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_temp_table_for_cust_path(@temp_table_for_cust) %> |
+<%= link_to 'Back', temp_table_for_custs_path %>

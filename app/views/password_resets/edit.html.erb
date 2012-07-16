@@ -1,0 +1,33 @@
+<script>
+$(document).ready(function() {
+	$('label.message').remove();
+});
+</script>
+<div class="page_header password_reset_header">Reset Password</div>
+
+<%= form_for @smb, :url => password_reset_path(params[:id]) do |f| %>
+  <% if @smb.errors.any? %>
+    <div class="error_messages">
+      <div class="page_subheader" style="color:red;">Form is invalid</div>
+      <ul>
+        <% for message in @smb.errors.full_messages %>
+          <li style="color:red"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.password_field :password, :placeholder => "Password" %>
+    <!--[if IE]>
+    	<input id="smb_password" type="text" value="" placeholder="Password">
+    <![endif]-->
+  </div>
+  <div class="field">
+    <%= f.password_field :password_confirmation, :placeholder => "Password confirmation" %>
+    <!--[if IE]>
+  		<input id="smb_password_confirmation" type="text" value="" placeholder="Password confirmation">
+  	<![endif]-->
+  </div>
+  <div class="actions" style="margin-top:30px;"><%= f.submit "UPDATE PASSWORD", :class => "reset_button" %></div>
+<% end %>
+

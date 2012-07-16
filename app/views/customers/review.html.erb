@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+<p id="error"><%= flash[:error] %></p>
+<center><h1>Import Review</h1></center>
+
+<center><table width="700" cellpadding="3" cellspacing="3" border="1" bgcolor="#eeeeee">
+	<tr>
+		<%= form_tag :action => 'confirm' do %>
+		<% @customers.each do |customer| %>
+			<% if customer.errors.any? %>
+		
+	    		<div id="error_explanation">
+	     		<h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+	     		 <ul>
+	    		     <% customer.errors.full_messages.each do |msg| %>
+	       			 <li><%= msg %></li>
+	       			 <% end %>
+	      	 	</ul>
+	    		</div>
+	  		<% end %>
+	  	<% end %>
+		
+		
+		<th>
+			<select id="table1_fieldname1" name="table1[fieldname1]">
+			<option selected="selected" value="fullname">Full Name</option>
+			<option value="phone">Phone Number</option>
+			<option value="email">Email Address</option>
+			</select>
+		</th>
+		<th>
+			<select id="table2_fieldname2" name="table2[fieldname2]">
+			<option value="fullname">Full Name</option>
+			<option selected="selected" value="phone">Phone Number</option>
+			<option value="email">Email Address</option>
+			</select>
+		</th>
+		<th>
+			<select id="table3_fieldname3" name="table3[fieldname3]">
+			<option value="fullname">Full Name</option>
+			<option value="phone">Phone Number</option>
+			<option selected="selected" value="email">Email Address</option>
+			</select>
+		</th>
+		
+	</tr>
+ 	<% @customers.each_with_index do |customer, index| %>
+	<tr>
+		<% if @data.present? %>
+			<%= fields_for "customers[#{index}]", customer do |f|%>
+				<td><%= f.text_field :fullname, :value => @temps.first.fullname %></td>
+				<td><%= f.text_field :phone, :value => @temps.first.phone %></td>
+				<td><%= f.text_field :email, :value => @temps.first.email %></td>
+				<% @temps.first.destroy %>
+			<% end %>
+			<% @data.destroy %>
+		<% else %>
+			<%= fields_for "customers[#{index}]", customer do |f|%>
+				<td><%= f.text_field :fullname %></td>
+				<td><%= f.text_field :phone %></td>
+				<td><%= f.text_field :email %></td>
+			<% end %>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+</center>
+
+<center><p><%= submit_tag "Confirm" %></p></center>
+
+<% end %>
+

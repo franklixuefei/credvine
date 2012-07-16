@@ -1,0 +1,16 @@
+<p style="font-size: 20px;">Hi Elissa and Andrew!</p>
+<% if @package_type == 'small' %>
+<p style="font-size: 16px;"><a href="mailto:<%= @request_email %>" style="color: #66cc00;"><%= @request_email %></a> is requiring to sign up as SMALL BUSINESS.</p>
+<% elsif @package_type == 'professional' %>
+<p style="font-size: 16px;"><a href="mailto:<%= @request_email %>" style="color: #66cc00;"><%= @request_email %></a> is requiring to sign up as PROFESSIONAL.</p>
+<% elsif @package_type == 'enterprise' %>
+<p style="font-size: 16px;"><a href="mailto:<%= @request_email %>" style="color: #66cc00;"><%= @request_email %></a> is requiring to sign up as ENTERPRISE.</p>
+<% end %>
+<p style="font-size: 16px;">Go to the ADMIN dashboard to approve them if you want.</p>
+<br/>
+
+
+<p style="font-size: 14px;">Thanks!</p><br/>
+
+<small> Credvine Team</small>
+	

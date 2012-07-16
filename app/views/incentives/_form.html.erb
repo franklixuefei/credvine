@@ -1,0 +1,33 @@
+<%= form_for([@smb, @selector, @incentive]) do |f| %>
+  <% if @incentive.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@incentive.errors.count, "error") %> prohibited this incentive from being saved:</h2>
+
+      <ul>
+      <% @incentive.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :frien_incentive %><br />
+    <%= f.text_field :frien_incentive %>
+  </div>
+  <div class="field">
+    <%= f.label :frien_incentive_long %><br />
+    <%= f.text_field :frien_incentive_long %>
+  </div>
+  <div class="field">
+    <%= f.label :incentive_type_fi_id %><br />
+    <%= f.collection_select :incentive_type_fi_id, IncentiveTypeFi.find(:all), :id, :type_of_incentive, :prompt => "Select a Type" %>
+  </div>
+  <div class="field">
+    <%= f.label :incentive_val_fi %><br />
+    <%= f.text_field :incentive_val_fi %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

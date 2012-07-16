@@ -1,0 +1,11 @@
+<h1>New incentive</h1>
+
+<%= render 'form' %>
+
+<% if (params[:campaign_id].present? and params[:smb_id].present?)%>
+<%= link_to 'Back', smb_campaign_incentives_path(@smb, @selector) %>
+<% elsif params[:campaign_id].present? %>
+<%= link_to 'Back', campaign_incentives_path(@selector) %>
+<% else %>
+<%= link_to 'Back', incentives_path %>
+<% end %>

@@ -1,0 +1,36 @@
+<%= form_for [@smb, @selector, @friend], :html => { :multipart => true }, :validate => true  do |f| %>
+  <% if @friend.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+
+      <ul>
+      <% @friend.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if params[:cid].present? %>
+  	<input type="hidden" value="<%= params[:cid] %>" name="cid">
+  <% elsif params[:iid].present? %>
+  	<input type="hidden" value="<%= params[:iid] %>" name="iid">
+  <% else %>
+  <% end %>
+  
+  <div class="friend_text" style="width: 960px;"><%= @selector.fullname.upcase %> CHOSE A PERK FROM <%= @smb.full_name.upcase %> FOR YOU!<br/><br/>Just let us know where we can send your voucher.</div>
+  
+  <div class="field">
+    <%= f.text_field :fullname, :placeholder => "Your Fullname" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :email, :placeholder => "Your Email Address" %>
+  </div>
+<!--   <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.telephone_field :phone %>
+  </div> -->
+
+  <div class="actions">
+    <%= f.submit "CONFIRM", :class => "friend_form_button" %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<div style="padding:20px">
+<p>Hello,</p>
+
+<p>The invitation you requested to Credvine Referrals has been confirmed. Please click <%= link_to "here", sign_up_url(:host => "credvine.com", :bk => @request.beta_key, :pc => @promo.promo_code), :style => "color:#66cc00;" %> to get started
+	<% if @promo.promo_credit == "0" %> 
+.
+	<% elsif @promo.promo_credit != "free" %>
+.  We've added a special credit of $<%= @promo.promo_credit %> to your account!
+	<% else %>
+ with your special beta tester account, which will be free for the first 2 months.
+	<% end %>
+</p>
+	
+
+
+<p>We are currently in beta, and we are excited that you’re joining Credvine right from the start. We’ve created a quick, easy, and seamless process for you to start building your business through quality referrals from your customers, but we’re looking to continuously improve our product and fix any kinks, so any and all feedback will be appreciated.</p>
+<p>At its core, Credvine Referrals is about people helping their friends. In fact, research shows that <b>people would rather help out their friend and give THEM a perk than get rewarded themselves.</b> And as business owners, we all know our customers are happy to help spread the word about our businesses; but more often than not, we just don’t have an easy way to ask for referrals.</p>
+
+<p>Our platform allows businesses to set up custom campaigns to allow friends to send recommendations to other people they know well. This means a <b>targeted, qualified referral for your business,</b> initiated by customers who know both the value of your business and the preferences of their friends. This isn’t attracting one-time deal-seekers who are in-and-out, but instead <b>finds customers who are a great fit for your business and can become loyal, long-time, referring customers.</b></p>
+
+<p>Think about it - with Credvine Referrals, <b>everybody wins! </b>You get new customers, your customers get to help out their friends and get surprise rewards when their friends join you, and their friends of course get hooked up with a perk of your choosing.</p>
+
+<p>Thanks for being a part of Credvine from the start. We look forward to hearing from you! And, please send any feedback to <a href="mailto:elissa@credvine.com" style="color:#66cc00;">Elissa</a> or <a href="mailto:andrew@credvine.com" style="color:#66cc00;">Andrew</a> any time.</p><br/>
+
+<p>Thanks!</p>
+
+<p>The Credvine Team</p>
+</div>

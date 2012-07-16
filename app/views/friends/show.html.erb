@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fullname:</b>
+  <%= @friend.fullname %>
+</p>
+
+
+<p>
+  <b>Email:</b>
+  <%= @friend.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @friend.phone %>
+</p>
+
+
+<% if (params[:customer_id].present? and params[:smb_id].present?)%>
+<%= link_to 'Edit', edit_smb_customer_friend_path(@smb, @selector, @friend) %> |
+<%= link_to 'Back', smb_customer_friends_path(@smb, @selector) %>
+<% elsif params[:customer_id].present? %>
+<%= link_to 'Edit', edit_customer_friend_path(@selector, @friend) %> |
+<%= link_to 'Back', customer_friends_path(@selector) %>
+<% elsif params[:smb_id].present? %>
+<%= link_to 'Edit', edit_smb_friend_path(@selector, @friend) %> |
+<%= link_to 'Back', smb_friends_path(@selector) %>
+<% else %>
+<%= link_to 'Edit', edit_friend_path(@friend) %> |
+<%= link_to 'Back', friends_path %>
+<% end %>

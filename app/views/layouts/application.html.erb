@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credvine<%= @title %></title>
+  <%= stylesheet_link_tag    "application" %>
+   
+  <%= javascript_include_tag "https://js.stripe.com/v1/","application" %>
+  <script type="text/javascript">
+
+ var _gaq = _gaq || [];
+ _gaq.push(['_setAccount', 'UA-30616718-1']);
+ _gaq.push(['_setDomainName', 'credvine.com']);
+ _gaq.push(['_trackPageview']);
+
+ (function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+</script>
+
+<script type='text/javascript'>
+var __wtw_lucky_setup_key = {};
+__wtw_lucky_setup_key.id = '1229';
+__wtw_lucky_setup_key.key = 'wThY8SmnDaWFzFCAzp8bnz9EvzVEMC2e';
+
+       (function() {
+               var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+               wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://ca178876') + '.luckyorange.com/w.js';
+               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+         })();
+         
+$(document).ready(function() {
+	if (window.location.href.substr(7,4) == 'www.') {
+			//alert(window.location.href.substr(0, window.location.href.length-1));
+			window.location.href = 'http://' + window.location.href.substr(11);
+	}
+});
+</script>
+<!--[if IE]>
+<script type="text/javascript" src="/application_layout_ie.js"></script>
+<![endif]-->
+<![if !IE]>
+<script type="text/javascript" src="/application_layout.js"></script>
+<![endif]>
+
+<% if current_user %>
+<script>
+var user_token = '<%= current_user.auth_token %>';
+</script>
+<% end %>
+
+  <%= csrf_meta_tags %>
+	<%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+	<link rel="shortcut icon" href="/favicon.png" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+</head>
+<body>
+	<img src="/credvine_home_slider01.png" style="display:none;" />
+	<img src="/credvine_home_slider02.png" style="display:none;" />
+	<img src="/credvine_home_slider03.png" style="display:none;" />
+	<img src="/credvine_home_slider04.png" style="display:none;" />
+	<img src="/credvine_home_slider05.png" style="display:none;" />
+	<img src="/to_top_active.png" style="display:none;" />
+	<div class="feedback_button">Feedback</div>
+	<a class="to_top" href="#"></a>
+	<div class="body_container">
+	<div class="header">
+		<div class="header_container">
+			<div class="header_nav">
+			  <% if current_user %>
+			  <input type="hidden" value="<%= current_user.email %>" id="user_email"/>
+				<span id="logout">
+					<a href="/log_out"><div class="nav_link logout">LOG OUT</div></a>
+			    </span>
+			    <span id="settings">
+					<div class="nav_link settings">SETTINGS</div>
+			    </span>
+			    <% if current_user.campaign_launched %>
+			    <span id="dashboard">
+					<a href='<%= dashboard_smb_path(current_user) %>'><div class="nav_link dashboard">DASHBOARD</div></a>
+			    </span>
+			    <% end %>
+			    <% if admin? %>
+			    <span id="admin_dashboard">
+					<a href='<%= admin_dashboard_smb_path(current_user) %>'><div class="nav_link admin_dashboard">ADMIN</div></a>
+			    </span>
+			    <div class="settings_dropdown" hovered="false" style="display: none; margin-right:-233px;">
+			    <% else %>
+			    <div class="settings_dropdown" hovered="false" style="display: none;">
+			    <% end %>
+					<a href='<%= edit_smb_path(current_user) %>'><div class="user_dropdown">Business Profile</div></a>
+					<a href='<%= cardinfo_smb_path(current_user) %>'><div class="user_dropdown">Billing Info</div></a>
+					<a href="#nogo"><div class="user_dropdown" id="change_password">Change Password</div></a>
+					<a href="#nogo"><div class="user_dropdown" id="change_pin">Change PIN</div></a>
+				</div>
+			  <% else %>
+			  	<span id="login">
+			  		<div class='nav_link login' >LOGIN</div>
+			    </span>
+			  	<span id="getstarted">
+			  		<div class='nav_link getstarted'>GET STARTED</div>
+			    	<!-- <%= link_to "GET STARTED", sign_up_path, :class => 'nav_link' %> -->
+			    </span>
+			  <% end %>
+			</div>
+			
+		</div>
+	</div>
+		
+	
+	 
+	<% if flash[:notice] %>
+		<p class="notice"><%= flash[:notice] %></p>
+		<% flash[:notice] = nil %>
+	<% end %>
+	    
+	<% if flash[:error] %>
+	 	<p class="error"><%= flash[:error] %></p>
+	 	<% flash[:error] = nil %>
+	<% end %>
+	<div class="container">
+		<div class="home_page_header">
+			<div class="big_logo">
+				<a href="<%= root_url %>"><img src="/credvine_logo_beta.png" /></a>
+			</div>
+		<% if ((request.url == root_url) || (request.url == how_it_works_url) || (request.url == pricing_url) || (request.url == contact_url) || (request.url == terms_url) || (request.url == sign_up_url) || (request.url == log_in_url) || (request.url == about_url) || (request.url == privacypolicy_url) || (request.url == faqs_url) || (request.url == books_resources_url)) %>
+				<div class="home_nav_container">
+					<a class="home_nav <%= "active" if request.url == root_url %>" href="<%= root_url %>">HOME</a>
+					<a class="home_nav <%= "active" if request.url == how_it_works_url %>" href="<%= how_it_works_url %>">HOW IT WORKS</a>
+					<a class="home_nav <%= "active" if request.url == pricing_url %>" href="<%= pricing_url %>">PRICING</a>
+					<a class="home_nav <%= "active" if request.url == contact_url %>" href="<%= contact_url %>">CONTACT</a>
+				</div>
+			
+			<%= yield %>
+		<% else %>
+			<%= yield %>
+		<% end %>
+		</div>
+	</div>
+	<div class="white_space"></div>
+	</div>
+	<!-- <div class="logos_bar">
+		<div class="logos_bar_container">
+			AS SEEN ON LOGOS HERE
+		</div>
+	</div> -->
+	
+	
+	<div class='footer'>
+		<div class='footer_container'>
+			<span class="footer_icons">
+				<a href="http://facebook.com/credvine" target="_blank"><img src="/facebook_icon.png" /></a>
+				<a href="http://twitter.com/credvine" target="_blank"><img src="/twitter_icon.png" /></a>
+				<a href="/"><img src="/credvine_icon.png" /></a>
+			</span>
+			<table class="footer_header">
+				<tr>
+					<td>
+						Our Company
+					</td>
+					<td>
+						Learning & Support
+					</td>
+				</tr>
+			</table>
+			<table class="footer_link">
+				<tr>
+					<td>
+						<a href="/about">About</a>
+					</td>
+					<td>
+						<a href="/how_it_works">How It Works</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href='http://eepurl.com/iEtVT' target="_blank">Newsletter Signup</a>
+					</td>
+					<td>
+						<a href="/faqs">FAQs</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="/privacypolicy">Privacy Policy</a>
+					</td>
+					<td>
+						<a href="/books_resources">Referral Books and Resources</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="/terms">Terms & Conditions</a>
+					</td>
+					<td>
+						<a href="/contact">Contact Us</a>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+
+<!--[if IE]>
+<script src="/ie_placeholder.js" type="text/javascript"></script>
+<![endif]-->
+
+</body>
+</html>

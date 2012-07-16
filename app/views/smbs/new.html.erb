@@ -1,0 +1,64 @@
+
+<!--[if IE]>
+<script type="text/javascript" src="/signup_ie.js"></script>
+<![endif]-->
+<![if !IE]>
+<script type="text/javascript" src="/signup.js"></script>
+<![endif]>
+
+<div class="page_header signup_header">SIGN UP</div>
+
+<%= form_for [@selector, @smb], :html => { :multipart => true } do |f| %>
+  <% if @smb.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@smb.errors.count, "error") %> prohibited this smb from being saved:</h2>
+
+      <ul>
+      <% @smb.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.text_field :username, :placeholder => "Username" %>
+    <label style="margin-left:20px; font-size:16px; color: #999999;vertical-align: 0px;display:inline-block;">*Your username will be used by customers to access your referral page at <b>credvine.com/username</b></label>
+  </div>
+  
+  <div class="field">
+    <%= f.email_field :email, :placeholder => "Email" %>
+  </div>
+ 
+  <div class="field">
+    <input name="smb[password]" id="smb_password" type="password" placeholder="Password" autocomplete="off" value="" style="display:none;">
+    <!--[if IE]>
+    	<input id="smb_password" type="text" value="" placeholder="Password">
+    <![endif]-->
+   </div>
+  <div class="field">
+    <input id="smb_password_confirmation" type="password" placeholder="Password confirmation" name="smb[password_confirmation]" style="display:none;">
+    <!--[if IE]>
+  		<input id="smb_password_confirmation" type="text" value="" placeholder="Password confirmation">
+  	<![endif]-->
+  </div>
+  
+  <div class="field">
+  	<input id="pc" type="text" value="<%= params[:pc] %>" name="pc" placeholder="Promo code" readonly="readonly">
+  	<label style="margin-left:20px; font-size:16px; color: #999999;vertical-align: -14px;display:inline-block;">*This is your promo code.<br>*Your promo code will automatically be added to your account, so no need to record it.</label>
+  </div>
+  
+  <div class="field">
+  	<input id="smb_PIN" type="text" name="smb[PIN]" placeholder="Merchant PIN" maxlength="4">
+  	<label style="margin-left:20px; font-size:16px; color: #999999;display:inline-block;vertical-align:-12px;">*When redeeming on a smartphone, you will enter this 4-digit PIN<br/>&nbsp to redeem vouchers at the point of sale, to ensure redemptions are valid and secure.</label>
+  </div>
+  
+	<input id="bk" type="hidden" value="<%= params[:bk] %>" name="bk">
+	
+  <div class="actions">
+    <%= f.submit "SIGN UP", :class => "signup_button" %>
+  </div>
+<% end %>
+
+

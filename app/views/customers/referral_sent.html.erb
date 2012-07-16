@@ -1,0 +1,37 @@
+<style>
+.whitespace {
+	height: 30px;
+}
+
+.body_container {
+	min-height: 0px;
+}
+</style>
+<div class="whitespace"></div>
+<div class="post_referral_green">
+	<p class="post_referral_greetings">Hi <%= @customer.fullname.split(' ').first %>,</p>
+	<p class="post_referral_text">
+		Thanks for referring your friend! We'll give them the treatment that you'd expect from us!<br/><br/>
+		We'd love to keep in touch with you...
+	</p>
+	<% if @ref_form_selector.facebook_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @ref_form_selector.facebook_url.gsub(/http:\/\//, '') %>"><img src="/fb-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @ref_form_selector.twitter_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @ref_form_selector.twitter_url.gsub(/http:\/\//, '') %>"><img src="/twitter-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @ref_form_selector.yelp_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @ref_form_selector.yelp_url.gsub(/http:\/\//, '') %>"><img src="/yelp-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @ref_form_selector.linkedin_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @ref_form_selector.linkedin_url.gsub(/http:\/\//, '') %>"><img src="/linkedin-stripe.png" /></a>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,95 @@
+<h1>Card Information</h1>
+<% if current_user %>
+<form id="card_info" class="card_info" method="post" enctype="multipart/form-data" action="/smbs/<%= current_user.auth_token%>/savecard" accept-charset="UTF-8">
+	<div style="margin: 0pt; padding: 0pt; display: inline;">
+		<input type="hidden" value="✓" name="utf8">
+		<input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token">
+	</div>
+	<% if current_user.errors.any? %>
+	    <div class="error_messages">
+	      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+	      <ul>
+	      <% current_user.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	<% end %>
+	
+	<% if params[:popup] %>
+		<div class="field">
+			<input type="text" name="popup" style="display:none" value="<%= params[:popup] %>">
+		</div>
+	<% end %>
+	
+	<% unless current_user.card_provided? %> <!-- TODO -->
+	<div class="field">
+		<label><strong>we accept the following cards: </strong></label><br/>
+		<%= label_tag :pay_with_card do %>
+	      <%= image_tag "visa.png" %>
+	      <%= image_tag "mastercard.png" %>
+	      <%= image_tag "discover.png" %>
+	      <%= image_tag "american_express.png" %>
+	      <%= image_tag "jcb.png" %>
+	    <% end %><br/>
+	<% end %><br/>
+	
+	 
+	<div id="billing_fields">
+	    <div class="field">
+	      <%= fields_for current_user do |f|%>
+		      <%= f.label :email_for_card %>
+		      <%= f.text_field :email_for_card, :value => current_user.email if current_user.email %>
+		      <%= f.hidden_field :stripe_card_token %>
+	      <% end %>
+	    </div>
+	    <% if current_user.card_provided? %>
+	      <p>You already have a card on file. Click "Submit".</p>
+	      <p>Want to <%= link_to 'update card?', editcard_smb_path(current_user) %> | <%= link_to 'delete card?', deletecard_smb_path(current_user), :confirm => "Are you sure you want to delete your card information? Deleting card will result in cancelling the subscription and campaign management" %></p>
+	    <% else %>
+	      <div class="field">
+	        <%= label_tag :card_number, "Credit Card Number" %>
+	        <%= text_field_tag :card_number, nil, :name => nil, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+	        <%= text_field_tag :card_code, nil, :name => nil, :size => 5, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_month, "Card Expiration" %>
+	        <%= select_month nil, {:add_month_numbers => true}, {:name => nil, :id => "card_month"} %>
+	        <%= select_year nil, {:start_year => Date.today.year, :end_year => Date.today.year+15}, {:name => nil, :id => "card_year"} %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :name_on_card, "Name on Card" %>
+	        <%= text_field_tag :name_on_card, nil, :name => nil, :size => 10, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_1, "Address Line 1" %>
+	        <%= text_field_tag :address_line_1, nil, :name => nil, :size => 30, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_2, "Address Line 2" %>
+	        <%= text_field_tag :address_line_2, nil, :name => nil, :size => 30, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_country, "Country" %>
+	        <%= text_field_tag :address_country, nil, :name => nil, :size => 12, :autocomplete => :off %>
+	      </div>
+	
+	    <% end %>
+	    <div id="stripe_error">
+	      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+	    </div>
+	    
+
+	<%= submit_tag "Submit" %>
+	<label>we will not save your card information</label>
+</form>
+
+<% else %>
+	<center><h1>You must login before proceeding</h1></center>
+	<center><%= link_to 'click here to login', log_in_path %></center>
+<% end %>
+
+	

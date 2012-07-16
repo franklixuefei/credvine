@@ -1,0 +1,24 @@
+<div id="plans">
+	<% if current_user %>
+	  <h1>Available Plans</h1>
+	  <% @plans.each do |plan| %>
+	    <div class="plan">
+	      <div class="name"><%= plan.name %></div>
+	      <div class="details">
+	        <div class="price">
+	          <%= ActionController::Base.helpers.number_to_currency plan.price, :precision => 0 %>
+	        </div>
+	        <div class="per_month"><%= plan.period %></div>
+	        <div class="signup">
+	        	<!--TODO: change smb_id to smb_auth_token => current_user.auth_token -->
+	          <%= link_to "Activate", new_subscription_path(:plan_id => plan.id) %>
+	        </div>
+	      </div>
+	    </div>
+	  <% end %>
+	  <div class="clear"></div>
+	</div>
+	<% else %>
+		<center><h1>You must login before proceeding</h1></center>
+		<center><%= link_to 'click here to login', log_in_path %></center>
+	<% end %>

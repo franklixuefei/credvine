@@ -1,0 +1,38 @@
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+
+	  <%= stylesheet_link_tag    "mobile" %>
+	  <%= javascript_include_tag  "application", "rails.validations.custom", "jquery-latest" %>
+	 <script src="http://connect.facebook.net/en_US/all.js"></script>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	 
+	 <script type="text/javascript">
+	 
+	 $(document).ready(function() {
+	 	$('button').click(function() {
+	 		$('div').html(" ");
+	 		FB.init({appId: '327499717302273', xfbml: true, cookie: true});
+
+      FB.ui({
+          method: 'send',
+          name: 'People Argue Just to Win',
+          link: 'http://credvine.com/',
+          });
+	 		
+	 	});
+	 });
+	 	
+	 </script>
+	</head>
+  <body>
+    
+    <button>send msg</button>
+    <div>
+    	<div id="fb-root"></div>
+    </div>
+    <script>
+      // assume we are already logged in
+      
+     </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<script>
+$(document).ready(function() {
+	$('button#confirm').click(function() {
+		var conf = confirm("Everything's right?");
+		if (conf) {
+			<% @smb.campaign_confirmed = true %>
+			<% @smb.save %> // no need to add validate false here, because at this time business profile should've been filled out.
+			self.close();
+		}
+	});
+});
+	
+	
+</script>
+
+
+<h1>Confirm Your Campagin and Business Information</h1>
+<%= @campaign.camp_name%>
+
+
+<center><button id="confirm">Confirm<button></center>
+	
+<p> If the above information is right, click Confirm, and then save your campaign; if not, close this window and make some changes.</p>

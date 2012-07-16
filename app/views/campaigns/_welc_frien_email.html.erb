@@ -1,0 +1,132 @@
+<style>
+textarea {
+	width:347px;
+}
+</style>
+<div class="right_edit_box" id="frien_welc" style="width: 640px">
+			<img src="/x_button.png" style="float:right;margin-top:-10px;margin-right:-10px" id="close_frien_welc_edit">
+  			<div class="field">
+			    <%= f.label :frien_welc_header, "Friend Welcome Message:" %>
+			    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer’s friend along with their referral message.  The message you write will appear at the very beginning of the email.  Your customer’s quote about your business will then be appended below, along with the voucher to receive their perk, and your business contact details."/><br/>
+			    <label class="greeting_subject_label" >Subject:</label>
+			     <%= f.text_field :friend_welc_header_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Recommendation for [Business Name]" %><br/>
+			    <label class="greeting_subject_label">Greetings:</label>
+			    <%= f.text_field :frien_welc_header_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Friend First Name]," %><br/>
+			    <%= f.text_area :frien_welc_header, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+			
+			  </div>
+		  			  <div class="field" style="display:none">
+						<%= f.check_box :give_frien, :style => "margin-left:0px;margin-bottom: 20px;" %>
+						<%= f.label :give_frien, "Offer your customers' friends an incentive on their first visit" %>
+					  </div>
+		
+					  <% flash[:n] = 1 %>
+					  <%= f.fields_for :incentives do |builder| %>
+					  	<label>
+					  		<% if flash[:n] == 1 %>
+					  			INCENTIVE #<%= flash[:n] %>
+					  		<% else %>
+					  			INCENTIVE #<%= flash[:n] %>  (OPTIONAL)
+					  			<img class="tool_tip" src="/credvine_tooltip.png" title="You can optionally add incentives #2 and #3 to provide your customers with options to choose from to send their friend, along with the referral.  This will allow them to further personalize the referral by choosing the incentive they think their friend will value most."/>
+					  		<% end %>
+					  	</label>
+		  				<%= render 'incentive_fields_incentive_descriptions', :f => builder %>
+		  				<% flash[:n] = flash[:n] + 1 %>
+		  			  <% end %>
+		  			  <% flash[:n] = nil %>
+		  			  
+		
+		  
+		  
+  		<div class="actions">
+			<%= f.submit :value => "INSTANT UPDATE" %>
+		</div>
+  
+
+	
+</div>
+
+<div class="email_body_container">
+		<div class="email_container">  
+		      <div class="green_content" id="frien_welc">
+		      	<div id="click_edit" style="position:absolute; color:black;font-size:40px;margin-left:100px;margin-top:50px;display:none">CLICK ME TO EDIT</div>
+				<p class="email_greetings">
+					<%= @campaign.frien_welc_header_greeting %>
+				</p>
+				<p class="text"></p>
+					<%= @campaign.frien_welc_header.gsub(/\[Business Name\]/, @smb.full_name).gsub(/\n/, "<br />").html_safe %>
+					<% if @campaign.give_frien %>
+					<br/>
+					<br/>
+					Your Perk: [Incentive your customer will choose for your friend]
+					<% end %>
+				</p>
+			  </div>
+		   
+		   <div class="their_message_container">
+				<p class="their_message_header">
+					Here’s what [Customer First Name] had to say: 
+				</p>
+		
+				<p class="their_message_text">
+					"[Customer's message here... e.g., "Hey - you should check this place out.  Awesome falafels!"]"
+				</div>
+				<% if @smb.featured_photo.present? %>
+				<div class="image">
+					<img src="<%= @smb.featured_photo.url(:original) %>" style="max-width: 640px" />
+				</div>
+				<% end %>
+				 <div class="green_content">
+		
+				<p class="text">
+					Please find our details below<%= " and access your voucher via this link: " if @campaign.give_frien %><%= "[Voucher Link]" if @campaign.give_frien %><%= ". Just print your voucher or display it on your phone to receive your perk" if @campaign.give_frien %>. We look forward to staying connected with you!
+				</p>
+			  </div>
+			  <div class="bus_info">
+				<div class="bus_info_container">
+					<div class="bus_desc_container">
+						<p class="bus_name"><%= @smb.full_name %></p>
+						<div class="bus_desc">
+							<p class="bus_desc_content" style="font-size:14px;"><%= @smb.business_description %></p>
+							<p class="bus_desc_content"><%= @smb.st_name_num %></p>
+							<p class="bus_desc_content"><%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %></p>
+							<p class="bus_desc_content"><%= @smb.zip_pos %></p>
+							<p class="bus_desc_content"><%= @smb.phone %></p>
+						</div>
+						<div class="bus_soc">
+							<div class="soc_icons">
+								<% if @smb.linkedin_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.linkedin_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_linkedin.png" /></a>
+								<% end %>
+								<% if @smb.yelp_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.yelp_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_yelp.png" /></a>
+								<% end %>
+								<% if @smb.twitter_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.twitter_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_twitter.png" /></a>
+								<% end %>
+								<% if @smb.facebook_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.facebook_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_facebook.png" /></a>
+								<% end %>
+							</div><br/><br/>
+							<p class="bus_desc_content" style="text-align:right;padding-top:10px;"><a style="color:white;" href="http://<%= @smb.site_url.gsub(/http:\/\//, "") %>"><%= @smb.site_url %></a></p>
+							<p class="bus_desc_content" style="text-align:right"><a style="color:white;" href="mailto:<%= @smb.email %>"><%= @smb.email %></a></p>
+						</div>
+					</div>
+					<% if @smb.insert_map %>
+					<div class="bus_map">
+						<img src="http://maps.google.com/maps/api/staticmap?zoom=15&markers=<%= @smb.st_name_num %>, <%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %>&size=580x220&sensor=false" style="width: 580px;" />
+					</div>
+					<% end %>
+				</div>
+			  </div>
+			  
+			  <div class="email_footer">
+				<div class="email_footer_container">
+					<img src="/credvine_icon_transparent.png" />
+					<span class="email_footer_text">
+						powered by credvine
+					</span>
+				</div>
+			</div>
+		</div>
+		</div>

@@ -1,0 +1,94 @@
+<style>
+.coupon_container {
+	padding: 64px;
+	border: 1px dashed #66cc00;
+	border-bottom: 0px;
+}
+
+.coupon_header {
+    color: #66CC00;
+    font-size: 26px;
+    margin-bottom: 26px;
+}
+
+.coupon_text {
+    color: #66CC00;
+    font-size: 22px;
+    margin-bottom: 60px;
+}
+
+.coupon_qr {
+	text-align: center;
+}
+
+.coupon_code {
+	color: #66cc00;
+	font-size: 22px;
+	margin-top: 0px;
+	margin-bottom: 60px;
+}
+
+.coupon_terms_of_use {
+	font-size: 16px;
+	color: #999999;
+	line-height:22px;
+}
+
+.coupon_exp {
+	font-family: AvenirLTStd-Black;
+	font-size: 14px;
+	color: #999999;
+	margin-bottom: 50px;
+}
+
+.whitespace {
+	display:none;
+}	
+
+.footer {
+	width:640px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+body {
+	background-color:white;
+}
+</style>
+
+<div class="coupon_container">
+	<div class="coupon_header">
+		<%= @code.smb.full_name.upcase %>
+	</div>
+	<p class="coupon_text">
+		<% if params[:code] == @code.frien_code %>
+			I'm trying <%= @code.smb.full_name %> because my friend recommended it and gave me a special offer.
+		<% else %>
+			Referral voucher: Thank you for your referral!
+		<% end %>
+	</p>
+	<div class="coupon_qr">
+		<p style="margin:0;padding:0; position:absolute;color:#66cc00; font-size:80px; margin-top:45px;margin-left:30px">→</p>
+		<p style="margin:0;padding:0; position:absolute;color:#66cc00; font-size:80px; margin-top:45px;margin-left:400px">←</p>
+		<a href="/redeem/<%= params[:code] %>?cid=<%= params[:cid] %>">
+			<img src="gen_coupon.png?cid=<%= params[:cid] %>&code=<%= params[:code] %>" width="200px">
+		</a>
+		<p class="coupon_code">
+			<%= params[:code] %>
+		</p>
+	</div>
+	
+	<p class="coupon_text">
+		<%= @long_incentive %>
+	</p>
+	
+	<p class="coupon_terms_of_use">
+		TERMS OF USE<br/>
+		<%= @terms_of_use %>
+	</p>
+	
+	<p class="coupon_exp">
+		EXPIRY: <%= Date.parse(@code.campaign.exp_date.to_s).strftime("%b %e, %Y").upcase %>
+	</p>
+
+</div>

@@ -1,0 +1,130 @@
+<style>	
+textarea {
+	width:347px;
+}
+</style>
+<div class="right_edit_box" id="cust_sent_thx">
+			<img src="/x_button.png" style="float:right;margin-top:-10px;margin-right:-10px" id="close_init_thx_edit">
+  			<div class="field">
+				<%= f.check_box :give_cust_ref_sent, :style => "margin-bottom: 12px;" %>
+				<%= f.label :give_cust_ref_sent, "Offer customer an incentive for SENDING referrals" %>
+  			</div>
+  			
+	  		<div class="field">
+	  			
+			    <%= f.label :init_thx, "Thank-you Message for SENDING Referrals:" %>
+			    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer right after they send a referral to a friend.  It is used to thank them for sending the referral and letting them know you will give their friend a great experience."/><br/>
+			    <label class="greeting_subject_label" >Subject:</label>
+			    <%= f.text_field :init_thx_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Thanks for referring [Friend First Name] to [Business Name]" %><br/>
+			    <label class="greeting_subject_label" >Greetings:</label>
+			    <%= f.text_field :init_thx_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Customer First Name]," %><br/>
+			    <%= f.text_area :init_thx, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+		    </div>
+  
+		    <div class="field" style="">
+				<label>Give customers their incentive as a:</label><br/>
+  				<%= f.radio_button :make_cust_incentive_a_surprise, true, :style => "margin-bottom: 10px;margin-top:10px", :checked => "checked" %>
+  				<%= f.label "Surprise Bonus"%>
+  				<img class="tool_tip" src="/credvine_tooltip.png" title="After your customers refer their friends, they won’t know that they will receive a reward as a special thank you if their friend makes a purchase from your business. Instead, your referral program promotions will focus on how sweet it is to hook up friends with special bonuses, not how sweet it is to make money off of friends. Note: research shows that many customers are MORE likely to make a referral if they’re helping out a friend AND they’re more likely to come back again if they receive a SURPRISE reward."/>
+  				<br/>
+  				<%= f.radio_button :make_cust_incentive_a_surprise, false %>
+  				<%= f.label "Publicized Bonus"%>
+  				<img class="tool_tip" src="/credvine_tooltip.png"  title="Based on the way your referral program is promoted, your customer will know that they will receive a special reward when their friend makes a purchase from your business."/>
+  			</div>
+		    
+		    <div class="a1">
+				<%= f.label :cust_sent_incentive_long, "Long description:" %>
+    			<img class="tool_tip" src="/credvine_tooltip.png" title="You now have 120 characters to describe your bonus in more detail. This will be used on the vouchers/coupons sent to your customer/their friend."/>
+		  		<label style="float:right" id="cust_sent_long_label"></label><br/>
+		  		<%= f.text_area :cust_sent_incentive_long, :rows => 4, :cols => 54, :maxlength => "120" %>
+	  		</div>
+		  
+		  
+  		<div class="actions">
+			<%= f.submit :value => "INSTANT UPDATE" %>
+		</div>
+  
+
+	
+</div>
+
+<div class="email_body_container">
+		
+		<div class="email_container">  
+		      <div class="green_content" id="init_thx">
+				<div id="click_edit" style="position:absolute; color:black;font-size:40px;margin-left:100px;margin-top:50px;display:none">CLICK ME TO EDIT</div>
+				<p class="email_greetings">
+					<%= @campaign.init_thx_greeting %>
+				</p>
+				<p class="text">
+					<% if @campaign.give_cust_ref_sent %>
+					<%= @campaign.init_thx.gsub(/\[Friend First Name\]/, (@friend.present?)? @friend.fullname.split(' ').first : "your friend").gsub(/\[Business Name\]/, @smb.full_name).gsub(/\n/, "<br />").gsub(/\{/, "").gsub(/\}/, "").html_safe %>
+					<br/>
+					<br/>
+					Your Perk: <%= @campaign.cust_sent_incentive_long %>
+					<% else %>
+					<%= @campaign.init_thx.gsub(/\[Friend First Name\]/, (@friend.present?)? @friend.fullname.split(' ').first : "your friend").gsub(/\[Business Name\]/, @smb.full_name).gsub(/\n/, "<br />").gsub(/\{.*\}/, "").html_safe %>
+					<% end %>
+				</p>
+			  </div>
+		   	<% if @smb.featured_photo.present? %>
+				<div class="image">
+					<img src="<%= @smb.featured_photo.url(:original) %>" style="max-width: 640px" />
+				</div>
+			<% end %>
+				 <div class="green_content">
+		
+				<p class="text">
+					Please find our details below<%= " and access your voucher via this link: " if @campaign.give_cust_ref_sent  %><%= "[Voucher Link]" if @campaign.give_cust_ref_sent  %><%= ". Just print your voucher or display it on your phone to receive your perk" if @campaign.give_cust_ref_sent %>. We look forward to staying connected with you!
+				</p>
+			  </div>
+			  <div class="bus_info">
+				<div class="bus_info_container">
+					<div class="bus_desc_container">
+						<p class="bus_name"><%= @smb.full_name %></p>
+						<div class="bus_desc">
+							<p class="bus_desc_content" style="font-size:14px;"><%= @smb.business_description %></p>
+							<p class="bus_desc_content"><%= @smb.st_name_num %></p>
+							<p class="bus_desc_content"><%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %></p>
+							<p class="bus_desc_content"><%= @smb.zip_pos %></p>
+							<p class="bus_desc_content"><%= @smb.phone %></p>
+						</div>
+						<div class="bus_soc">
+							<div class="soc_icons">
+								<% if @smb.linkedin_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.linkedin_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_linkedin.png" /></a>
+								<% end %>
+								<% if @smb.yelp_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.yelp_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_yelp.png" /></a>
+								<% end %>
+								<% if @smb.twitter_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.twitter_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_twitter.png" /></a>
+								<% end %>
+								<% if @smb.facebook_url.present? %>
+								<a style="color:white;" href='http://<%= @smb.facebook_url.gsub(/http:\/\//, "") %>'><img src="http://credvine.com/credvine_facebook.png" /></a>
+								<% end %>
+							</div><br/><br/>
+							<p class="bus_desc_content" style="text-align:right;padding-top:10px;"><a style="color:white;" href="http://<%= @smb.site_url.gsub(/http:\/\//, "") %>"><%= @smb.site_url %></a></p>
+							<p class="bus_desc_content" style="text-align:right"><a style="color:white;" href="mailto:<%= @smb.email %>"><%= @smb.email %></a></p>
+						</div>
+					</div>
+					<% if @smb.insert_map %>
+					<div class="bus_map">
+						<img src="http://maps.google.com/maps/api/staticmap?zoom=15&markers=<%= @smb.st_name_num %>, <%= @smb.city %>, <%= (@smb.state_id.present?)? @smb.state.name : @smb.state_prov %>, <%= @smb.country.name %>&size=580x220&sensor=false" style="width: 580px;" />
+					</div>
+					<% end %>
+				</div>
+			  </div>
+			  
+			  <div class="email_footer">
+				<div class="email_footer_container">
+					<img src="/credvine_icon_transparent.png" />
+					<span class="email_footer_text">
+						powered by credvine
+					</span>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+

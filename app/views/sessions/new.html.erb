@@ -1,0 +1,32 @@
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.login').hide();
+	$('.login').click().click();
+});
+</script>
+
+<div class="page_header login_header">LOG IN</div>
+
+
+<%= form_tag sessions_path, :class => "login_form", :remote => true do %>
+  <div class="field">
+    <%= text_field_tag :email, params[:email], :placeholder => "Email or Username" %>
+  </div> 
+  <div class="field">
+    <%= password_field_tag :password, '', :placeholder => "Password" %>
+  </div> 
+  <!--[if IE]>
+	<div class="field">
+		<input id="password" type="text" value="" placeholder="Password">
+	</div>
+<![endif]-->
+  <div class="field">
+  	<%= check_box_tag :remember_me, 1, params[:remember_me], :style => "margin: 0 10px 0 0;" %>
+    <span style="color: #999999;font-size: 14px;">Remember me</span>'
+  </div> 
+  <div class="button"><%= submit_tag "LOG IN", :class => "login_button" %></div>
+<% end %>
+<%= link_to "Forgot your password?", new_password_reset_path, :class => "forgot" %>
+<a href="/forgot" class="forgot">Forgot your password?</a><br/>
+<label class="login_notice"></label>

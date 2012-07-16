@@ -1,0 +1,35 @@
+<style>
+.steps#step4, .FTUX_container_next {
+	display:none;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$('#c1').fadeIn(400, function() {
+				$('#c2').fadeIn(400, function() {
+					$('#c3').fadeIn(400, function() {
+						setTimeout(function() {
+							$('.FTUX_container_next').fadeIn(600, function() {
+								setTimeout(function() {
+									$('#step4').fadeIn(700);
+								}, 500);
+							});
+						}, 500);
+					});
+				});
+			});
+		}, 500);
+	});
+</script>
+
+<div class="page_header FTUX_header">NICE WORK, <%= @smb.username.upcase %>, YOU'VE COMPLETED 3/4!</div>
+<div class="FTUX_container">
+	<div class="FTUX_container_header" style="margin-bottom:30px;">YOU ARE REACHING THE LAST STEP!</div>
+	<div class="steps" id="step1">1. Your email address has been verified<img style="margin-left:50px;display:none;" id="c1" src="/small_check_active.png" /></div>
+	<div class="steps" id="step2">2. Business Profile seems perfect<img id="c2" style="margin-left:50px;display:none;" src="/small_check_active.png" /></div>
+	<div class="steps" id="step3">3. You already have your own campaign<img id="c3" style="margin-left:50px;display:none;" src="/small_check_active.png" /></div>
+	<div class="FTUX_container_next">LAST,</div>
+	<%= link_to "4. PREVIEW YOUR POSTER, REFERRAL CARD, QR CODE & GO!", campaign_preview_smb_campaign_path(@smb, @smb.campaigns.find(:all, :conditions => ['temp = ?', false]).last, :page => 1), :class => "steps active_step", :id => "step4" %>
+</div>
+

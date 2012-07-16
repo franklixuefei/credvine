@@ -1,0 +1,87 @@
+<style>
+.succ_ref {
+	font-family: AvenirLTStd-Roman;
+	font-size: 20px;
+	color: #66cc00;
+	cursor: pointer;
+}
+
+.succ_ref:hover {
+	font-style: italic;
+}
+
+.time_ago {
+	font-style: italic;
+}
+	
+</style>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	<% if params[:code_id].present? %>
+		$('.popup_form#cust<%= params[:code_id] %>').fadeIn(700);
+		<% params[:code_id] = nil %>
+	<% end %>
+	$('.succ_ref').click(function() {
+		var id = $(this).attr('id');
+		$('.popup_form#' + id).fadeIn(700);
+	});
+	$('span#x').click(function() {
+		//var id = $(this).attr('codeid');
+		$(this).parent().fadeOut(700);
+	});
+});
+	
+</script>
+
+<h1> Edit thank-you message(s) </h1>
+<% if @campaigns.present? %>
+	<% @campaigns.each do |campaign| %>
+		<h2>Campaign: <%= campaign.camp_name if campaign.camp_name.present? %></h2>
+		<% if campaign.notify_me_per_succ_ref %>
+			<!-- campaigns are included in smbs, so campaign.codes are included in campaign.smb.codes  -->
+			<% @codes = campaign.codes.find(:all, :conditions => ['frien_status = ? AND cust_success_status = ?', 'SENT', 'NOT_SENT']) %>
+			<% if @codes.present? %>
+				<div class="notification_container">
+					<ul>
+						<% @codes.each do |code| %>
+						<li>
+							<a class="succ_ref" id="cust<%= code.id %>"><%= code.customer.fullname %> successfully referred <%= code.friend.fullname %></a><br/>
+							<label class="time_ago">at <%= time_ago_in_words(code.updated_at) %> ago</label>
+							<div class="popup_form" id="cust<%= code.id %>">
+								<span id="x" codeid="<%= code.id %>" style="font-size: 20px;">X</span>
+								<p> <%= code.customer.fullname %> successfully referred <%= code.friend.fullname %> to your company!</p>
+								<!-- another way to pass params: form_tag :someKey => "some value" do -->
+								<form method="get" action="send_thx_msg" accept-charset="UTF-8">
+								<!-- good way to pass params in a form tag: using name="..." -->
+									<div class="field">
+										<input type="text" name="cid" style="display:none" value="<%= code.identifier %>">
+									</div>
+									<div class="field">
+										<textarea id="custom_thx_msg" name="custom_thx_msg"><%= code.campaign.final_thx %></textarea>
+										<!-- <%= link_to "Send", send_thx_msg_smb_path(@smb, :code_id => params[:code_id]) %> -->
+									</div>
+									<input type=submit value="Send">
+								</from>
+							</div>
+						</li>
+						<% end %>
+				   </ul>
+			   </div>
+			<% else %>
+				<div class="big_notice">
+					Currently no thank-you message to edit for this campaign.
+				</div>
+			<% end %>
+		<% else %>
+			<div class="big_notice">
+				Notification turned off.
+			</div>
+		<% end %>
+	<% end %>
+<% else %>
+	<div class="big_notice">
+		You have no active campaign(s) recently.
+	</div>
+<% end %>
+

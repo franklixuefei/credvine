@@ -1,0 +1,6 @@
+<h2>Hello, <%= @smb.full_name %>,</h2>
+<p>One of your customers has successfully referred his/her friend to your company!</p>
+<p>If you want to customize your thank-you message to your customer, just click <%= link_to "here", edit_thx_msg_to_succ_cust_smb_url(@smb, :host => "credvine.com", :code_id => @code_id)%></p>
+<p> Or if you just want to use the message you defined, click <%= link_to "here", send_thx_msg_smb_url(@smb, :host => "credvine.com", :code_id => @code_id) %></p>
+	
+

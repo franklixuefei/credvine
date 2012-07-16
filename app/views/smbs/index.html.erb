@@ -1,0 +1,67 @@
+<h1>Listing smbs</h1>
+<p id="notice"><%= notice %></p>
+<table>
+  <tr>
+    <th>Full name</th>
+    <th>Abbr name</th>
+    <th>Catagory</th>
+    <th>Industry</th>
+    <th>St name num</th>
+    <th>Suite num</th>
+    <th>City</th>
+    <th>State prov</th>
+    <th>Zip pos</th>
+    <th>Country</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Partial code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @smbs.each do |smb| %>
+  <tr>
+    <td><%= link_to smb.full_name, smb %></td>
+    <td><%= smb.abbr_name %></td>
+    <td><%= BusinessCatagory.find(smb.business_catagory_id).business %></td>
+    <td><%= smb.industry %></td>
+    <td><%= smb.st_name_num %></td>
+    <td><%= smb.suite_num %></td>
+    <td><%= smb.city %></td>
+    <% if !smb.state_id.nil? %>
+    	<td><%= State.find(smb.state_id).name %></td>
+    <% else %>
+    	<% if !smb.state_prov.empty? %>
+    		<td><%= smb.state_prov %></td>
+    	<% else %>
+    		<td></td>
+    	<% end %>
+   	<% end %>
+    <td><%= smb.zip_pos %></td>
+    <td><%= Country.find(smb.country_id).name %></td>
+    <td><%= smb.email %></td>
+    <td><%= smb.phone %></td>
+    <td><%= smb.partial_code %></td>
+    <td><%= link_to 'Campaign(s)', smb_campaigns_path(smb) %></td>
+    <td><%= link_to 'Customer(s)', smb_customers_path(smb) %></td>
+    <td><%= link_to 'Friend(s)', smb_friends_path(smb) %></td>
+    <td><%= link_to 'Report', smb_reports_path(smb) %></td>
+    <% if params[:customer_id].present? %>
+    <td><%= link_to 'Edit', edit_customer_smb_path(@selector, smb) %></td>
+    <% elsif params[:friend_id].present? %>
+    <td><%= link_to 'Edit', edit_friend_smb_path(@selector, smb) %></td>
+    <% else %>
+    <td><%= link_to 'Edit', edit_smb_path(smb) %></td>
+    <td><%= link_to 'Delete', smb, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if (params[:customer_id].nil? and params[:friend_id].nil?)%>
+<%= link_to 'New Smb', new_smb_path %>
+<% else %>
+<%= link_to 'All Smb(s)', smbs_path %>
+<% end %>

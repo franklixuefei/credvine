@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>RailsCasts Weekly</title>
+  <style type="text/css">
+@font-face {
+    font-family: 'AvenirLTStd-Light';
+    src: url('/avenirltstd-light-webfont.eot');
+    src: url('/avenirltstd-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/avenirltstd-light-webfont.woff') format('woff'),
+         url('/avenirltstd-light-webfont.ttf') format('truetype'),
+         url('/avenirltstd-light-webfont.svg#AvenirLTStd35Light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AvenirLTStd-Medium';
+    src: url('/avenirltstd-medium-webfont.eot');
+    src: url('/avenirltstd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/avenirltstd-medium-webfont.woff') format('woff'),
+         url('/avenirltstd-medium-webfont.ttf') format('truetype'),
+         url('/avenirltstd-medium-webfont.svg#AvenirLTStd65Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}  
+
+body {
+    background-color: black;
+    color: #000000;
+    font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+    font-size: 14px;
+    margin: 0;
+    min-width: 640px;
+    width: 100%;
+}
+div.body_container {
+    background-color: white;
+    min-width: 640px;
+}
+div.container {
+    background-color: white;
+    border: 1px solid #66cc35;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 400px;
+    width: 640px;
+}
+div.green_content {
+    background-color: #66CC35;
+    color: white;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-top: 30px;
+    padding: 25px;
+    width: 560px;
+}
+p.greetings {
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.text {
+    font-size: 14px;
+    margin-bottom: 5px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.their_message_container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 580px;
+}
+p.their_message_header {
+    color: #66CC33;
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.their_message_text {
+    font-size: 14px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.image {
+    
+    
+    margin: 30px;
+}
+div.bus_info {
+    background-color: black;
+}
+div.bus_info_container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 28px;
+    width: 580px;
+}
+div.bus_desc_container {
+    width: 580px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.bus_map {
+    
+    
+    width: 580px;
+}
+p.bus_name {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+div.bus_desc {
+    display: inline-block;
+    padding-bottom: 20px;
+}
+p.bus_desc_content {
+    color: white;
+    font-size: 10px;
+    line-height: 5px;
+}
+div.bus_soc {
+    display: inline-block;
+    float: right;
+    width: 200px;
+}
+div.soc_icons {
+    float: right;
+    height: 32px;
+}
+div.soc_icons img {
+    margin-left: 6px;
+    padding-top: 4px;
+}
+
+
+
+.footer {
+    background-color: black;
+    height: 96px;
+}
+
+.footer_container {
+    height: 32px;
+    padding: 32px 30px;
+}
+
+.footer_text {
+    color: #66CC00;
+    float: right;
+    font-size: 22px;
+    margin-right: 132px;
+    width: 400px;
+}
+
+   
+  
+  </style>
+</head>
+
+<body>
+<div class="body_container">
+<div class="container">  
+   
+      <div class="green_content">
+
+		<p class="greetings">
+			Hi XXX,
+		</p>
+		<p class="text">
+			Your friend, XXX, recommended you check out XXXXX, a restaurant in XXX, XXX. They also sent you a voucher for a XXXXXX on your first visit!
+		</p>
+	  </div>
+   
+   <div class="their_message_container">
+		<p class="their_message_header">
+			HERE'S THEIR MESSAGE
+		</p>
+
+		<p class="their_message_text">
+			"[insert Customer's message here... e.g., "Hey - you should check this place out.  Awesome falafels!"]"
+		</div>
+		<div class="image">
+			<img src="http://credvine.webfactional.com/muffins.png" style="width: 580px" />
+		</div>
+		 <div class="green_content">
+
+		<p class="greetings">
+			XXXXXXX
+		</p>
+		<p class="text">
+			Want to check it out?  Find all the details below and either print the attached voucher, or show it on your phone!
+		</p>
+	  </div>
+	  <div class="bus_info">
+		<div class="bus_info_container">
+			<div class="bus_desc_container">
+				<p class="bus_name">Business Name</p>
+				<div class="bus_desc">
+					<p class="bus_desc_content">One line description of the business(max of 55 chars).</p>
+					<p class="bus_desc_content">123 Street Address</p>
+					<p class="bus_desc_content">City Name, AB</p>
+					<p class="bus_desc_content">A1A 2B2</p>
+					<p class="bus_desc_content">416-111-1111</p>
+				</div>
+				<div class="bus_soc">
+					<p class="bus_desc_content" style="text-align:right">www.example.com</p>
+					<p class="bus_desc_content" style="text-align:right">example@example.com</p>
+					<div class="soc_icons">
+						<img src="http://credvine.webfactional.com/credvine_facebook.png" />
+						<img src="http://credvine.webfactional.com/credvine_twitter.png" />
+						<img src="http://credvine.webfactional.com/credvine_youtube.png" />
+						<img src="http://credvine.webfactional.com/credvine_yelp.png" />
+					</div>
+				</div>
+			</div>
+			<div class="bus_map">
+				<img src="http://credvine.webfactional.com/map.png" style="width: 580px;" />
+			</div>
+		</div>
+	  </div>
+	  <div class="footer">
+		<div class="footer_container">
+			<img src="http://credvine.webfactional.com/credvine_icon_transparent.png" />
+			<span class="footer_text">
+				powered by credvine
+			</span>
+		</div>
+	</div>
+   </div>
+</div>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+
+<center><h1 style="font-size: 70px; margin-left: 15px;">Welcome to <%= @smb.full_name %>!</h1></center>
+<%= image_tag @smb.logo.url(:large), :class => "profile_logo" %>
+<div class="profile" style="margin-top: 70px;">
+<p>
+  <b>Full name:</b>
+  <%= @smb.full_name %>
+</p>
+
+<p>
+  <b>Abbr name:</b>
+  <%= @smb.abbr_name %>
+</p>
+
+<p>
+  <b>Catagory:</b>
+  <%= BusinessCatagory.find(@smb.business_catagory_id).business %>
+</p>
+
+<p>
+  <b>Industry:</b>
+  <%= @smb.industry %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @smb.st_name_num %>
+  <% if !@smb.suite_num.nil? %>
+  	<%= ', Suite#:' + @smb.suite_num.to_s %> <br />
+  <% end %>
+  <% if !@smb.city.empty? %>
+  	<%= @smb.city.to_s + ', '%>
+  <% end %>
+  <% if !@smb.state_id.nil? %>
+  	<%= State.find(@smb.state_id).name.to_s + ', '%>
+  <% else %>
+  	<% if !@smb.state_prov.empty? %>
+  		<%= @smb.state_prov.to_s + ', ' %>
+  	<% end %>
+  <% end %>
+  <%= Country.find(@smb.country_id).name.to_s %><br />
+  <% if !@smb.zip_pos.empty? %>
+  	<%= 'Zip/Postal Code: ' + @smb.zip_pos.to_s %>
+  <% end %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @smb.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @smb.phone %>
+</p>
+
+
+
+</div>
+
+<% if params[:customer_id].present? %>
+<%= link_to 'Edit', edit_customer_smb_path(@selector, @smb) %> |
+<%= link_to 'Back', customer_smbs_path(@selector) %>
+<% elsif params[:friend_id].present? %>
+<%= link_to 'Edit', edit_friend_smb_path(@selector, @smb) %> |
+<%= link_to 'Back', friend_smbs_path(@selector) %>
+<% else %>
+<%= link_to 'Edit', edit_smb_path(@smb) %> |
+<%= link_to 'Back', smbs_path %>
+<% end %>

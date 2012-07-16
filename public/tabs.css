@@ -1,0 +1,59 @@
+ul.css-tabs {
+    height: 32px;
+    min-width: 960px;
+    padding: 0;
+}
+ul.css-tabs li {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.css-tabs a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #EFEFEF;
+    color: #999999;
+    display: block;
+    float: left;
+    font-size: 16px;
+    height: 18px;
+    margin-right: 2px;
+    outline: 0 none;
+    padding: 7px 12px;
+    position: relative;
+    text-decoration: none;
+    top: 0;
+}
+ul.css-tabs a:hover {
+    background-color: #F7F7F7;
+    color: #333333;
+}
+ul.css-tabs a.current {
+    background-color: #66CC00;
+    color: white;
+    cursor: default;
+}
+.css-panes {
+    background: none repeat scroll 0 0 #66CC00;
+    max-width: 960px;
+    padding: 45px;
+}
+
+
+span#del_camp {
+    color: #504A4B;
+    cursor: pointer;
+    display: none;
+    float: right;
+    margin-left: -14px;
+    margin-top: -1px;
+    position: absolute;
+}
+
+span#del_camp img {
+	width:12px;
+}

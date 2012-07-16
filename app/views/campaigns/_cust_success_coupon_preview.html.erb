@@ -1,0 +1,107 @@
+<style>
+
+.coupon_container {
+	padding: 64px;
+	border: 1px dashed #66cc00;
+	border-bottom: 0px;
+	width: 512px;
+	
+}
+
+.coupon_header {
+    color: #66CC00;
+    font-size: 26px;
+    margin-bottom: 26px;
+}
+
+.coupon_text {
+    color: #66CC00;
+    font-size: 22px;
+    margin-bottom: 60px;
+}
+
+.coupon_qr {
+	text-align: center;
+}
+
+.coupon_code {
+	color: #66cc00;
+	font-size: 22px;
+	margin-top: 0px;
+	margin-bottom: 60px;
+}
+
+.coupon_terms_of_use {
+    color: #999999;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 22px;
+    margin-top: 83px;
+}
+
+.coupon_exp {
+	font-family: AvenirLTStd-Black;
+	font-size: 14px;
+	color: #999999;
+	margin-bottom: 50px;
+}
+
+.coupon_footer {
+    background-color: black;
+    height: 96px;
+    width: 640px;
+}
+
+.coupon_footer_container {
+    height: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 512px;
+    padding-top: 33px;
+}
+
+.coupon_footer_text {
+    color: #66CC00;
+    font-size: 22px;
+    margin-left: 15px;
+    position: absolute;
+}	
+
+}
+</style>
+<a name="cust_success_coupon"></a>
+<div class="coupon_container">
+	<div class="coupon_header">
+		<%= @smb.full_name.upcase %>
+	</div>
+	<p class="coupon_text">
+		Referral voucher:  Thank you for your referral!
+	</p>
+	<div class="coupon_qr">
+		<img src="/sample_qrcode.png" width="200px">
+		<p class="coupon_code">
+			A8ou876sUWQ_p3RQMb0v_
+		</p>
+	</div>
+	<p class="coupon_text">
+		<%= @campaign.cust_successful_incentive_long %>
+	</p>
+	
+	<p class="coupon_terms_of_use">
+		TERMS OF USE<br/>
+		<%= @campaign.term_of_use_csi %>
+	</p>
+	
+	<p class="coupon_exp">
+		EXPIRY: <%= Date.parse(@campaign.exp_date.to_s).strftime("%b %e, %Y").upcase %>
+	</p>
+
+</div>
+<div class="coupon_footer">
+		<div class="coupon_footer_container">
+			<img src="/credvine_icon_transparent.png" style="vertical-align:middle">
+			<span class="coupon_footer_text">
+				powered by credvine
+			</span>
+		</div>
+	</div>

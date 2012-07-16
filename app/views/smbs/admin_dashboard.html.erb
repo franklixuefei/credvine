@@ -1,0 +1,179 @@
+<script type="text/javascript" src="/dataTables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/admin_dashboard.js"></script>
+<!--[if IE]>
+<script type="text/javascript" src="/admin_resend_ie.js"></script>
+<![endif]-->
+<![if !IE]>
+<script type="text/javascript" src="/admin_resend.js"></script>
+<![endif]>
+<script type="text/javascript" src="/search.js"></script>
+<div class="page_header admin_dashboard_header">ADMIN DASHBOARD</div>
+<!-- <div class="admin_container" style="height: 90px;">
+	<div class="admin_header">SEARCH USER</div>
+	<div class="field">
+		<input class="search" type="text" placeholder="Business Abbreviation Name, Full Name or Email Address" style="width: 452px;"/>
+		<img src="/search_icon.png" class="search_icon" />
+	</div>
+</div> -->
+
+<div class="admin_container admins">
+	<div class="admin_header"><%= (@admins.count > 1)? "CURRENT ADMINISTRATORS" : "CURRENT ADMINISTRATOR" %></div>
+	<% if @admins.present? %>
+		<% @admins.each do |admin| %>
+			<span class="admin_user" id="<%= admin.id %>"><%= admin.username %></span>
+		<% end %>
+	<% else %>
+		<span class="admin_user">NO ADMIN</span>
+	<% end %>
+</div>
+
+<div class="admin_container">
+	<div class="admin_header">REQUEST CENTER</div>
+	<div class="request_center_left_container">
+		<div class="request_header"><%= (@unprocessed_requests.count > 1)? "UNPROCESSED REQUESTS" : "UNPROCESSED REQUEST" %> (<span class="unprocessed_request_counter"><%= @unprocessed_requests.count %></span>)</div>
+		<div class="requests_left">
+			<% if @unprocessed_requests.present? %>
+				<% @unprocessed_requests.each do |unprocessed_request| %>
+					<div class="each_unprocessed_request">
+						<p style="margin: 0px;margin-bottom:10px"><%= unprocessed_request.request_email %></p>
+						<small style="float:left; color:#66cc00"><%= unprocessed_request.package_type.upcase %><%= " BUSINESS" if unprocessed_request.package_type == 'small'%></small><br/>
+						<input type="text" id="promo_code" placeholder="Promo Code" value="<%= PromoCode.generate_promocode %>" style="font-size:12px;padding:3px;width:90px;float:left;margin-right:5px">
+						<input type="text" id="promo_credit" placeholder="#" value="0" style="width:30px;font-size:12px;padding:3px;float:left"><br/>
+						<small class="request_button" id="approve" package_type="<%= unprocessed_request.package_type %>" request_id="<%= unprocessed_request.id %>" request_email="<%= unprocessed_request.request_email %>">APPROVE</small>
+						<small class="request_button" id="ignore" package_type="<%= unprocessed_request.package_type %>" request_id="<%= unprocessed_request.id %>" request_email="<%= unprocessed_request.request_email %>">IGNORE</small>
+					</div>
+				<% end %>
+			<% else %>
+				<div class="each_unprocessed_request">NO UNPROCESSED REQUEST</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="request_center_right_container">
+		<div class="request_header"><%= ((@requests_with_small.count + @requests_with_professional.count + @requests_with_enterprise.count) > 1)? "PROCESSED REQUESTS" : "PROCESSED REQUEST" %></div>
+		<div class="requests_right">
+			<div class="processed_requests" id="small">
+				<div class="processed_request_header">SMALL BUSINESS</div>
+				<div class="processed_requests_num" id="small"><%= @requests_with_small.count %></div>
+				<div class="each_processed_container">
+				<% @requests_with_small.first(4).each do |reqeust_with_small| %>
+					<div class="each_processed_request" id="<%= reqeust_with_small.id %>">
+						<p style="margin:0px;"><%= reqeust_with_small.request_email.split('@').first %></p>
+					</div>
+				<% end %>
+				</div>
+			</div>
+			<div class="processed_requests" id="professional">
+				<div class="processed_request_header">PROFESSIONAL</div>
+				<div class="processed_requests_num" id="professional"><%= @requests_with_professional.count %></div>
+				<div class="each_processed_container">
+				<% @requests_with_professional.first(4).each do |reqeust_with_professional| %>
+					<div class="each_processed_request" id="<%= reqeust_with_professional.id %>">
+						<p style="margin:0px;"><%= reqeust_with_professional.request_email.split('@').first %></p>
+					</div>
+				<% end %>
+				</div>
+			</div>
+			<div class="processed_requests" id="enterprise">
+				<div class="processed_request_header">ENTERPRISE</div>
+				<div class="processed_requests_num" id="enterprise"><%= @requests_with_enterprise.count %></div>
+				<div class="each_processed_container">
+				<% @requests_with_enterprise.first(4).each do |reqeust_with_enterprise| %>
+					<div class="each_processed_request" id="<%= reqeust_with_enterprise.id %>">
+						<p style="margin:0px;"><%= reqeust_with_enterprise.request_email.split('@').first %></p>
+					</div>
+				<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="admin_container">
+	<div class="admin_header"><%= (@requested_users_not_signed_up.count > 1)? "APPROVED USERS (not signed up yet)" : "APPROVED USER (not signed up yet)" %></div>
+	<div class="users_container">
+		<div class="users_header" style="margin-bottom:20px">TOTAL NUMBER OF APPROVED USERS (not signed up yet): <%= @requested_users_not_signed_up.count %></div>
+		<div class="users_main_container" style="padding:0px;min-height:0px">
+			<% if @requested_users_not_signed_up.present? %>
+				<table id="approved_users">
+				  <thead>
+				    <tr>
+				      <th>User</th>
+				      <th>Resend</th>
+				      <th>Business Type</th>
+				      <th>Request Approved At</th>
+<!-- 				      <th>Request Approved At</th>
+				      <th>Beta Key</th>
+				      <th>Promo Code</th> -->
+				      <th>Credit</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <% @requested_users_not_signed_up.each do |user| %>
+				    <tr userid="<%= user.id %>">
+				      <td style="text-align:left;"><a href="mailto:<%= user.request_email %>"><%= user.request_email %></a></td>
+				      <td><div class="resend_button">RESEND</div></td>
+				      <td><%= user.package_type.upcase %> <%= 'BUSINESS' if user.package_type == 'small'%></td>
+				      <td><%= user.updated_at %></td>
+				      <td><%= user.promo_codes.first.promo_credit if user.promo_codes.present?%></td>
+				    </tr>
+				  <% end %>
+				  </tbody>
+				</table>
+			<% else %>
+				<div style="font-size:16px; font-style:italic; margin-left:auto; margin-right:auto">
+					CURRENTLY NO SIGNED UP USERS
+				</div>
+			<% end %>
+			<!-- <% @users.each do |user| %>
+				<img id="user<%= user.id %>" src="<%= user.logo.url(:small) %>" alt="<%= user.full_name %>" style="margin:30px; width:150px;">
+			<% end %> -->
+		</div>
+	</div>
+	
+</div>
+
+<div class="admin_container">
+	<div class="admin_header"><%= (@users.count > 1)? "SIGNED UP USERS" : "SIGNED UP USER" %></div>
+	<div class="users_container">
+		<div class="users_header" style="margin-bottom:20px">TOTAL NUMBER OF SIGNED UP USERS: <%= @users.count %></div>
+		<div class="users_main_container" style="padding:0px;min-height:0px">
+			<% if @users.present? %>
+				<table id="users">
+				  <thead>
+				    <tr>
+				      <th style="width:160px">Business Full Name</th>
+				      <th>Signed Up At</th>
+				      <th style="width:70px"># Referrals Sent</th>
+				      <th style="width:70px"># Referrals Fulfilled</th>
+				      <th>Business Type</th>
+				      <th>Total Credit</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <% @users.each do |user| %>
+				    <tr userid="<%= user.id %>">
+				      <td style="text-align:left;"><%= user.full_name %></td>
+				      <td style="width:155px;"><%= user.created_at %></td>
+				      <td><%= user.codes.count %></td>
+				      <td><%= user.codes.find(:all, :conditions => ['frien_status = ?', "REDEEMED"]).count %></td>
+				      <!-- <td><%= user.campaigns.find(:all, :conditions => ['temp = ?', false]).count %></td> -->
+				      <td><%= user.business_type.upcase %> <%= 'BUSINESS' if user.business_type == 'small'%></td>
+				      <td><%= user.credit %></td>
+				    </tr>
+				  <% end %>
+				  </tbody>
+				</table>
+			<% else %>
+				<div style="font-size:16px; font-style:italic; margin-left:auto; margin-right:auto">
+					CURRENTLY NO APPROVED BUT NOT SIGNED UP USERS
+				</div>
+			<% end %>
+			<!-- <% @users.each do |user| %>
+				<img id="user<%= user.id %>" src="<%= user.logo.url(:small) %>" alt="<%= user.full_name %>" style="margin:30px; width:150px;">
+			<% end %> -->
+		</div>
+	</div>
+	
+</div>
+
+

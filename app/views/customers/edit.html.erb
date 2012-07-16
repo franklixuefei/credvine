@@ -1,0 +1,12 @@
+<h1>Editing customer</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [@selector, @customer] %> |
+<% if params[:smb_id].present?%>
+<%= link_to 'Back', smb_customers_path(@selector) %>
+<% elsif params[:friend_id].present?%>
+<%= link_to 'Back', friend_customers_path(@selector) %>
+<% else %>
+<%= link_to 'Back', customers_path %>
+<% end %>

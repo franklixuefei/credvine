@@ -1,0 +1,174 @@
+<link rel="stylesheet" type="text/css" href="/pricing.css" />
+<script src="/index.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.second_col, .black_button#small').hover(function() {
+		$('.second_col').addClass('hovered').find('img').attr('src','/small_check_active.png');
+		$('.black_button#small').css('color','white');
+	}, function(){
+		$('.second_col').removeClass('hovered').find('img').attr('src','/small_check.png');
+		$('.black_button#small').css('color','#66cc00');
+	});
+	$('.third_col, .black_button#professional').hover(function() {
+		$('.third_col').addClass('hovered').find('img').attr('src','/small_check_active.png');
+		$('.black_button#professional').css('color','white');
+	}, function(){
+		$('.third_col').removeClass('hovered').find('img').attr('src','/small_check.png');
+		$('.black_button#professional').css('color','#66cc00');
+	});
+	$('.fourth_col, .black_button#enterprise').hover(function() {
+		$('.fourth_col').addClass('hovered').find('img').attr('src','/small_check_active.png');
+		$('.black_button#enterprise').css('color','white');
+	}, function(){
+		$('.fourth_col').removeClass('hovered').find('img').attr('src','/small_check.png');
+		$('.black_button#enterprise').css('color','#66cc00');
+	});
+	
+});
+	
+	
+</script>
+
+<div class="page_header pricing_header">PRICING</div>
+
+<img style="display:none" src="/small_check_active.png" />
+<table id="table-2" cellspacing="0" cellpadding="0">
+<tbody>
+<tr class="table_header">
+<td ></td>
+<td >SMALL BUSINESS</td>
+<td class="white_col"></td>
+<td >PROFESSIONAL</td>
+<td class="white_col"></td>
+<td >ENTERPRISE</td>
+</tr>
+<tr>
+<td class="first_col">Setup fees</td>
+<td class="second_col">$0</td>
+<td class="white_col"></td>
+<td class="third_col">$0</td>
+<td class="white_col"></td>
+<td class="fourth_col">$0</td>
+</tr>
+<tr>
+<td class="first_col">Monthly costs</td>
+<td class="second_col">$0</td>
+<td class="white_col"></td>
+<td class="third_col">$50</td>
+<td class="white_col"></td>
+<td class="fourth_col">$1000</td>
+</tr>
+<tr>
+<td class="first_col">Cost per referral sent</td>
+<td class="second_col">$0.25</td>
+<td class="white_col"></td>
+<td class="third_col">$0.99</td>
+<td class="white_col"></td>
+<td class="fourth_col">$0.99</td>
+</tr>
+<tr>
+<td class="first_col">Cost per successful referral</td>
+<td class="second_col">$4.99</td>
+<td class="white_col"></td>
+<td class="third_col">$7.99</td>
+<td class="white_col"></td>
+<td class="fourth_col">$7.99</td>
+</tr>
+<tr class="special_row">
+<td class="first_col">
+<input id="email" class="request_invite" type="email" placeholder="Email address" name="email" style="margin-left: -7px; width: 230px ! important; position: absolute; top: 448px;">
+</td>
+<td class="second_col" style="background-color:black">
+<a class="black_button" id="small" style="color: #66cc00; margin-left:0px;padding:10px; padding-top:11px;padding-bottom:13px;">Request an invite</a>
+</td>
+<td class="white_col"></td>
+<td class="third_col" style="background-color:black">
+<a class="black_button" id="professional" style="color: #66cc00; margin-left:0px;padding:10px; padding-top:11px;padding-bottom:13px;">Request an invite</a>
+</td>
+<td class="white_col"></td>
+<td class="fourth_col" style="background-color:black">
+<a class="black_button" id="enterprise" style="color: #66cc00; margin-left:0px;padding:10px; padding-top:11px;padding-bottom:13px;">Request an invite</a>
+</td>
+</tr>
+<tr>
+<td class="first_col">Create your own custom campaign</td>
+<td class="second_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Set your incentives</td>
+<td class="second_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Add your logo</td>
+<td class="second_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Customize your thank you note messages</td>
+<td class="second_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Receive prompts and personalize individual thank you messages</td>
+<td></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Send physical thank you cards</td>
+<td></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Send gift cards and other third party<br/>'thank you' incentives</td>
+<td></td>
+<td class="white_col"></td>
+<td class="third_col"><img src="/small_check.png"/></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Custom brand emails</td>
+<td></td>
+<td class="white_col"></td>
+<td></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Custom brand the referral form</td>
+<td></td>
+<td class="white_col"></td>
+<td></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+<tr>
+<td class="first_col">Custom brand referral cards</td>
+<td></td>
+<td class="white_col"></td>
+<td></td>
+<td class="white_col"></td>
+<td class="fourth_col"><img src="/small_check.png"/></td>
+</tr>
+</tbody>
+</table>

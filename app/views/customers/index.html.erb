@@ -1,0 +1,75 @@
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<% if params[:smb_id].present? %>
+<h1><%= current_user.full_name %>'s customers</h1>
+<% elsif params[:friend_id].present? %>
+<h1>Customers <%= Friend.find(params[:friend_id]).fullname %> belongs to</h1>
+<% else %>
+<h1>Listing Customers</h1>
+<% end %>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Fullname</th>
+    <th>Phone</th>
+    <th>Friend Welcome Text</th>
+    <th>Email</th>
+    <th>Photo</th>
+    <th>Partial Code</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @customers.each do |customer| %>
+  <tr>
+    <td><%= customer.username %></td>
+    <td><%= customer.password %></td>
+    <td><%= link_to customer.fullname, [@selector, customer] %></td>
+    <td><%= customer.phone %></td>
+    <td><%= customer.frien_welc %></td>
+    <td><%= customer.email %></td>
+    <td><%= customer.photo %></td>
+    <td><%= customer.partial_code %></td>
+    <td><%= link_to 'Smb(s)', customer_smbs_path(customer) %></td>
+    
+    
+    <% if params[:smb_id].present? %>
+    <td><%= link_to 'Friend(s)', smb_customer_friends_path(@selector, customer) %></td>
+    <td><%= link_to 'Edit', edit_smb_customer_path(@selector, customer) %></td>
+    <td><%= link_to 'Delete', [@selector, customer], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% elsif params[:friend_id].present? %>
+    <td><%= link_to 'Friend(s)', customer_friends_path(customer) %></td>
+    <td><%= link_to 'Edit', edit_friend_customer_path(@selector, customer) %></td>
+    <% else %>
+    <td><%= link_to 'Friend(s)', customer_friends_path(customer) %></td>
+    <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
+    <td><%= link_to 'Delete', customer, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if params[:smb_id].present?%>
+	<%= link_to 'New Customer', new_smb_customer_path(@selector) %>
+	<%= link_to 'New Customers', review_smb_customers_path(@selector) %>
+	<div>
+		<h1>File Upload</h1>
+		<%= form_for :customer, :url => {:action => 'uploadFile'},  :html => { :multipart => true } do |f|%>
+			<p><label for="upload_file">Select File</label> : 
+			<%= file_field 'upload', 'datafile' %></p>
+			<%= submit_tag "Upload" %>
+		<% end %>
+	</div>
+	<% if notice == "File has been uploaded successfully" %>
+	<% end %>
+<% elsif params[:friend_id].present?%>
+<%= link_to 'All Customers', customers_path %>
+<% end %>
+

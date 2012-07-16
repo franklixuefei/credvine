@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cust_init_code: MyString
+  cust_success_code: MyString
+  frien_code: MyString
+  cust_init_status: MyString
+  cust_success_status: MyString
+  frien_status: MyString
+
+two:
+  cust_init_code: MyString
+  cust_success_code: MyString
+  frien_code: MyString
+  cust_init_status: MyString
+  cust_success_status: MyString
+  frien_status: MyString

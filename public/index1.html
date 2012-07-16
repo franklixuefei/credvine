@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Welcome!</title>
+
+<!-- jQuery (required) -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+
+<!-- Optional plugins -->
+<script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
+<script type="text/javascript" src="js/swfobject.js"></script>
+
+<!-- Anything Slider -->
+<link rel="stylesheet" href="css/anythingslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<script type="text/javascript" src="js/jquery.anythingslider.js"></script>
+
+<!-- Add the stylesheet(s) you are going to use here. All stylesheets are included below, remove the ones you don't use. -->
+<link rel="stylesheet" href="css/theme-metallic.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/theme-minimalist-round.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/theme-minimalist-square.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/theme-construction.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/theme-cs-portfolio.css" type="text/css" media="screen" />
+
+<!-- AnythingSlider optional extensions -->
+<script src="js/jquery.anythingslider.fx.js"></script>
+<script src="js/jquery.anythingslider.video.js"></script>
+
+<!-- Older IE stylesheet, to reposition navigation arrows, added AFTER the theme stylesheet above -->
+<!--[if lte IE 7]>
+<link rel="stylesheet" href="css/anythingslider-ie.css" type="text/css" media="screen" />
+<![endif]-->
+
+<!-- Required -->
+<script type="text/javascript">
+$(function(){
+
+                var slider = ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'];
+                function formatText(index, panel) {
+                        return slider[index - 1];
+                }
+
+                $(function () {
+
+                        $('#slider').anythingSlider({
+                                //width : 800,          // Override the default CSS width
+                                //height : 300,
+                                easing: "swing",
+                                autoPlay            : false,
+                                navigationFormatter : formatText,
+                    
+                        });
+                        $(this).corner("20px");
+
+ 
+
+
+
+                });
+//                                        $("#slide-jump").click(function(){
+  //                              $('#slider').anythingSlider(4);
+    //                            return false;
+      //                  });
+
+});
+</script>
+
+</head>
+<body>
+
+        <div id="page-wrap" data-corner="left 20px">
+
+                <h1>AnythingSlider</h1>
+
+                        <!-- AnythingSlider #1 -->
+                        <ul id="slider" >
+
+                                <li><img src="images/skies.jpg" alt="" style="border-radius: 20px; -moz-border-radius: 20px;"></li>
+
+                                <li><img src="" alt=""></li>
+
+                                <li><img src="" alt=""></li>
+
+                                <li><object height="385" width="480"><param name="movie" value="http://www.youtube.com/v/zSgiXGELjbc&hl=en_US&fs=1"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube.com/v/zSgiXGELjbc&hl=en_US&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" height="385" width="480"></object></li>
+
+                                <li><object height="385" width="640"><param name="movie" value="http://www.youtube.com/v/2Qj8PhxSnhg&hl=en_US&fs=1"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube.com/v/2Qj8PhxSnhg&hl=en_US&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" height="385" width="640"></object></li> 
+
+                                <li><img src="" alt=""></li>
+
+                        </ul>  <!-- END AnythingSlider #1 -->
+		</div>
+                       
+
+	
+</body>
+	
+	
+</html>

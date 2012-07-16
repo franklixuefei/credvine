@@ -1,0 +1,40 @@
+<h1>Listing incentives</h1>
+
+<table>
+  <tr>
+    <th>Frien incentive</th>
+    <th>Frien incentive long</th>
+    <th>Incentive Type</th>
+    <th>Incentive Value</th>
+  </tr>
+
+<% @incentives.each do |incentive| %>
+  <tr>
+    <td><%= incentive.frien_incentive %></td>
+    <td><%= incentive.frien_incentive_long %></td>
+    <% if !incentive.incentive_type_fi_id.nil? %>
+    	<td><%= incentive.incentive_type_fi.type_of_incentive %></td>
+    <% else %>
+    	<td></td>
+    <% end %>
+    <td><%= incentive.incentive_val_fi %></td>
+    <td><%= link_to 'Show', [@smb, @selector, incentive] %></td>
+    <% if (params[:campaign_id].present? and params[:smb_id].present?)%>
+    <td><%= link_to 'Edit', edit_smb_campaign_incentive_path(@smb, @selector, incentive) %></td>
+    <% elsif params[:campaign_id].present?%>
+    <td><%= link_to 'Edit', edit_campaign_incentive_path(@selector, incentive) %></td>
+	<% else %>
+	<td><%= link_to 'Edit', edit_incentive_path(incentive) %></td>
+    <% end %>
+    <% if ((params[:smb_id].present? and params[:campaign_id].present?) or (params[:smb_id].nil? and params[:campaign_id].nil?))%>
+    <td><%= link_to 'Delete', [@smb, @selector, incentive], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if (params[:campaign_id].present? and params[:smb_id].present?)%>
+<%= link_to 'New Incentive', new_smb_campaign_incentive_path(@smb, @selector) %>
+<% end %>

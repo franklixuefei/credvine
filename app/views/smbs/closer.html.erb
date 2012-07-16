@@ -1,0 +1,65 @@
+<style>
+.steps#step3, .steps#step4, .FTUX_container_next {
+	display:none;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$('#c1').fadeIn(400, function() {
+				$('#c2').fadeIn(400, function() {
+					setTimeout(function() {
+						$('.FTUX_container_next').fadeIn(600, function() {
+							setTimeout(function() {
+								$('#step3').fadeIn(700, function() {
+									$('#step4').fadeIn(700);
+								});
+							}, 500);
+							
+						});
+					}, 500);
+				});
+			});
+		}, 500);
+	});
+</script>
+<% if @smb.campaigns.find_by_temp(true).present? %>
+<div class="page_header FTUX_header"><%= @smb.username.upcase %>, TO CONTINUE, CLICK ON STEP 3.</div>
+<% else %>
+<div class="page_header FTUX_header">NICE WORK, <%= @smb.username.upcase %>, YOU'VE COMPLETED 2/4!</div>
+<% end %>
+<div class="FTUX_container">
+	<% if @smb.campaigns.find_by_temp(true).present? %>
+		<div class="FTUX_container_header" style="margin-bottom:30px;">YOU ARE CURRENTLY ON STEP 3.</div>
+	<% else %>
+		<div class="FTUX_container_header" style="margin-bottom:30px;">YOU ARE GETTING CLOSER...</div>
+	<% end %>
+	<div class="steps" id="step1">1. Your email address has been verified<img style="margin-left:50px;display:none;" id="c1" src="/small_check_active.png" /></div>
+	<div class="steps" id="step2">2. Business Profile seems perfect<img id="c2" style="margin-left:50px;display:none;" src="/small_check_active.png" /></div>
+	<div class="FTUX_container_next">NEXT,</div>
+	<% if @smb.campaigns.find_by_temp(true).present? %>
+		<%= link_to "3. CONTINUE EDITTING YOUR CAMPAIGN", smb_campaigns_path(@smb), :class => "steps active_step", :id => "step3" %>
+	<% else %>
+		<%= link_to "3. CREATE YOUR OWN CAMPAIGN", smb_campaigns_path(@smb), :class => "steps active_step", :id => "step3" %>
+	<% end %>
+	<div class="steps" id="step4" style="margin-top: 20px;">4. Print your Poster, Referral Card, QR Code and GO!</div>
+	
+</div>
+
+<!-- <center>
+	<div class="FTUX_nav" style="display:none">
+		<h1 style="margin-left: 50px;" id="more_steps"> You're getting closer! </h1><br/>
+		
+		<h2 id="step1" style="color: gray;">1. Click the link in the verification e-mail<img id="check_1" height=30 style="margin-left:20px;opacity:0;" class="nav_check" src="/assets/nav_check.png" title="check"/></h2>
+		<br/>
+		
+		<h2 id="step2" style="color: gray;">2. Fill out your Business Profile<img id="check_2" height=30 style="margin-left:20px;opacity:0;" class="nav_check" src="/assets/nav_check.png" title="check"/></h2>
+		<br/>
+		
+		<h2 id="step3" style="display:none; text-align: center">And now, Begin to </h2>
+		<center><%= link_to "create your own campaign", smb_campaigns_path(@smb), :class => "create_campaign"%></center>
+		
+		
+	</div>
+</center> -->
+	

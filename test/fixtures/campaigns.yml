@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  camp_name: MyString
+  cus_inc: MyText
+  cus_inc_abbr: MyText
+  frien_inc: MyText
+  frien_inc_abbr: MyText
+  start_date: 2012-01-11 03:31:11
+  end_date: 2012-01-11 03:31:11
+  welc_frien: MyText
+  thx_frien: MyText
+  init_thx: MyText
+  final_thx: MyText
+
+two:
+  camp_name: MyString
+  cus_inc: MyText
+  cus_inc_abbr: MyText
+  frien_inc: MyText
+  frien_inc_abbr: MyText
+  start_date: 2012-01-11 03:31:11
+  end_date: 2012-01-11 03:31:11
+  welc_frien: MyText
+  thx_frien: MyText
+  init_thx: MyText
+  final_thx: MyText

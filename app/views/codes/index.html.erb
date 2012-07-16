@@ -1,0 +1,33 @@
+<h1>Listing codes</h1>
+
+<table>
+  <tr>
+    <th>Cust init code</th>
+    <th>Cust success code</th>
+    <th>Frien code</th>
+    <th>Cust init status</th>
+    <th>Cust success status</th>
+    <th>Frien status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @codes.each do |code| %>
+  <tr>
+    <td><%= code.cust_init_code %></td>
+    <td><%= code.cust_success_code %></td>
+    <td><%= code.frien_code %></td>
+    <td><%= code.cust_init_status %></td>
+    <td><%= code.cust_success_status %></td>
+    <td><%= code.frien_status %></td>
+    <td><%= link_to 'Show', code %></td>
+    <td><%= link_to 'Edit', edit_code_path(code) %></td>
+    <td><%= link_to 'Destroy', code, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Code', new_code_path %>

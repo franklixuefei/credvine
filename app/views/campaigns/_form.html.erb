@@ -1,0 +1,1137 @@
+<style>
+label {
+	color: white;
+}
+
+select {
+	width: 135px;
+	padding: 2px;
+}
+
+input.incentive_input {
+	width: 127px;
+	padding: 3px;
+}
+	
+</style>
+
+<script type="text/javascript" src="/jquery-ui-1.8.17.custom.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+var n;
+var current_page = 1;
+var last_page = 4;
+    $(document).ready(function() {
+    	
+    	$(function() {
+			$("#campaign_start_date").datepicker();
+			$("#campaign_end_date").datepicker();
+			$("#campaign_exp_date").datepicker();
+			// $(".frien_post_redemp#tabs").tabs();
+			// $(".cust_init#tabs").tabs();
+			// $(".cust_success#tabs").tabs();
+			// $(".header_message#tabs").tabs();
+		});
+		
+		//var newDate = new Date();
+		// $('input#campaign_end_date').change(function() {
+			// var endDate = $(this).val();
+			// newDate = new Date(endDate);
+			// newDate.setDate(newDate.getDate() + 60); 
+			// //$("#campaign_exp_date").focus();
+		// }).cha;
+		
+		$("#campaign_end_date").focus(function() {
+			$("#campaign_start_date").css('border', '');
+			$("#campaign_start_date").parent().find('.error_validation').remove();
+			if ($("#campaign_start_date").val() != '') {
+				//$(this).attr('disabled', false);
+				var newDate = new Date($("#campaign_start_date").val());
+				$(this).datepicker('change', {
+					minDate: newDate
+				});
+			} else {
+				//$(this).attr('disabled', true);
+			}
+		});
+		
+		$("#campaign_exp_date").focus(function() {
+			$("#campaign_end_date").css('border', '');
+			$("#campaign_end_date").parent().find('.error_validation').remove();
+			if ($("#campaign_end_date").val() != '') {
+				//$(this).attr('disabled', false);
+				var newDate = new Date($("#campaign_end_date").val());
+				newDate.setDate(newDate.getDate() + 60);
+				$(this).datepicker('change', {
+					minDate: newDate
+				});
+			} else {
+				//$(this).attr('disabled', true);
+			}
+		});
+    	// only show first page content
+    	$('span#one').attr('class', 'active num');
+    	$('span.num').click(function() {
+    		current_page = $(this).attr('page_clicked');
+    		$('span.num').attr('class','num');
+    		$(this).attr('class', 'active num');
+    		$('div.pages').each(function() {
+				if ($(this).attr('page') == current_page) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+				if (current_page == 1) {
+					$('#prev').hide();
+				} else {
+					$('#prev').show();
+				}
+				if (current_page == last_page) {
+					$('#next').hide();
+					$('.actions').show();
+				} else {
+					$('#next').show();
+					$('.actions').hide();
+				}
+			});
+    	});
+    	$('#ex1').show();
+    	$('#ex2').show();
+    	$('#ex3').show();
+    	$('#ex4').show();
+    	$('#ex5').show();
+    	$('#ex6').show();
+    	$('#ex7').show();
+    	$('#ex8').show();
+    	$('#ex9').show();
+    	$('div.pages').each(function() {
+    		if ($(this).attr('page') != current_page) {
+    			$(this).hide();
+    		}
+    	});
+    	$(".actions").hide();
+    	$("#prev").hide();
+    	$("#next").show();
+    	
+    	$("#prev").click(function() {
+    		scroll(0,0);
+    		$('#next').show();
+    		$('.actions').hide();
+    		current_page--;
+    		$('span.num').each(function() {
+    			if ($(this).attr('page_clicked') == current_page) {
+    				$(this).attr('class', 'active num');	
+    			} else {
+    				$(this).attr('class', 'num');
+    			}
+    		});
+			$('div.pages').each(function() {
+				if ($(this).attr('page') == current_page) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+				if (current_page == 1) {
+					$('#prev').hide();
+				} else {
+					$('#prev').show();
+				}
+			});
+		});
+
+		$("#next").click(function() {
+			scroll(0,0);
+			$('#prev').show();
+			current_page++;
+			$('span.num').each(function() {
+    			if ($(this).attr('page_clicked') == current_page) {
+    				$(this).attr('class', 'active num');	
+    			} else {
+    				$(this).attr('class', 'num');
+    			}
+    		});
+			$('div.pages').each(function() {
+				if ($(this).attr('page') == current_page) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+				if (current_page == last_page) {
+					$('#next').hide();
+					$('.actions').show();
+				} else {
+					$('#next').show();
+					$('.actions').hide();
+				}
+			});
+		});
+		
+		$('.campaign_form_tab_link#cftl1').click(function() {
+			$('.campaign_form_tab_link#cftl1').removeClass('campaign_form_tabs_active');
+			$(this).parent().parent().find('.campaign_form_tab_content').css('display','none');
+			$(this).addClass('campaign_form_tabs_active');
+			if ($(this).attr('tone') == 'professional') {
+				$('input#campaign_init_thx_greeting').val('Dear [Customer First Name],');
+				$('input#campaign_init_thx_subject').val('Thanks for referring [Friend First Name] to [Business Name]');
+				
+				$(this).parent().parent().find('.campaign_form_tab_content#prof').css('display', '');
+			} else if ($(this).attr('tone') == 'casual') {
+				$('input#campaign_init_thx_greeting').val('Hi [Customer First Name],');
+				$('input#campaign_init_thx_subject').val('Thanks for hooking up [Friend First Name] at [Business Name]');
+				$(this).parent().parent().find('.campaign_form_tab_content#cas').css('display', ''); // replace with correct text here TODO!
+			} else if ($(this).attr('tone') == 'funny') {
+				$(this).parent().parent().find('.campaign_form_tab_content#fun').css('display', ''); // replace with correct text here TODO!
+			}
+		});
+		
+		$('.campaign_form_tab_link#cftl2').click(function() {
+			$('.campaign_form_tab_link#cftl2').removeClass('campaign_form_tabs_active');
+			$(this).parent().parent().find('.campaign_form_tab_content').css('display','none');
+			$(this).addClass('campaign_form_tabs_active');
+			if ($(this).attr('tone') == 'professional') {
+				$('input#campaign_final_thx_greeting').val('Dear [Customer First Name],');
+				$('input#campaign_final_thx_subject').val('Thank you for your referral to [Friend Full Name]');
+				$(this).parent().parent().find('.campaign_form_tab_content#prof').css('display', ''); 
+			} else if ($(this).attr('tone') == 'casual') {
+				$('input#campaign_final_thx_greeting').val('Hi [Customer Name],');
+				$('input#campaign_final_thx_subject').val('Thanks for your referral to [Friend Full Name]');
+				$(this).parent().parent().find('.campaign_form_tab_content#cas').css('display', ''); 
+			} else if ($(this).attr('tone') == 'funny') {
+				$(this).parent().parent().find('.campaign_form_tab_content#fun').css('display', '');
+			}
+		});
+		
+		$('.campaign_form_tab_link#cftl3').click(function() {
+			$('.campaign_form_tab_link#cftl3').removeClass('campaign_form_tabs_active');
+			$(this).parent().parent().find('.campaign_form_tab_content').css('display','none');
+			$(this).addClass('campaign_form_tabs_active');
+			if ($(this).attr('tone') == 'professional') {
+				$('input#campaign_thx_frien_greeting').val('Dear [Friend First Name],');
+				$('input#campaign_thx_frien_subject').val('Great to meet you');
+				$(this).parent().parent().find('.campaign_form_tab_content#prof').css('display', '');
+			} else if ($(this).attr('tone') == 'casual') {
+				$('input#campaign_thx_frien_greeting').val('Hi [Friend First Name],');
+				$('input#campaign_thx_frien_subject').val('Thanks for checking us out!');
+				$(this).parent().parent().find('.campaign_form_tab_content#cas').css('display', ''); 
+			} else if ($(this).attr('tone') == 'funny') {
+				$(this).parent().parent().find('.campaign_form_tab_content#fun').css('display', ''); 
+			}
+		});
+		
+		$('.campaign_form_tab_link#cftl4').click(function() {
+			$('.campaign_form_tab_link#cftl4').removeClass('campaign_form_tabs_active');
+			$(this).parent().parent().find('.campaign_form_tab_content').css('display','none');
+			$(this).addClass('campaign_form_tabs_active');
+			if ($(this).attr('tone') == 'professional') {
+				$('input#campaign_frien_welc_header_greeting').val('Dear [Friend First Name],');
+				$('input#campaign_friend_welc_header_subject').val('Recommendation for [Business Name]');
+				$(this).parent().parent().find('.campaign_form_tab_content#prof').css('display', '');
+			} else if ($(this).attr('tone') == 'casual') {
+				$('input#campaign_frien_welc_header_greeting').val('Hey [Friend First Name],');
+				$('input#campaign_friend_welc_header_subject').val('Hooking you up at [Business Name]');
+				$(this).parent().parent().find('.campaign_form_tab_content#cas').css('display', ''); 
+			} else if ($(this).attr('tone') == 'funny') {
+				$(this).parent().parent().find('.campaign_form_tab_content#fun').css('display', ''); 
+			}
+		});
+		
+		
+		
+    	n = <%= @campaign.incentives.count %> // depreciated
+    	if ( n == 0 ) n = 1;
+    	//alert(n); 
+    	if ( n == 1) {
+    		$(".remove").hide();
+    		$(".add").show();
+    	}
+    	if ( n == 3 ) {
+    		$(".add").hide();
+    		$(".remove").show();
+    	}
+		if($('#campaign_give_cust_ref_sent:checked').length) { 
+        	$(".a1 :input").attr('disabled', false);   
+        } else { 
+            $(".a1 :input").attr('disabled', true);
+        } 
+        $("#campaign_give_cust_ref_sent").click(function() { 
+            if($('#campaign_give_cust_ref_sent:checked').length) { 
+                $(".a1 :input").attr('disabled', false);
+            } else { 
+                $(".a1 :input").attr('disabled', true);
+            } 
+        }); 
+        
+      	if($('#campaign_give_cust_success:checked').length) { 
+        	$(".a2 :input").attr('disabled', false);  
+        } else { 
+            $(".a2 :input").attr('disabled', true);  
+        } 
+        $("#campaign_give_cust_success").click(function() { 
+            if($('#campaign_give_cust_success:checked').length) { 
+                $(".a2 :input").attr('disabled', false);   
+            } else { 
+                $(".a2 :input").attr('disabled', true);  
+            } 
+        }); 
+        
+        if($('#campaign_give_frien:checked').length) { 
+        	$(".a3 :input").attr('disabled', false);
+        	$(".a3").attr('disabled', false);   
+        } else { 
+            $(".a3 :input").attr('disabled', true);
+            $(".a3").attr('disabled', true);    
+        } 
+        $("#campaign_give_frien").click(function() { 
+            if($('#campaign_give_frien:checked').length) { 
+                $(".a3 :input").attr('disabled', false);
+                $(".a3").attr('disabled', false);    
+            } else { 
+                $(".a3 :input").attr('disabled', true);
+                $(".a3").attr('disabled', true);    
+            } 
+        });
+        
+        // $('#campaign_cust_successful_incentive_long').focus(function() {
+        	// $(this).attr('rows', '9');
+        // });
+        // $('#campaign_cust_successful_incentive_long').blur(function() {
+        	// $(this).attr('rows', '5');
+        // });
+//         
+        // $('#campaign_cust_sent_incentive_long').focus(function() {
+        	// $(this).attr('rows', '9');
+        // });
+        // $('#campaign_cust_sent_incentive_long').blur(function() {
+        	// $(this).attr('rows', '5');
+        // });
+        
+     	var maxChar1 = 40;
+     	var maxChar2 = 40;
+     	var maxChar3 = 120;
+     	var maxChar4 = 120;
+		var numChar1 = $("#campaign_cust_sent_incentive").val().length;
+		var numChar2 = $("#campaign_cust_successful_incentive").val().length;
+		var numChar3 = $("#campaign_cust_sent_incentive_long").val().length;
+		var numChar4 = $("#campaign_cust_successful_incentive_long").val().length;
+		$('#cust_sent_short_label').text((maxChar1-numChar1) + ' chars left');
+		$('#cust_successful_short_label').text((maxChar2-numChar2) + ' chars left');
+		$('#cust_sent_long_label').text((maxChar3-numChar3) + ' chars left');
+		$('#cust_successful_long_label').text((maxChar4-numChar4) + ' chars left');
+
+	$('#campaign_cust_sent_incentive').keypress(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	   numChar1 = $(this).val().length;
+	  $('#cust_sent_short_label').text((maxChar1-numChar1) + ' chars left');
+	  if (numChar1 < 0) { numChar1 = 0; }
+	   if (numChar1 >= maxChar1 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) {
+	     $('#cust_sent_short_label').text('0 chars left');
+	     event.preventDefault();
+	     $(this).val($(this).val().slice(0, maxChar1));
+	   } else {
+	     $('#cust_sent_short_label').text((maxChar1-numChar1) + ' chars left');
+	   }
+	  }); 
+	  
+	  $('#campaign_cust_sent_incentive').keyup(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	  numChar1 = $(this).val().length;
+	  $('#cust_sent_short_label').text((maxChar1-numChar1) + ' chars left');
+	  if (numChar1 >= maxChar1 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) { numChar1 = maxChar1; $(this).val($(this).val().slice(0, maxChar1)); }
+	  }); 
+	  
+	  
+	  
+	  $('#campaign_cust_successful_incentive').keypress(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	   numChar2 = $(this).val().length;
+	  $('#cust_successful_short_label').text((maxChar2-numChar2) + ' chars left');
+	  if (numChar2 < 0) { numChar2 = 0; }
+	   if (numChar2 >= maxChar2&& event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) {
+	     $('#cust_successful_short_label').text('0 chars left');
+	     event.preventDefault();
+	     $(this).val($(this).val().slice(0, maxChar2));
+	   } else {
+	     $('#cust_successful_short_label').text((maxChar2-numChar2) + ' chars left');
+	   }
+	  }); 
+	  
+	  $('#campaign_cust_successful_incentive').keyup(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	  numChar2 = $(this).val().length;
+	  $('#cust_successful_short_label').text((maxChar2-numChar2) + ' chars left');
+	  if (numChar2 >= maxChar2 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) { numChar2 = maxChar2; $(this).val($(this).val().slice(0, maxChar2)); }
+	  }); 
+	  
+	  
+	  
+	  $('#campaign_cust_sent_incentive_long').keypress(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	   numChar3 = $(this).val().length;
+	  $('#cust_sent_long_label').text((maxChar3-numChar3) + ' chars left');
+	  if (numChar3 < 0) { numChar3 = 0; }
+	   if (numChar3 >= maxChar3 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) {
+	     $('#cust_sent_long_label').text('0 chars left');
+	     event.preventDefault();
+	     $(this).val($(this).val().slice(0, maxChar3));
+	   } else {
+	     $('#cust_sent_long_label').text((maxChar3-numChar3) + ' chars left');
+	   }
+	  }); 
+	  
+	  $('#campaign_cust_sent_incentive_long').keyup(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	  numChar3 = $(this).val().length;
+	  $('#cust_sent_long_label').text((maxChar3-numChar3) + ' chars left');
+	  if (numChar3 >= maxChar3 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) { numChar3 = maxChar3; $(this).val($(this).val().slice(0, maxChar3)); }
+	  }); 
+	  
+	  
+	  $('#campaign_cust_successful_incentive_long').keypress(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	   numChar4 = $(this).val().length;
+	  $('#cust_successful_long_label').text((maxChar4-numChar4) + ' chars left');
+	  if (numChar4 < 0) { numChar4 = 0; }
+	   if (numChar4 >= maxChar4 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) {
+	     $('#cust_successful_long_label').text('0 chars left');
+	     event.preventDefault();
+	     $(this).val($(this).val().slice(0, maxChar4));
+	   } else {
+	     $('#cust_successful_long_label').text((maxChar4-numChar4) + ' chars left');
+	   }
+	  }); 
+   
+    
+    $('#campaign_cust_successful_incentive_long').keyup(function(event) {
+	  if (event.keyCode == '13') {
+	     event.preventDefault();
+	   }
+	  numChar4 = $(this).val().length;
+	  $('#cust_successful_long_label').text((maxChar4-numChar4) + ' chars left');
+	  if (numChar4 >= maxChar4 && event.which != 8 && event.which != 46 && (event.which > 40 || event.which < 37) && (!event.ctrlKey || event.which == 118)) { numChar4 = maxChar4; $(this).val($(this).val().slice(0, maxChar4)); }
+	  }); 
+     }); 
+    
+function remove_fields(link) {
+	if (n > 1) {
+        $(link).prev("input[type=hidden]").val('1');
+        $(link).parents(".fields").fadeOut(400);
+        n = n - 1;
+    } 
+    if (n > 1) {
+    	$(".remove").show();
+    } else {
+    	$(".remove").hide();
+    }
+    $(".add").show();
+}
+
+function add_fields(link, association, content) {
+	if (n < 3) {
+        var new_id = new Date().getTime();
+        var regexp = new RegExp("new_" + association, "g");
+        $(link).parent().before(content.replace(regexp, new_id));
+        if($('#campaign_give_cust_ref_sent:checked').length) { 
+        	$('.a1 :input').attr('disabled', false);  
+        } else { 
+            $('.a1 :input').attr('disabled', true); 
+        }
+        if($('#campaign_give_cust_success:checked').length) { 
+        	$(".a2 :input").attr('disabled', false); 
+        } else { 
+            $(".a2 :input").attr('disabled', true); 
+        }
+        if($('#campaign_give_frien:checked').length) { 
+        	$(".a3 :input").attr('disabled', false);  
+        } else { 
+            $(".a3 :input").attr('disabled', true); 
+        }
+        n = n + 1;
+    }
+    if (n < 3) {
+    	$(".add").show();
+    } else {
+    	$(".add").hide();
+    }
+    $(".remove").show();
+}
+
+$(".tool_tip[title]").tooltip({
+   // tweak the position
+	offset: [0, 0],
+	position: 'top right',
+	   // use the "slide" effect
+	effect: 'slide'
+	// add dynamic plugin with optional configuration for bottom edge
+}).dynamic({ bottom: { direction: 'down', bounce: true } });
+
+
+
+function check_on_file() {
+	$.ajax({
+		url: 'check_on_file',
+		data: '',
+		dataType: 'json',
+		type: 'GET',
+		success: function (j) {
+			if (!j.card_on_file) {
+				setTimeout("check_on_file()", 3000);
+			} else {
+				$('form#new_campaign').submit();
+			}
+		}
+	});
+	
+		//$('input[name="commit"]').attr('disabled', true);
+
+}
+
+	$('div.actions').click(function(event) { // see form.html.erb: 446
+		var to_save = confirm("Save your campaign now? You can make changes whenever you want.");
+		if (to_save) {
+			$('form').data('validated', true);
+			// also need to valid presence.
+			$('input').css('border', '');
+			$('input').parent().find('.error_validation').remove();
+			$('input').change();
+			$('input').blur(); // some fields need .blur not .change
+			$('textarea').css('border', '');
+			$('textarea').parent().find('.error_validation').remove();
+			$('textarea').change();
+			$('textarea').blur();// some fields need .blur not .change
+			$('select').css('border', '');
+			$('select').parent().find('.error_validation').remove();
+			$('select').change();
+			$('select').blur();// some fields need .blur not .change
+			if (!$('form').data('validated')) {
+				event.preventDefault();
+				alert('Some of the fields have not been filled in properly. Please Check.');
+			} else {
+				$('input', 'textarea', 'select').attr('disabled','disabled');
+				<% if @smb.credit != "free" %>
+					<% if !@smb.card_provided? %>
+						event.preventDefault();
+						window.open('cardinfo?popup=1', 'Please Provide Your Credit Card', 'width=400, height=500');
+						check_on_file();
+					<% end %>
+				<% end %>
+			}	
+		} else {
+			event.preventDefault();
+		}
+	});
+
+
+function showBlock() {
+	$("#block").show();
+	$("#x").animate({
+		fontSize: "100%"
+	},300);
+
+	$("#block").animate({
+	    width: "35%",
+		height:"35%",
+	    opacity: 0.9,
+	    left: "32.5%",
+		top: "32.5%",
+	    fontSize: "100%"
+	}, 300 );
+}
+
+$("#x").click(function() {
+	$("#x").animate({
+		fontSize: "0px"
+	},300);
+	$("#block").animate({
+		width: "0%",
+		height:"0%",
+    	opacity: 0,
+    	left: "50%",
+		top: "50%",
+    	fontSize: "0px"
+	}, 300, function() {
+		$("#block").hide();
+	});
+});
+
+$("#ex1").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Free appetizer when you order an entree");
+	showBlock();
+});
+
+$("#ex2").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Free glass of wine.");
+	showBlock();
+});
+
+$("#ex3").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Enjoy a complimentary appetizer when you get any of our delicious entrees. Choose from eight great plates that can satiate any appetite.");
+	showBlock();
+});
+
+$("#ex4").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Enjoy a complimentary glass of wine.  Choose any wine available by the glass.");
+	showBlock();
+});
+
+$("#ex5").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Bonus cannot be used with other promotional offers, and must be redeemed at 28 5th Street location in Brooklyn, NY.");
+	showBlock();
+});
+
+$("#ex6").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Bonus cannot be used with other promotional offers, and must be redeemed at 28 5th Street location in Brooklyn, NY.");
+	showBlock();
+});
+
+$("#ex7").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Free glass of wine.");
+	showBlock();
+});
+
+$("#ex8").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Enjoy a complimentary glass of wine.  Choose any wine available by the glass.");
+	showBlock();
+});
+
+$("#ex9").click(function(event){
+	event.preventDefault();
+	$('p#ex').text("Bonus cannot be used with other promotional offers, and must be redeemed at 28 5th Street location in Brooklyn, NY.");
+	showBlock();
+});
+
+		
+	//});
+	</script>
+	
+
+
+
+
+
+<%= form_for [@smb, @campaign] do |f| %>
+  <% if @campaign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+
+      <ul>
+      <% @campaign.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <label class="autosave_text"></label>
+<div class="pages" page="1">
+	<div style="float:right;">
+	  	<!-- <iframe width="304" height="228" src="http://www.youtube.com/embed/LCqMu68OhpE?rel=0" frameborder="0" allowfullscreen></iframe> -->
+	</div>
+	<table class="campaign_1" style="margin-bottom: 40px;">
+		<tr>
+			<td>
+				<div class="field">
+	    			<%= f.label :camp_name, "CAMPAIGN NAME" %>
+	    		</div>
+	    	</td>
+	    	<td>
+				<div class="field">
+	    			<%= f.text_field :camp_name, :placeholder => "Campaign Name", :autosave => true %>
+	    		</div>	    		
+	    	</td>
+	    </tr>
+	    <tr>
+			<td>
+				<div class="field">
+	    			<%= f.label :start_date, "START DATE" %>
+	    			<img class="tool_tip" src="/credvine_tooltip.png" title="Start getting cred.  This is the first day your referral campaign will be active, so your customers can start referring their friends."/>
+	    		</div>
+	    	</td>
+	    	<td>
+				<div class="field">
+	    			<%= f.text_field :start_date, :placeholder => "Start Date", :autosave => true %>
+	    		</div>	    		
+	    	</td>
+	    </tr>
+	    <tr>
+			<td>
+				<div class="field">
+	    			<%= f.label :end_date, "END DATE" %>
+	    			<img class="tool_tip" src="/credvine_tooltip.png" title=" Last day of cred for this campaign.  This is the last day your customers can make referrals to friends for this campaign.  Keep in mind that most businesses will run their referral campaign on an ongoing basis, and just adjust incentives and messaging periodically.  In this case, set an end date 1-2 years in the future.  Other businesses may periodically launch special referral campaigns (e.g., July is Referral Month) with special bonuses and promotions.  If you have a special campaign planned, you can set your main campaign end date to end when your special campaign is scheduled to start.  Note that your most recently launched campaign will be Active and any other campaigns will be deactivated until you decide to re-activate."/>
+	    		</div>
+	    	</td>
+	    	<td>
+				<div class="field">
+	    			<%= f.text_field :end_date, :placeholder => "End Date", :autosave => true %>
+	    		</div>	    		
+	    	</td>
+	    </tr>
+	    <tr>
+			<td>
+				<div class="field">
+	    			<%= f.label :exp_date, "COUPON EXPIRY DATE" %>
+	    			<img class="tool_tip" src="/credvine_tooltip.png" title="This is the date that the credit or voucher you give your customers and their friends as a ‘thank you’ or ‘welcome’ bonus will expire.  Note that it must be at least 2 months after they receive their voucher."/>
+	    		</div>
+	    	</td>
+	    	<td>
+				<div class="field">
+	    			<%= f.text_field :exp_date, :placeholder => "Coupon Expiry Date", :autosave => true %>
+	    		</div>	    		
+	    	</td>
+	    </tr>
+	</table>
+	<div class="field">
+		<%= f.check_box :status, :autosave => true, :style => "margin-left: 0px;" %>
+		<%= f.label :status, "Make this campaign active when it is launched" %>
+	</div>
+</div>
+
+<div class="pages" page="2" style="display:none">
+  <div class="campaign_heading">NEW CAMPAIGN: INCENTIVES</div>
+  <div class="campaign_subheading">CUSTOMER INCENTIVES</div>
+  			<div class="field" style="width: 585px">
+				<label style="margin-right:10px">Give customers their incentive as a:</label>
+  				<%= f.radio_button :make_cust_incentive_a_surprise, true, :autosave => true, :style => "margin-bottom: 20px;", :checked => "checked" %>
+  				<%= f.label "Surprise Bonus"%>
+  				<img class="tool_tip" src="/credvine_tooltip.png" title="After your customers refer their friends, they won’t know that they will receive a reward as a special thank you if their friend makes a purchase from your business. Instead, your referral program promotions will focus on how sweet it is to hook up friends with special bonuses, not how sweet it is to make money off of friends. Note: research shows that many customers are MORE likely to make a referral if they’re helping out a friend AND they’re more likely to come back again if they receive a SURPRISE reward."/>
+  				<img class="tool_tip" src="/credvine_tooltip.png" style="float:right" title="Based on the way your referral program is promoted, your customer will know that they will receive a special reward when their friend makes a purchase from your business."/>
+  				<%= f.label "Publicized Bonus", :style => "float:right"%>
+  				<%= f.radio_button :make_cust_incentive_a_surprise, false, :style => "float:right", :autosave => true %>
+  			</div>
+  			<div class="field">
+				<%= f.check_box :give_cust_ref_sent, :style => "margin-left: 0px; margin-bottom: 12px;", :autosave => true %>
+				<%= f.label :give_cust_ref_sent, "Offer customer an incentive for SENDING referrals" %>
+				<%= f.check_box :give_cust_success, :style => "margin-left:112px", :autosave => true %>
+				<%= f.label :give_cust_success, "Offer customer an incentive for SUCCESSFUL referrals" %>
+  			</div>
+			<table class="field">
+
+					<tr>
+						<td>
+							<div class="a1">
+								<%= f.label :incentive_type_id, "Incentive Type" %>
+								<img class="tool_tip" src="/credvine_tooltip.png" title="How are you hooking up your customers and their friends?<br/><ul style='margin-left:15px; padding-left:0px;'><li><b>Monetary Bonus:</b>  $$ based credit (e.g., save $5 at a coffee shop)</li><li><b>Upgrade:</b> Upgrade an order (e.g., Large coffee for the price of a small)</li><li><b>VIP Service:</b> Give the special treatment (e.g., skip the line at the coffee shop)</li><li><b>Free give-away:</b> Give something away for free (e.g., free coffee)</li></ul>"/><br/>
+								<%= f.collection_select :incentive_type_id, IncentiveType.find(:all), :id, :type_of_incentive, :prompt => "Select a Type", :autosave => true %>
+								<br/>
+								<br/>
+								<%= f.label :incentive_val, "Incentive Value" %>
+								<img class="tool_tip" src="/credvine_tooltip.png" title=" Assign a value to the incentive, based on what it is worth to your business. This will help us analyze the results of the campaign, and provide a total cost per acquisition (CPA) and other helpful metrics."/><br/>
+								<%= f.text_field :incentive_val, :size => 10, :autosave => true, :class => "incentive_input", :placeholder => "Incentive value ($)" %>
+									
+							</div>
+						</td>
+			  			<td>
+			  				<div class="a1">
+			  					<%= f.label :cust_sent_incentive, "Short description:" %>
+			  					<img class="tool_tip" src="/credvine_tooltip.png" title="You have 40 characters to describe the bonus in your campaign! This will be used on the poster and cards used to promote your customer referral program, as well as in the e-mails to your customers and their friend"/>
+			  					<label style="float:right" id="cust_sent_short_label"></label><br/>
+			  					<%= f.text_area :cust_sent_incentive, :rows => 4, :maxlength => "40", :cols => 33, :autosave => true %><br/>
+			  				</div>
+			  			</td>
+			  			<td style="width: 40px;"></td>
+			  			<td>
+			  				<div class="a2">
+			  					<%= f.label :incentive_type_csi_id, "Incentive Type" %>
+			  					<img class="tool_tip" src="/credvine_tooltip.png" title="How are you hooking up your customers and their friends?<br/><ul style='margin-left:15px; padding-left:0px;'><li><b>Monetary Bonus:</b>  $$ based credit (e.g., save $5 at a coffee shop)</li><li><b>Upgrade:</b> Upgrade an order (e.g., Large coffee for the price of a small)</li><li><b>VIP Service:</b> Give the special treatment (e.g., skip the line at the coffee shop)</li><li><b>Free give-away:</b> Give something away for free (e.g., free coffee)</li></ul>"/><br/>
+			  					<%= f.collection_select :incentive_type_csi_id, IncentiveTypeCsi.find(:all), :id, :type_of_incentive, :prompt => "Select a Type", :autosave => true %>
+			  					<br/>
+								<br/>
+								<%= f.label :incentive_val_csi, "Incentive Value" %>
+								<img class="tool_tip" src="/credvine_tooltip.png" title="Assign a value to the incentive, based on what it is worth to your business. This will help us analyze the results of the campaign, and provide a total cost per acquisition (CPA) and other helpful metrics."/><br/>
+								<%= f.text_field :incentive_val_csi, :size => 10, :autosave => true, :class => "incentive_input", :placeholder => "Incentive value ($)" %>
+			  				</div>
+			  			</td>
+			  			<td>
+			  				<div class="a2">
+			  					<%= f.label :cust_successful_incentive, "Short description:"%>
+			  					<img class="tool_tip" src="/credvine_tooltip.png" title="You have 40 characters to describe the bonus in your campaign! This will be used on the poster and cards used to promote your customer referral program, as well as in the e-mails to your customers and their friend"/>
+			  					<label style="float:right" id="cust_successful_short_label"></label><br/>
+			  					<%= f.text_area :cust_successful_incentive, :rows => 4, :maxlength => "40", :cols => 33, :autosave => true %>
+			  				</div>
+			  			</td>
+			  			<td></td>
+			  			<td></td>
+			  		</tr>
+			  		<tr>
+			  			<td></td>
+			  			<td>
+			  				<div class="a1">
+			  					<button class="ex_button" id="ex1" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  				</div>
+			  			</td>
+			  			<td></td>
+			  			<td></td>
+			  			<td>
+			  				<div class="a2">
+			  					<button class="ex_button" id="ex2" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  				</div>
+			  			</td>
+			  		</tr>
+			  </table>
+			  <table class="field">
+			  	<tr>
+			  		<td>
+			  			<div class="a1">
+				  			<%= f.label :cust_sent_incentive_long, "Long description:" %>
+				  			<img class="tool_tip" src="/credvine_tooltip.png" title="You now have 120 characters to describe your bonus in more detail. This will be used on the vouchers/coupons sent to your customer/their friend."/>
+					  		<label style="float:right" id="cust_sent_long_label"></label><br/>
+					  		<%= f.text_area :cust_sent_incentive_long, :rows => 4, :cols => 54, :maxlength => "120", :autosave => true %>
+				  		</div>
+				  	</td>
+				  	<td style="width: 23px;"></td>
+				  	<td>
+				  		<div class="a2">
+					  		<%= f.label :cust_successful_incentive_long, "Long description:" %>
+					  		<img class="tool_tip" src="/credvine_tooltip.png" title="You now have 120 characters to describe your bonus in more detail. This will be used on the vouchers/coupons sent to your customer/their friend."/>
+					  		<label style="float:right" id="cust_successful_long_label"></label><br/>
+					  		<%= f.text_area :cust_successful_incentive_long, :rows => 4, :cols => 54, :maxlength => "120", :autosave => true %>
+				  		</div>
+				  	</td>
+				</tr>
+				<tr>
+			  		<td>
+			  			<div class="a1">
+			  				<button class="ex_button" id="ex3" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  			</div>
+			  		</td>
+			  		<td></td>
+			  		<td>
+			  			<div class="a2">
+			  				<button class="ex_button" id="ex4" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  			</div>
+			  		</td>
+			  	</tr>
+				<tr>
+					<td>
+						<div class="a1">
+							<%= f.label :term_of_use, "Terms of Use" %>
+							<img class="tool_tip" src="/credvine_tooltip.png" title="Get down to business and add terms of use for your customers (e.g., cannot be redeemed with other promotional offers, or must be redeemed at 123 Oak Street location in Brooklyn).  To avoid customer/friend disappointment, we recommend avoiding overly constraining terms (e.g., can only be redeemed in the morning). <br/>You will need to keep your terms to a maximum of 200 characters, as they will be printed on the coupons provided to customers/their friends"/><br/>
+							<%= f.text_area :term_of_use, :rows => 4, :cols => 54, :autosave => true %>
+						</div>
+					</td>
+					<td></td>
+					<td>
+						<div class="a2">
+							<%= f.label :term_of_use_csi, "Terms of Use" %>
+							<img class="tool_tip" src="/credvine_tooltip.png" title="Get down to business and add terms of use for your customers (e.g., cannot be redeemed with other promotional offers, or must be redeemed at 123 Oak Street location in Brooklyn).  To avoid customer/friend disappointment, we recommend avoiding overly constraining terms (e.g., can only be redeemed in the morning). <br>You will need to keep your terms to a maximum of 200 characters, as they will be printed on the coupons provided to customers/their friends"/><br/>
+							<%= f.text_area :term_of_use_csi, :rows => 4, :cols => 54, :autosave => true %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+			  		<td>
+			  			<div class="a1">
+			  				<button class="ex_button" id="ex5" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  			</div>
+			  		</td>
+			  		<td></td>
+			  		<td>
+			  			<div class="a2">
+			  				<button class="ex_button" id="ex6" style="float:right; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  			</div>
+			  		</td>
+			  	</tr>
+			</table>
+			<br/>
+</div>
+<div class="pages" page="3" style="display:none">
+  	<div class="campaign_heading">NEW CAMPAIGN: INCENTIVES</div>
+  	<div class="campaign_subheading">FRIEND INCENTIVES</div>
+			  <div class="field" style="display:none">
+				<%= f.check_box :give_frien, :autosave => true, :style => "margin-left:0px;margin-bottom: 20px;" %>
+				<%= f.label :give_frien, "Offer your customers' friends an incentive on their first visit" %>
+			  </div>
+			  <% flash[:n] = 1 %>
+			  <%= f.fields_for :incentives do |builder| %>
+			  	<label>
+			  		<% if flash[:n] == 1 %>
+			  			INCENTIVE #<%= flash[:n] %>
+			  		<% else %>
+			  			INCENTIVE #<%= flash[:n] %>  (OPTIONAL)
+			  			<img class="tool_tip" src="/credvine_tooltip.png" title="You can optionally add incentives #2 and #3 to provide your customers with options to choose from to send their friend, along with the referral.  This will allow them to further personalize the referral by choosing the incentive they think their friend will value most."/>
+			  		<% end %>
+			  	</label>
+  				<%= render 'incentive_fields', :f => builder %>
+  				<% flash[:n] = flash[:n] + 1 %>
+  			  <% end %>
+  			  <% flash[:n] = nil %>
+  			  <button class="a3 ex_button" id="ex7" style="margin-left: 140px; height:20px; font-size: 10px; display: none; margin-bottom:50px;">SEE EXAMPLE</button>
+			  <button class="a3 ex_button" id="ex8" style="margin-left: 156px; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+			  <button class="a3 ex_button" id="ex9" style="margin-left: 156px; height:20px; font-size: 10px; display: none;">SEE EXAMPLE</button>
+
+  		<!-- <p class="add">
+  			<%= link_to_add_fields "Add Incentive", f, :incentives %>
+			<img class="tool_tip" src="/assets/tooltip_icon.jpg" title="add incentives explanation wording stuff here"/>  			
+  		</p> -->
+  
+</div>
+<div class="pages" page="4" style="display:none">
+  <div class="campaign_heading">NEW CAMPAIGN: CUSTOMIZE MESSAGE</div>
+  <div class="campaign_subheading">MESSAGES TO CUSTOMERS</div>
+  
+  	<div class="tab_wrapper">
+  		<label>Select which email template you would like to start with<br/> by clicking the appropriate black button on the left below</label>
+	  	<div class="campaign_form_tab_links" >
+			<a class="campaign_form_tab_link campaign_form_tabs_active" tone="professional" id="cftl1">PROFESSIONAL</a>
+			<a class="campaign_form_tab_link" tone="casual" id="cftl1">CASUAL</a>
+			<!-- <a class="campaign_form_tab_link" tone="funny" id="cftl1">FUNNY</a> -->
+		</div>
+	    <div class="campaign_form_tab_content init_thx" id="prof">We do our best to give our customers the experience they deserve at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>. We’re glad you enjoyed your experience with us.
+	    	<br/>
+			<br/>
+Thanks for recommending <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Friend First Name]</span> to <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>.  We’ll make sure we give them the experience that you know and expect from us. <br/>
+			<br/>
+<span class="tool_tip perk_word"  title="This will not be pulled into the email if you decide not to give your customer a perk (by unchecking the <b>Offer customer an incentive for SENDING referrals</b> checkbox in page 3 ).">{As a thank you just for sending a referral to your friend, we would like to send you a small token of our gratitude.}</span><br/>
+<br/>
+Best regards, <br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+	    </div>
+	    <div class="campaign_form_tab_content init_thx" id="cas" style="display: none;">You can go ahead and pat yourself on the back – you just hooked up your friend <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Friend First Name]</span>, and we’re confident they’re going to love you for it.<br/>
+			<br/>
+<span class="tool_tip perk_word"  title="This will not be pulled into the email if you decide not to give your customer a perk (by unchecking the <b>Offer customer an incentive for SENDING referrals</b> checkbox in page 3 ).">{And you know what they say - giver’s gain! So as a small thank you just for hooking up your friend, we would like to send you a small token of our gratitude.}</span>
+<br/>
+<br/>
+Cheers, <br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+			
+	    </div>
+	    <div class="campaign_form_tab_content" id="fun" style="display: none;">
+	    	
+	    </div>
+  	</div>
+  <div class="field">
+    <%= f.label :init_thx, "Thank-you Message for SENDING Referrals:" %>
+    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer right after they send a referral to a friend.  It is used to thank them for sending the referral and letting them know you will give their friend a great experience."/><br/>
+    <label class="greeting_subject_label" >Subject:</label>
+    <%= f.text_field :init_thx_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Thanks for referring [Friend First Name] to [Business Name]" %><br/>
+    <label class="greeting_subject_label" >Greetings:</label>
+    <%= f.text_field :init_thx_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Customer First Name]," %><br/>
+    <%= f.text_area :init_thx, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+  </div>
+  
+  <div style="color:white; margin-bottom: 20px;">START WITH: <button class="start_with_buttons prof_temp" id="init_thx">PROFESSIONAL TEMPLATE</button> <button class="start_with_buttons cas_temp" id="init_thx">CASUAL TEMPLATE</button></div>
+  
+  <div class="tab_wrapper">
+  		<label>Select which email template you would like to start with<br/> by clicking the appropriate black button on the left below</label>
+	  	<div class="campaign_form_tab_links" >
+			<a class="campaign_form_tab_link campaign_form_tabs_active" tone="professional" id="cftl2">PROFESSIONAL</a>
+			<a class="campaign_form_tab_link" tone="casual" id="cftl2">CASUAL</a>
+			<!-- <a class="campaign_form_tab_link" tone="funny" id="cftl2">FUNNY</a> -->
+		</div>
+	    <div class="campaign_form_tab_content final_thx" id="prof">
+We’d like to thank you again for referring your friend to us. We appreciate your trust and support as we grow our business. <br/>
+			<br/>
+<span class="tool_tip perk_word"  title="This will not be pulled into the email if you decide not to give your customer a perk (by unchecking the <b>Offer customer an incentive for SUCCESSFUL referrals</b> checkbox in page 3 ).">{As a special thank you, we’d like to also offer you something extra.<br/>
+<br/>
+Thank you bonus: <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer Thank You Bonus For Successful Referral Long Description]</span>}</span><br/>
+<br/>
+We look forward to keeping in touch and seeing you soon. Thank you again for your referral. If you think another friend would ever enjoy our services, you can always refer them at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Referral Form Link]</span>. <br/>
+<br/>
+Best,<br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+	    </div>
+	    <div class="campaign_form_tab_content final_thx" id="cas" style="display: none;">We value your thoughts and opinions, and we’re glad to see that your friend, <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Friend First Name]</span>, does too! <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Friend First Name]</span> just redeemed their bonus at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>. Thanks again for helping spread the word about us. <br/>
+			<br/>
+<span class="tool_tip perk_word"  title="This will not be pulled into the email if you decide not to give your customer a perk (by unchecking the <b>Offer customer an incentive for SENDING referrals</b> checkbox in page 3 ).">{As a special thank you, we’d like to also offer you something extra.<br/>
+<br/>
+Thank you bonus: <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer Thank You Bonus For Successful Referral Long Description]</span>}</span><br/>
+<br/>
+We look forward to keeping in touch and seeing you soon. Thank you again for your referral. If you think another friend would ever enjoy our services, you can always refer them at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Referral Form Link]</span>. <br/>
+<br/>
+Best, <br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+	    </div>
+	    <div class="campaign_form_tab_content" id="fun" style="display: none;">
+	    	
+	    </div>
+  	</div>
+  <div class="field">
+    <%= f.label :final_thx, "Thank-you Message for SUCCESSFUL Referrals:" %>
+    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer after their friend redeems their voucher to complete their referral.  It is used to thank them for a successful referral and let them know you value their support in growing your business."/><br/>
+    <label class="greeting_subject_label" >Subject:</label>
+    <%= f.text_field :final_thx_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Thank you for your referral to [Friend Full Name]" %><br/>
+    <label class="greeting_subject_label" >Greetings:</label>
+    <%= f.text_field :final_thx_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Customer First Name]," %><br/>
+    <%= f.text_area :final_thx, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+
+  </div>
+  
+  <div style="color:white; margin-bottom: 20px;">START WITH: <button class="start_with_buttons prof_temp" id="final_thx">PROFESSIONAL TEMPLATE</button> <button class="start_with_buttons cas_temp" id="final_thx">CASUAL TEMPLATE</button></div>
+  
+  <div class='field'>
+		<%= f.check_box :notify_me_per_succ_ref, :autosave => true, :style => "margin-bottom: 20px; margin-left: 0px;" %><%= f.label :notify_me_per_succ_ref, "Notify me and allow me to personalize the thank you note for each successful referral"%>
+		<img class="tool_tip" src="/credvine_tooltip.png" title="By selecting this checkbox, you will receive an email alert for each successful referral, which will provide a link to edit and personalize the referral thank you note to that particular customer.  This is a good option if you know your customers personally and will want to reference personal details in your message."/><br/>
+  </div>
+  <div class="campaign_subheading">MESSAGES TO FRIENDS</div>
+ 
+	<div class="tab_wrapper">
+  		<label>Select which email template you would like to start with<br/> by clicking the appropriate black button on the left below</label>
+	  	<div class="campaign_form_tab_links" >
+			<a class="campaign_form_tab_link campaign_form_tabs_active" tone="professional" id="cftl4">PROFESSIONAL</a>
+			<a class="campaign_form_tab_link" tone="casual" id="cftl4">CASUAL</a>
+			<!-- <a class="campaign_form_tab_link" tone="funny" id="cftl4">FUNNY</a> -->
+		</div>
+	    <div class="campaign_form_tab_content frien_welc" id="prof">We’ve really enjoyed working with your friend, <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer Full Name]</span>, and are honored they’ve enjoyed working with us too. <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> would like to recommend you speak with us at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>, a <span class="tool_tip insert_word"  title="Replace this with your business description">[INSERT BUSINESS DESCRIPTION]</span> located in <span class="tool_tip insert_word"  title="Replace this with your business neighborhood and city">[INSERT NEIGHBORHOOD AND CITY]</span>.  We’re glad that <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> connected us, and we’d love to see you at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span> for <span class="tool_tip insert_word"  title="Replace this with description of core service offering or value in your business">[INSERT DESCRIPTION OF CORE SERVICE OFFERING / VALUE]</span>.
+<br/>
+Even better, <span class="tool_tip untouchable_word" title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> would also like to give you a special perk! 
+			
+			
+	    </div>
+	    <div class="campaign_form_tab_content frien_welc" id="cas" style="display: none;">We get it - friends know friends best, and we’re excited that your friend <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> thinks you’d like to check us out. Not only that, <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> also wants to hook you up with an extra perk!
+	    </div>
+	    <div class="campaign_form_tab_content" id="fun" style="display: none;">
+	    	
+	    </div>
+  	</div>
+  <div class="field">
+    <%= f.label :frien_welc_header, "Friend Welcome Message:" %>
+    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer’s friend along with their referral message.  The message you write will appear at the very beginning of the email.  Your customer’s quote about your business will then be appended below, along with the voucher to receive their perk, and your business contact details."/><br/>
+    <label class="greeting_subject_label" >Subject:</label>
+     <%= f.text_field :friend_welc_header_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Recommendation for [Business Name]" %><br/>
+    <label class="greeting_subject_label">Greetings:</label>
+    <%= f.text_field :frien_welc_header_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Friend First Name]," %><br/>
+    <%= f.text_area :frien_welc_header, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+
+  </div>
+  
+  <div style="color:white; margin-bottom: 20px;">START WITH: <button class="start_with_buttons prof_temp" id="frien_welc">PROFESSIONAL TEMPLATE</button> <button class="start_with_buttons cas_temp" id="frien_welc">CASUAL TEMPLATE</button></div>
+
+  <div class="tab_wrapper">
+  		<label>Select which email template you would like to start with<br/> by clicking the appropriate black button on the left below</label>
+	  	<div class="campaign_form_tab_links" >
+			<a class="campaign_form_tab_link campaign_form_tabs_active" tone="professional" id="cftl3">PROFESSIONAL</a>
+			<a class="campaign_form_tab_link" tone="casual" id="cftl3">CASUAL</a>
+			<!-- <a class="campaign_form_tab_link" tone="funny" id="cftl3">FUNNY</a> -->
+		</div>
+	    <div class="campaign_form_tab_content thx_frien" id="prof">It was a pleasure meeting you. We’re so glad that <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> recommended you, and we’re looking forward to the opportunity to work together and stay in touch. <br/>
+			<br/>
+If you know of other people who you think would benefit from our services, we’d really appreciate if you could refer them at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Referral Form Link]</span>, to continue to spread the word. We value each and every customer relationship and strive to always meet and exceed expectations.<br/>
+<br/>
+We look forward to keeping in touch and speaking with you again soon. <br/>
+<br/>
+Best, <br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+	    </div>
+	    <div class="campaign_form_tab_content thx_frien" id="cas" style="display: none;">It was great to meet you today at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>. We’re excited that <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> recommended you check us out. <br/>
+		<br/>
+We hope you had a great experience with us. If you’d like to spread the love and hook up your friends just like <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Customer First Name]</span> did, you can refer your friends at <span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Referral Form Link]</span>.<br/>
+<br/>
+We look forward to keeping in touch and seeing you again soon!<br/>
+<br/>
+Best, <br/>
+<span class="tool_tip untouchable_word"  title="DON'T CHANGE THIS AFTER YOU COPY">[Business Name]</span>
+	    </div>
+	    <div class="campaign_form_tab_content" id="fun" style="display: none;">
+	    	
+	    </div>
+  	</div>
+  	
+  	
+  <div class="field">
+    <%= f.label :thx_frien, "Thank-you Message for Friend's First Visit:" %>
+    <img class="tool_tip" src="/credvine_tooltip.png" title="This email is sent to your customer’s friend as a follow up to their first visit. Its purpose is to thank them for their visit and remind them to return soon, as well as optionally request a referral."/><br/>
+    <label class="greeting_subject_label" >Subject:</label>
+    <%= f.text_field :thx_frien_subject, :autosave => true, :placeholder => "Subject", :class => "subject", :value => "Great to meet you" %><br/>
+    <label class="greeting_subject_label" >Greetings:</label>
+    <%= f.text_field :thx_frien_greeting, :autosave => true, :placeholder => "Greetings", :class => "greetings", :value => "Dear [Friend First Name]," %><br/>
+    <%= f.text_area :thx_frien, :rows => 9, :cols => 48, :autosave => true, :class => "page_4_textarea" %>
+
+  </div>
+
+<div style="color:white; margin-bottom: 20px;">START WITH: <button class="start_with_buttons prof_temp" id="thx_frien">PROFESSIONAL TEMPLATE</button> <button class="start_with_buttons cas_temp" id="thx_frien">CASUAL TEMPLATE</button></div>
+
+
+  <br/>
+  <br/>
+</div>
+
+
+  <div class="actions" style="float:right;margin-top:-10px; display:none;">
+  	<% if !@smb.first_time %>
+    	<%= f.submit "SAVE", :class => "campaign_form_button", :style => "margin-right: 15px;" %>
+    <% end %>
+    <%= f.submit "SAVE & PREVIEW", :class => "campaign_form_button" %>
+  </div>
+
+<% end %>
+<center><div id="page_bar">PAGE &nbsp;&nbsp;&nbsp;&nbsp; <span class="num" id="one" page_clicked="1">1</span>  <span class="num" page_clicked="2">2</span>  <span class="num" page_clicked="3">3</span>  <span class="num" page_clicked="4">4</span></div></center>
+  	
+  	<button id="prev" class="prev_next_button" style="display:none">BACK</button>
+  	<button id="next" class="prev_next_button">NEXT</button>
+  	
+
+<div class="popup" id="block"><span id="x"><img src="/x_button.png"/></span><p id="ex"></p></div>
+
+<script>
+$(document).ready(function() {
+	window.onload = function() {
+		$('.campaign_form_tab_link[tone=professional]').each(function() {
+			$(this).click();
+		});	
+	}
+	
+	$('.prof_temp#init_thx').click(function(e) {
+		e.preventDefault();
+		$('#campaign_init_thx').val($('.init_thx#prof').text()).blur();
+		$('.campaign_form_tab_link#cftl1[tone=professional]').click();
+	});
+	$('.cas_temp#init_thx').click(function(e) {
+		e.preventDefault();
+		$('#campaign_init_thx').val($('.init_thx#cas').text()).blur();
+		$('.campaign_form_tab_link#cftl1[tone=casual]').click();
+	});
+	$('.prof_temp#final_thx').click(function(e) {
+		e.preventDefault();
+		$('#campaign_final_thx').val($('.final_thx#prof').text()).blur();
+		$('.campaign_form_tab_link#cftl2[tone=professional]').click();
+	});
+	$('.cas_temp#final_thx').click(function(e) {
+		e.preventDefault();
+		$('#campaign_final_thx').val($('.final_thx#cas').text()).blur();
+		$('.campaign_form_tab_link#cftl2[tone=casual]').click();
+	});
+	$('.prof_temp#frien_welc').click(function(e) {
+		e.preventDefault();
+		$('#campaign_frien_welc_header').val($('.frien_welc#prof').text()).blur();
+		$('.campaign_form_tab_link#cftl4[tone=professional]').click();
+	});
+	$('.cas_temp#frien_welc').click(function(e) {
+		e.preventDefault();
+		$('#campaign_frien_welc_header').val($('.frien_welc#cas').text()).blur();
+		$('.campaign_form_tab_link#cftl4[tone=casual]').click();
+	});
+	$('.prof_temp#thx_frien').click(function(e) {
+		e.preventDefault();
+		$('#campaign_thx_frien').val($('.thx_frien#prof').text()).blur();
+		$('.campaign_form_tab_link#cftl3[tone=professional]').click();
+	});
+	$('.cas_temp#thx_frien').click(function(e) {
+		e.preventDefault();
+		$('#campaign_thx_frien').val($('.thx_frien#cas').text()).blur();
+		$('.campaign_form_tab_link#cftl3[tone=casual]').click();
+	});
+});
+</script>
+
+
+

@@ -1,0 +1,44 @@
+<h1>Listing friends</h1>
+
+<table>
+  <tr>
+  	<th>Fullname</th>
+    <th>Email</th>
+    <th>Twitter</th>
+    <th>Facebook</th>
+    <th>Phone</th>
+    <th>Partial Code</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @friends.each do |friend| %>
+  <tr>
+  	<td><%= link_to friend.fullname, [@smb, @selector, friend] %></td>
+    <td><%= friend.email %></td>
+    <td><%= friend.phone %></td>
+    <td><%= friend.partial_code %></td>
+    <td><%= link_to 'Smb(s)', friend_smbs_path(friend) %></td>
+    <td><%= link_to 'Customer(s)', friend_customers_path(friend) %></td>
+    <% if (params[:customer_id].present? and params[:smb_id].present?)%>
+    <td><%= link_to 'Edit', edit_smb_customer_friend_path(@smb, @selector, friend) %></td>
+    <% elsif params[:customer_id].present?%>
+    <td><%= link_to 'Edit', edit_customer_friend_path(@selector, friend) %></td>
+    <% elsif params[:smb_id].present?%>
+    <td><%= link_to 'Edit', edit_smb_friend_path(@selector, friend) %></td>
+	<% else %>
+	<td><%= link_to 'Edit', edit_friend_path(friend) %></td>
+    <% end %>
+    <% if ((params[:smb_id].present? and params[:customer_id].present?) or (params[:smb_id].nil? and params[:customer_id].nil?))%>
+    <td><%= link_to 'Delete', [@smb, @selector, friend], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>  
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if (params[:customer_id].present? and params[:smb_id].present?)%>
+<%= link_to 'New Friend', new_smb_customer_friend_path(@smb, @selector) %>
+<% end %>
+

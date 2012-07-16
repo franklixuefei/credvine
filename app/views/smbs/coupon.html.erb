@@ -1,0 +1,18 @@
+<!-- <%= image_tag ("http://0.0.0.0:3000/smbs/"+params[:id].to_s+"/coupon.png") %> -->
+
+
+<center>
+	<h1> Coupon Confirmation </h1>
+
+<p>Campaign <%= (@campaign.status)? "Active" : "Inactive" %></p>
+
+
+	<% if flash[:notice] == "code for referral by customer found" %>
+		<p>Coupon code: <%= @code.cust_init_code %></p>
+	<% elsif flash[:notice] == "code for successful customer found" %>
+		<p>Coupon code: <%= @code.cust_success_code %></p>
+	<% elsif flash[:notice] == "code for friend coupon found" %>
+		<p>Coupon code: <%= @code.frien_code %></p>
+	<% end %>
+</center>
+	

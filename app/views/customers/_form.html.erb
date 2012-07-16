@@ -1,0 +1,62 @@
+<%= form_for([@selector, @customer]) do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <!--  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div> -->
+  <div class="field">
+    <%= f.label :fullname %><br />
+    <%= f.text_field :fullname %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.telephone_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :frien_welc, "What do you want to say to your friend:" %><br />
+    <%= f.text_area :frien_welc, :rows => 6, :cols => 50 %>
+  </div>
+  <div class="field">
+    <%= f.label :email, "Your email address" %><br />
+    <%= f.email_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :photo %><br />
+    <%= f.text_field :photo %>
+  </div>
+
+  <%= f.fields_for :friends do |builder|%>
+  	  <div class="field">
+	  	<%= builder.label :fullname, "Your friend's full name:"%><br />
+	  	<%= builder.text_field :fullname %>
+	  </div>
+	  <div class="field">
+	  	<%= builder.label :email, "Your friend's email address:"%><br />
+	  	<%= builder.email_field :email %>
+	  </div>
+  <% end %>
+  <%= f.fields_for :codes do |builder| %>
+  	<div class="field">
+  		<%= builder.label :incentive_id, "Please select an incentive for your friend: "%><br/>
+		<%= builder.collection_select :incentive_id, @selector.campaigns.find_by_status(true).incentives.find(:all), :id, :frien_incentive, :prompt => "Select an Incentive" %>  		
+  	</div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

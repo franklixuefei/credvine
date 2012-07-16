@@ -1,0 +1,337 @@
+<style>
+div.field {
+	display: inline-block;
+	margin-bottom: 23px;
+	width: 197px;
+}
+
+div.field input, div.field textarea, div.field select {
+	margin-top: 5px;
+}
+
+select {
+	width: 184px;
+}
+
+label {
+	color: #66cc00;
+}
+
+.tooltip {
+	display:none;
+	background-color: #ffffff;
+    border: 1px solid #999999;
+	font-size:14px;
+	line-height: 22px;
+	min-height:10px;
+	width:210px;
+	padding:10px;
+	color:#999999;
+	text-align: justify;
+	font-family: AvenirLTStd-Roman;
+}
+
+img#del_logo, img#del_photo {
+	position: absolute;
+	z-index:2;
+	display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+	$('input#smb_logo').change(function() {
+		$('div.pic1').find('img').css('opacity','');
+		$('div.pic1').append('<div style="font-family: CalcitePro-Bold; font-size: 30px; background:none; text-align:center; color: #66cc00">Uploading...</div>');
+		$('input[name=refresh]').val('1');
+		$('form.edit_smb').submit();
+	});
+	$('input#smb_featured_photo').change(function() {
+		$('div.pic2').append('<div style="font-family: CalcitePro-Bold; font-size: 30px; background:none; text-align:center; color: #66cc00">Uploading...</div>');
+		$('input[name=refresh]').val('1');
+		$('form.edit_smb').submit();
+	});
+	
+	$('div#profile').click(function() {
+		var conf = confirm("Do you want to delete your featured photo?");
+		if (conf) {
+			$.ajax({
+				url: 'del_pic',
+				data: 'picType=profile',
+				dataType: 'json', 
+				type: 'POST',
+				success: function (j) {
+					if (j.ok) {
+						window.location.reload();
+					} else {
+						alert("Something wrong. Please try again.");
+					}
+				}
+			});
+		}
+	});
+	
+	$('div#featured').click(function() {
+		var conf = confirm("Do you want to delete your featured photo?");
+		if (conf) {
+			$.ajax({
+				url: 'del_pic',
+				data: 'picType=featured',
+				dataType: 'json', 
+				type: 'POST',
+				success: function (j) {
+					if (j.ok) {
+						window.location.reload();
+					} else {
+						alert("Something wrong. Please try again.");
+					}
+				}
+			});
+		}
+	});
+	<% if @smb.logo.present? %>
+	// var leftOffset1 = parseInt($('img#p1').css('width').replace('px', '')) - parseInt($('img#del_logo').css('width').replace('px','')) + $('img#p1').position().left;
+	// $('img#del_logo').css('left', leftOffset1 + 'px');
+	// $('img#p1').hover(function(e) {
+		// e.stopPropagation();
+		// $(this).fadeTo('fast', 0.7);
+		// $(this).parent().find('#del_logo').fadeIn('fast');
+	// });
+	// $('body').hover(function() {
+		// $('img#p1').fadeTo('fast', 1);
+		// $('img#p1').parent().find('#del_logo').fadeOut('fast');
+	// });
+
+	<% end %>
+	
+	<% if @smb.featured_photo.present? %>
+	// var leftOffset2 = parseInt($('img#p2').css('width').replace('px', '')) - parseInt($('img#del_photo').css('width').replace('px',''))+ $('img#p2').position().left;
+	// $('img#del_photo').css('left', leftOffset2 + 'px');
+	// $('img#p2').hover(function(e) {
+		// e.stopPropagation();
+		// $(this).fadeTo('fast', 0.7);
+		// $(this).parent().find('#del_photo').fadeIn('fast');
+	// });
+	// $('body').hover(function() {
+		// $('img#p2').fadeTo('fast', 1);
+		// $('img#p2').parent().find('#del_photo').fadeOut('fast');
+	// });
+	
+	<% end %>
+	
+	$(".tool_tip[title]").tooltip({
+		offset: [0, 0],
+		position: 'top right',
+		effect: 'slide'
+	}).dynamic({ bottom: { direction: 'down', bounce: true } });
+	
+	$("button.map_preview").click(function(event) {
+		event.preventDefault();
+		//alert('working');
+		var full_addr = $('input#smb_st_name_num').val() + ', ' + $('input#smb_city').val() + ', ' + (($('input#smb_state_id').val() != null)? $('#smb_state_id').find('option:selected').text() : $('input#smb_state_prov').val()) + ', ' + $('#smb_country_id').find('option:selected').text();
+		var myWindow=window.open('http://maps.google.com/maps/api/staticmap?zoom=15&markers='+ full_addr +'&size=580x220&sensor=false','Map Preview','width=600,height=240,directories=no,location=no,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,toobar=no');
+		myWindow.focus();
+	});
+});
+
+</script>
+
+  
+  
+  <script>
+//  function handleFileSelect(evt) {
+//    var files = evt.target.files; // FileList object
+//
+//    // Loop through the FileList and render image files as thumbnails.
+//    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+//      if (!f.type.match('image.*')) {
+//        continue;
+//      }
+
+//      var reader = new FileReader();
+
+//      // Closure to capture the file information.
+//      reader.onload = (function(theFile) {
+//        return function(e) {
+//          // Render thumbnail.
+//       document.getElementById('p1').src=e.target.result;
+
+
+//document.getElementById('p2').src=e.target.result;
+
+
+//        };
+//      })(f);
+
+//      // Read in the image file as a data URL.
+//      reader.readAsDataURL(f);
+//    }
+//  }
+
+//  document.getElementById('smb_logo').addEventListener('change', handleFileSelect, false);
+</script>
+
+<%= form_for [@selector, @smb], :html => { :multipart => true } do |f| %>
+  <% if @smb.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@smb.errors.count, "error") %> prohibited this smb from being saved:</h2>
+
+      <ul>
+      <% @smb.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<input type="text" name="refresh" style="display:none" value="0">
+
+  
+  <div class="field">
+    <!-- <%= f.label :full_name, "Business Full Name" %><br /> -->
+    <%= f.text_field :full_name, :placeholder => "Business Name" %>
+  </div>
+  
+  <div style="float:right; margin-right:80px;">
+  	<%= f.label :logo, "Business Logo (max 400KB)" %><br />
+    <%= f.file_field :logo, :placeholder => "Choose an image" %>
+  </div>
+  <br/>
+  
+  <div class="field" style="display:none">
+    <!-- <%= f.label :abbr_name, "Business Abbreviation Name" %><br /> -->
+    <%= f.text_field :abbr_name, :placeholder => "Abbr Name" %>
+  </div>
+    
+  <div class="field">
+    <!-- <%= f.label :business_catagory_id, "Business Category" %><br /> -->
+    <%= f.collection_select :business_catagory_id, BusinessCatagory.find(:all), :id, :business, :prompt => "Business Category" %>
+  </div>
+  
+  <div class="pic1" style="float: right; height: 375px;margin-top:-10px;width:500px;text-align: center;">
+  	<!-- <img src="/x_button.png" id="del_logo" > -->
+	<div><img class="medium" id="p1" src="<%= @smb.logo.url(:medium) %>" style="max-width: 500px; max-height: 375px;"></div>
+	<% if @smb.logo.present? %>
+	<div class="profile_img_del_button" style="float:right" id="profile">DELETE</div>
+	<% end %>
+</div>
+  <br/>
+  
+  <div class="field" style="width: 384px;">
+  	<!-- <%= f.label :business_description, "Business Description (max 65 characters)" %> -->
+  	<img class="tool_tip" src="/credvine_tooltip.png" title="This description will be used to briefly explain to new customers what your business does." style="float:right"/><br />
+    <%= f.text_field :business_description, :placeholder => "Business Description (max 65 characters)", :style => "width: 370px", :maxlength => "65" %>
+  </div><br/>
+  
+  <div class="field">
+    <!-- <%= f.label :st_name_num, "Business Address" %><br /> -->
+    <%= f.text_field :st_name_num, :placeholder => "Address", :style => "width:370px;"%>
+  </div>
+
+  <br/>
+  
+  <div class="field">
+    <!-- <%= f.label :country_id %><br /> -->
+    <%= f.collection_select :country_id, Country.find(:all), :id, :name, :prompt => "Select a Country" %>
+  </div>
+  
+  <div class="field">
+    <!-- <%= f.label :state_id, "State or Province" %><br /> -->
+     <%= f.grouped_collection_select :state_id, Country.order(:name), :states, :name, :id, :name, :prompt => "Select a State/Province" %>
+  </div>
+  
+  <div class="field">
+  	<!-- <%= f.label :state_prov, "State or Province" %><br /> -->
+  	<%= f.text_field :state_prov, :placeholder => "State/Province" %>
+  </div>
+  <br/>
+  
+  <div class="field">
+    <!-- <%= f.label :city %><br /> -->
+    <%= f.text_field :city, :placeholder => "City" %>
+  </div>
+  <div class="field">
+    <!-- <%= f.label :zip_pos, "Zip/Postal Code" %><br /> -->
+    <%= f.text_field :zip_pos, :placeholder => "Zip/Postal" %>
+  </div>
+  <br/>
+  
+  <div style="width:250px" class="field">
+  	<%= f.check_box :insert_map %>
+    <%= f.label :insert_map, "Include Google Map in e-mails" %>
+  </div>
+  <div class="field">
+    <button class="map_preview">MAP PREVIEW</button>
+  </div>
+  
+  <div class="field">
+    <!-- <%= f.label :phone, "Business Phone Number" %><br /> -->
+    <%= f.telephone_field :phone, :placeholder => "Business Phone Number" %>
+  </div>
+  
+  <div class="field">
+  	<!-- <%= f.label :site_url, "Business Website URL" %><br/> -->
+  	<%= f.text_field :site_url, :placeholder => "Business Website URL" %>
+  </div>
+  <div style="float:right; margin-right:0px;margin-bottom:0px">
+  	<%= f.label :featured_photo, "Business Featured Photo (max 400KB)" %><br />
+    <%= f.file_field :featured_photo, :placeholder => "Choose an image" %>
+  </div>
+  <br/>
+  <label style="display:block; font-size:20px">Social Media Links (optional)</label>
+  <div class="pic2" style="float: right; height: 375px;margin-top:-10px; width: 500px;text-align: center;">
+  	<!-- <img src="/x_button.png" id="del_photo" > -->
+	<div><img class="medium" id="p2" src="<%= @smb.featured_photo.url(:medium) %>"  style="max-width: 500px; max-height: 375px;"></div>
+	<% if @smb.featured_photo.present? %>
+	<div class="profile_img_del_button" style="float:right" id="featured">DELETE</div>
+	<% end %>
+</div>
+  <br/>
+  
+  
+  <div class="field">
+  	<!-- <%= f.label :facebook_url, "Business Facebook Link" %><br /> -->
+    <%= f.text_field :facebook_url, :placeholder => "Business Facebook URL" %>
+  </div>
+  
+  
+  
+  <div class="field">
+  	<!-- <%= f.label :twitter_url, "Business Twitter Link" %><br /> -->
+    <%= f.text_field :twitter_url, :placeholder => "Business Twitter URL" %>
+  </div>
+  
+  <br/>
+  
+  
+  <div class="field">
+  	<!-- <%= f.label :linkedin_url, "Business LinkedIn Link" %><br /> -->
+    <%= f.text_field :linkedin_url, :placeholder => "Business LinkedIn URL" %>
+  </div>
+  
+  
+  <div class="field">
+  	<!-- <%= f.label :yelp_url, "Business Yelp Link" %><br /> -->
+    <%= f.text_field :yelp_url, :placeholder => "Business Yelp URL" %>
+  </div>
+  <br/>
+  
+  
+  <div class="field">
+    <%= f.label :term_and_conditions, "Terms and Conditions" %><br />
+    <textarea id="smb_term_and_conditions" rows="10" readonly="readonly" cols="53" style="font-style: normal; color: #66cc00;"><%=@term%></textarea>
+  </div>
+  <br/>
+  
+  <div class="field">
+    <%= f.check_box :Terms_and_Conditions %>
+    <%= f.label :Terms_and_Conditions, "Accept" %><br />
+  </div>
+  <br/>
+  
+  <div class="actions">
+    <%= f.submit "UPDATE PROFILE", :class => "campaign_form_button" %>
+  </div>
+<% end %>

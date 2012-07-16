@@ -1,0 +1,120 @@
+<div class="page_header dashboard_header">DASHBOARD</div>
+<div class="new_campaign_tab"><a href="<%= smb_campaigns_path(@smb) %>">+ CREATE NEW CAMPAIGN</a></div>
+<div class="redeem_vouchers_tab"><a href="<%= redemption_smb_path(@smb) %>">REDEEM VOUCHERS</a></div>
+<div class="active_campaign_container">
+	<div class="active_header">ACTIVE CAMPAIGN</div>
+	<div class="active_left_container">
+		
+		<% if @campaign.present? %>
+			<div class="active_campaign_name"><%= @campaign.camp_name.upcase %></div>
+			<div class="active_campaign_date"><%= Date.parse(@campaign.start_date.to_s).strftime("%b %e, %Y").upcase%> - <%= Date.parse(@campaign.end_date.to_s).strftime("%b %e, %Y").upcase %></div>
+		<% else %>
+			<div class="active_campaign_name" style="font-style: italic;">NO ACTIVE CAMPAIGN</div>
+			<div class="active_campaign_date" style="font-style: italic;">N/A - N/A</div>
+		<% end %>
+		
+		<div class="statistics_container">
+			<table class="statistics_content">
+				<tr style="font-family: AvenirLTStd-Black; font-size: 48px; line-height: 36px;">
+					<td>
+						<% if @num_friend_exposed.present? %>
+							<%= @num_friend_exposed %>
+						<% else %>
+							N/A
+						<% end %>
+					</td>
+					<td>
+						<% if @num_new_customers.present? %>
+							<%= @num_new_customers %>
+						<% else %>
+							N/A
+						<% end %>
+					</td>
+					<td>
+						<% if @conversion_rate.present? %>
+							<%= @conversion_rate %>%
+						<% else %>
+							N/A
+						<% end %>
+					</td>
+				</tr>
+				<tr style="font-size: 14px; line-height: 22px;">
+					<td>
+						FRIENDS EXPOSED
+					</td>
+					<td>
+						NEW CUSTOMERS
+					</td>
+					<td>
+						CONVERSION RATE
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+						
+					</td>
+					<td>
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="active_right_container">
+		<% if @campaign.present? %>
+			<a class="active_campaign_button" id="acb1" href="<%= smb_campaigns_path(@smb, :tab => @campaign.id) %>">EDIT</a>
+			<a class="active_campaign_button" id="acb2" href="<%= campaign_preview_smb_campaign_path(@smb, @campaign, :page => "1") %>">PREVIEW</a>
+			<a class="active_campaign_button" id="acb3" href="<%= campaign_preview_smb_campaign_path(@smb, @campaign, :page => "4") %>">PROMOTE</a>
+			<a class="active_campaign_button" id="acb4" style="margin-right: 0px;" href=#>TRACK</a>
+			<div class="leaderboard_container">
+				<div class="leaderboard_header">REFERRAL LEADERBOARD</div>
+				<% if @customers_in_active_campaign.present? %>
+					<% @customers_in_active_campaign.first(3).each do |customer_in_active_campaign| %>
+						<div class="leaderboard_customer">
+							<img style="width:32px;" src="<%= (customer_in_active_campaign.avatar_url.present?)? customer_in_active_campaign.avatar_url : "/no_avatar.png"  %>" class="leaderboard_avatar">
+							<div class="leaderboard_fullname"><%= customer_in_active_campaign.fullname.upcase %></div>
+							<div class="leaderboard_num_ref"><%= customer_in_active_campaign.codes.find(:all, :conditions => ['frien_status = ?', "REDEEMED"]).count %></div>
+						</div>
+					<% end %>
+				<% else %>
+					<div class="leaderboard_customer">
+						CURRENTLY NO CUSTOMERS
+					</div>
+				<% end %>
+			</div>
+		<% else %>
+			<a class="active_campaign_button" id="acb1">EDIT</a>
+			<a class="active_campaign_button" id="acb2">PREVIEW</a>
+			<a class="active_campaign_button" id="acb3">PROMOTE</a>
+			<a class="active_campaign_button" id="acb4" style="margin-right: 0px;">TRACK</a>
+			<div class="leaderboard_container">
+				<div class="leaderboard_header">REFERRAL LEADERBOARD</div>
+				<div class="leaderboard_customer">
+					CURRENTLY NO ACTIVE CAMPAIGN
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
+<div class="inactive_campaigns_container">
+	<div class="inactive_header">INACTIVE CAMPAIGNS</div>
+	<% if @inactive_campaigns.present? %>
+		<% @inactive_campaigns.each do |inactive_campaign| %>
+			<div class="inactive_campaign_name"><%= inactive_campaign.camp_name.upcase %></div>
+			<div class="inactive_campaign_date"><%= Date.parse(inactive_campaign.start_date.to_s).strftime("%b %e, %Y").upcase%> - <%= Date.parse(inactive_campaign.end_date.to_s).strftime("%b %e, %Y").upcase %></div>
+			<div class="inactive_campaigns_buttons_wrapper">
+				<a class="inactive_campaign_button" id="icb1" href="<%= smb_campaigns_path(@smb, :tab => inactive_campaign.id) %>">EDIT</a>
+				<a class="inactive_campaign_button" id="icb2" href="<%= campaign_preview_smb_campaign_path(@smb, inactive_campaign, :page => "1") %>">PREVIEW</a>
+				<a class="inactive_campaign_button" id="icb3" href="<%= campaign_preview_smb_campaign_path(@smb, inactive_campaign, :page => "4") %>">PROMOTE</a>
+				<a class="inactive_campaign_button" id="icb4" style="margin-right: 0px;" href=#>TRACK</a>
+			</div>
+			<br/>
+		<% end %>
+	<% else %>
+		<div class="inactive_campaign_name" style="font-style: italic;">NO INACTIVE CAMPAIGNS</div>
+		<div class="inactive_campaign_date" style="font-style: italic;">N/A - N/A</div>
+	<% end %>
+</div>

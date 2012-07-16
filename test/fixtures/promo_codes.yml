@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  promo_code: MyString
+  promo_credit: 1
+
+two:
+  promo_code: MyString
+  promo_credit: 1

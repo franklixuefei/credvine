@@ -1,0 +1,32 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input[value=CANCEL]').click(function(e) {
+		e.preventDefault();
+		window.location = "/smbs/gen_coupon?cid=<%= params[:cid] %>&code=<%= @scanned_code %>";
+	});
+	
+});
+	
+</script>
+<% if @smb_logo_filename.present? %>
+<div class="confirmation_logo">
+	<img src="<%= @smb_logo_url %>" style="max-width:400px;" />
+</div>
+<% end %>
+<div class="confirmation_text" style="margin-bottom:50px">DO YOU WANT TO <br/>REDEEM THE VOUCHER FROM<br/><%= @smb_name.upcase %>?</div> 
+
+<form method="post" action="/smbs/<%= @smb_token %>/redeeming_mobile" accept-charset="UTF-8">
+	<input type="hidden" name="code" value="<%= @scanned_code %>">
+	<input type="hidden" name="cid" value="<%= params[:cid] %>">
+	<div class="field" style="margin-bottom:40px;">
+		<label>Please have the merchant enter their PIN below or, alternatively, have them scan the QR code on your voucher directly and enter their PIN on their device</label><br/>
+		<input id="pin" type="password" name="pin" placeholder="Please enter the business PIN" style="margin-top:20px">
+		<!--[if IE]>
+			<input id="pin" type="text" placeholder="Please enter the business PIN" style="margin-top:20px">
+		<![endif]-->
+	</div>
+	<div class="confirmation_buttons">
+		<input class="green_button_2" type="submit" value="CANCEL">
+		<input class="green_button_2" type="submit" value="REDEEM" style="float:right">
+	</div>
+</form>

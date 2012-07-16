@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cust_sent_incentive: MyString
+  cust_successful_incentive: MyString
+  frien_incentive: MyString
+
+two:
+  cust_sent_incentive: MyString
+  cust_successful_incentive: MyString
+  frien_incentive: MyString

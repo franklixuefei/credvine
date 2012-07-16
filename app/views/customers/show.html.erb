@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @customer.username %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @customer.password %>
+</p>
+
+<p>
+  <b>Fullname:</b>
+  <%= @customer.fullname %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @customer.phone %>
+</p>
+
+<p>
+  <b>Frien Welcome Text:</b>
+  <%= @customer.frien_welc %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @customer.email %>
+</p>
+
+<p>
+  <b>Photo:</b>
+  <%= @customer.photo %>
+</p>
+
+
+<% if params[:smb_id].present?%>
+<%= link_to 'Edit', edit_smb_customer_path(@selector, @customer) %> |
+<%= link_to 'Back', smb_customers_path(@selector) %>
+<% elsif params[:friend_id].present?%>
+<%= link_to 'Edit', edit_friend_customer_path(@selector, @customer) %> |
+<%= link_to 'Back', friend_customers_path(@selector) %>
+<% else %>
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
+<% end %>

@@ -1,0 +1,86 @@
+<!-- <% if current_user %>
+	<h1>Updating Payment Information of <%= @subscription.plan.name %> for <%= current_user.full_name %></h1>
+	<p>for only <strong><%= ActionController::Base.helpers.number_to_currency @subscription.plan.price %></strong> per month!</p>
+	<%= form_for @subscription do |f| %>
+	  <% if @subscription.errors.any? %>
+	    <div class="error_messages">
+	      <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+	      <ul>
+	      <% @subscription.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	
+	  <%= f.hidden_field :plan_id %>
+	  <%= f.hidden_field :stripe_card_token %>
+	  <%= f.hidden_field :paypal_customer_token %>
+	  <%= f.hidden_field :paypal_payment_token %>
+	
+	  <div class="field">
+	    <%= label_tag :pay_with_card do %>
+	      <%= image_tag "visa.png" %>
+	      <%= image_tag "mastercard.png" %>
+	      <%= image_tag "discover.png" %>
+	      <%= image_tag "american_express.png" %>
+	      <%= image_tag "jcb.png" %>
+	    <% end %><br/>
+	    
+	  </div>
+	
+	
+	  <div id="billing_fields">
+	    <div class="field">
+	      <%= f.label :email %>
+	      <%= f.text_field :email %>
+	    </div>
+	    <% if @subscription.payment_provided? %>
+	      Payment has been provided. Click "Update My Card" to update your card info.
+	    <% else %>
+	      <div class="field">
+	        <%= label_tag :card_number, "Credit Card Number" %>
+	        <%= text_field_tag :card_number, nil, :name => nil %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+	        <%= text_field_tag :card_code, nil, :name => nil, :size => 5 %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_month, "Card Expiration" %>
+	        <%= select_month nil, {:add_month_numbers => true}, {:name => nil, :id => "card_month"} %>
+	        <%= select_year nil, {:start_year => Date.today.year, :end_year => Date.today.year+15}, {:name => nil, :id => "card_year"} %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :name_on_card, "Name on Card" %>
+	        <%= text_field_tag :name_on_card, nil, :name => nil, :size => 10 %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_1, "Address Line 1" %>
+	        <%= text_field_tag :address_line_1, nil, :name => nil, :size => 30 %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_2, "Address Line 2" %>
+	        <%= text_field_tag :address_line_2, nil, :name => nil, :size => 30 %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_country, "Country" %>
+	        <%= text_field_tag :address_country, nil, :name => nil, :size => 12 %>
+	      </div>
+	
+	    <% end %>
+	    <div id="stripe_error">
+	      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+	    </div>
+	    <div class="actions">
+	      <%= f.submit "Update My Card" %>
+	    </div>
+	  </div>
+	<% end %>
+<% else %>
+	<center><h1>You must login before proceeding</h1></center>
+	<center><%= link_to 'click here to login', log_in_path %></center>
+<% end %>
+
+<%= link_to 'Show', @subscription %> |
+<%= link_to 'Back', subscriptions_path %> -->

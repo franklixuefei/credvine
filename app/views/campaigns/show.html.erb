@@ -1,0 +1,101 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Camp name:</b>
+  <%= @campaign.camp_name %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @campaign.start_date.strftime('%Y-%m-%d') if @campaign.start_date%>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @campaign.end_date.strftime('%Y-%m-%d') if @campaign.end_date%>
+</p>
+
+<p>
+  <b>Exp date:</b>
+  <%= @campaign.exp_date.strftime('%Y-%m-%d') if @campaign.exp_date%>
+</p>
+
+
+<p>
+  <b>Thx frien:</b>
+  <%= @campaign.thx_frien %>
+</p>
+
+<p>
+  <b>Init thx:</b>
+  <%= @campaign.init_thx %>
+</p>
+
+<p>
+  <b>Final thx:</b>
+  <%= @campaign.final_thx %>
+</p>
+
+<p>
+  <b>Customer incentive per referral sent:</b>
+  <%= @campaign.cust_sent_incentive %>
+</p>
+
+<p>
+  <b>Incentive Type:</b>
+  <% if !@campaign.incentive_type_id.nil? %>
+  	<%= @campaign.incentive_type.type_of_incentive %>
+  <% end %>
+</p>
+
+<p>
+  <b>Incentive Value:</b>
+  <%= @campaign.incentive_val %>
+</p>
+
+<p>
+  <b>Customer incentive per successful referral:</b>
+  <%= @campaign.cust_successful_incentive %>
+</p>
+
+<p>
+  <b>Incentive Type:</b>
+  <% if !@campaign.incentive_type_csi_id.nil? %>
+ 	 <%= @campaign.cust_sent_incentive %>
+  <% end %>
+</p>
+
+<p>
+  <b>Incentive Value:</b>
+  <%= @campaign.incentive_val_csi %>
+</p>
+
+
+	<table>
+		<tr>
+			<th>#</th>
+			<th>Friend incentive</th>
+			<th>Incentive Type</th>
+		</tr>
+		<% n = 1 %>
+		<% for incentive in @campaign.incentives %>
+		<tr>
+			<td><%= n %></td>
+			<td><%= incentive.frien_incentive %></td>
+			<% if !incentive.incentive_type_fi_id.nil? %>
+				<td><%= incentive.incentive_type_fi.type_of_incentive %></td>
+			<% else %>
+				<td></td>
+			<% end %>
+		</tr>
+		<% n = n + 1 %>
+		<% end %>
+	</table>
+
+<% if params[:smb_id].present?%>
+<%= link_to 'Edit', edit_smb_campaign_path(@smb, @campaign) %> |
+<%= link_to 'Back', smb_campaigns_path(@smb) %>
+<% else %>
+<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
+<%= link_to 'Back', campaigns_path %>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cust_init: MyText
+  cust_success: MyText
+  frien_welc_ref: MyText
+  frien_post_redemp: MyText
+
+two:
+  cust_init: MyText
+  cust_success: MyText
+  frien_welc_ref: MyText
+  frien_post_redemp: MyText

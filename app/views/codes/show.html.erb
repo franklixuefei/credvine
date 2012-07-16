@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cust init code:</b>
+  <%= @code.cust_init_code %>
+</p>
+
+<p>
+  <b>Cust success code:</b>
+  <%= @code.cust_success_code %>
+</p>
+
+<p>
+  <b>Frien code:</b>
+  <%= @code.frien_code %>
+</p>
+
+<p>
+  <b>Cust init status:</b>
+  <%= @code.cust_init_status %>
+</p>
+
+<p>
+  <b>Cust success status:</b>
+  <%= @code.cust_success_status %>
+</p>
+
+<p>
+  <b>Frien status:</b>
+  <%= @code.frien_status %>
+</p>
+
+
+<%= link_to 'Edit', edit_code_path(@code) %> |
+<%= link_to 'Back', codes_path %>

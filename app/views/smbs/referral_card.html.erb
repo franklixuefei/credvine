@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credvine - Referral Card</title>
+<link rel=stylesheet href="/card.css" type="text/css" media=screen>
+</head>
+<body>
+	<div class="body_container">
+		<div class="container">
+			<div class="card_header"> <%= @smb.full_name %> </div>
+			<img style="float: right; margin-top: 17px;width: 260px;" src="referral_card.png" />
+			<div class="card_subheading1">
+			Know a friend who
+			<br>
+			would love us too?
+			</div>
+			<div class="card_subheading2">
+			Instantly refer a friend and hook
+			<br>
+			them up for their first visit!
+			</div>
+		</div>
+		<div class="card_footer">
+			<img src="/credvine_icon_poster.png" style="vertical-align: -20px;">
+			<p class="card_footer_text">credvine.com/<%= @smb.username %></p>
+		</div>
+		<div style="height:100px;"></div>
+		<div class="container_back" >
+			<div class="card_back_text">
+				FRIENDS DON'T LET FRIENDS<br/>MISS OUT ON THINGS THEY'D LOVE
+			</div>
+		</div>
+	</div>
+</body>
+</html>

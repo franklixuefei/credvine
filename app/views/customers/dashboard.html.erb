@@ -1,0 +1,13 @@
+<div class="page_header dashboard_header">DASHBOARD</div>
+<div class="new_campaign_tab"><a href="<%= smb_campaigns_path(@smb) %>">+ CREATE NEW CAMPAIGN</a></div>
+<div class="active_campaign_container">
+	<div class="active_header">ACTIVE CAMPAIGN</div>
+	<div class="active_left_container">
+		<div class="active_campaign_name"><%= (@campaign.present?) @campaign.camp_name.upcase : "NO ACTIVE CAMPAIGN"%></div>
+		<div class="active_campaign_date"><%= Date.parse(@campaign.start_date).strftime("%b%e, %Y").upcase%> - <%= Date.parse(@campaign.start_date).strftime("%b%e, %Y").upcase %></div>
+		
+	</div>
+	<div class="active_right_container">
+		
+	</div>
+</div>

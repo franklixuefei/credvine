@@ -1,0 +1,170 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="temp_quiz.js" type="text/javascript"></script>
+
+<style type="text/css">
+	.container {
+		border: 1px solid #888;
+		border-radius: 4px;
+		width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 20px;
+	}
+	.answer {
+		text-align: center;
+		margin: 20px;
+	}
+	.pages {
+		float: right;
+	}
+	label {
+		font-size: 20px;
+		color: #555;
+	}
+	form {
+		margin-top: 20px;
+		width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	input {
+		margin-left: 20px;
+	}
+	.field {
+		margin: 20px;
+	}
+	.title {
+		font-weight: bold;
+		text-align: center;
+		color: #555;
+	}
+</style>
+	<div class="container">
+		<div class="title">Which type of condo is right for me?  Loft, apartment or townhome?</div>
+	<form>
+		<div class="field" question="1">
+			<label>Are you afraid of heights? </label> <br />
+			<input type="radio" name="q1" value="0" />Not at all – love being high up!<br />
+			<input type="radio" name="q1" value="1" />Not really – don’t mind heights at all<br />
+			<input type="radio" name="q1" value="2" />Yes, I’m terrified<br />
+		</div>
+		<div class="field" question="2">
+			<label>Do you like lots of amenities (gym, pool, party room)? </label> <br />
+			<input type="radio" name="q2" value="1" />No – I wouldn’t use these at all <br />
+			<input type="radio" name="q2" value="2" />Don’t mind – if they’re there I’ll use them<br />
+			<input type="radio" name="q2" value="0" />Yes – I’d use these all the time<br />
+		</div>
+		<div class="field" question="3">
+			<label>Do you want to live in a place with a great view?</label> <br />
+			<input type="radio" name="q3" value="0" />Yes – I love taking in a great view of the city! <br />
+			<input type="radio" name="q3" value="1" />I’d rather have a great interior space than a nice view<br />
+			<input type="radio" name="q3" value="2" />That’s not important to me<br />
+		</div>
+		<div class="field" question="4">
+			<label>Do you want to be on the subway line?</label> <br />
+			<input type="radio" name="q4" value="1" />no - I don’t mind walking a bit because I know lofts sit back a bit from main roads <br />
+			<input type="radio" name="q4" value="2" />maybe - I am okay with walking a bit as townhomes sit back a bit from main roads <br />
+			<input type="radio" name="q4" value="0" />yes - I want to be able to leave my building and hop on the TTC <br />
+		</div>
+		<div class="field" question="5">
+			<label>Do you want east end or west end?</label> <br />
+			<input type="radio" name="q5" value="1" />yes, I’d like to be a bit outside of downtown <br />
+			<input type="radio" name="q5" value="2" />maybe - if I found the right property I could live away from downtown<br />
+			<input type="radio" name="q5" value="0" />no - I want to live downtown in the TDot!<br />
+		</div>
+		<div class="field" question="6">
+			<label>Do you want the feel of a home?</label> <br />
+			<input type="radio" name="q6" value="2" />Yes – I’m ready for a home (but don’t have the cash yet)!<br />
+			<input type="radio" name="q6" value="1" />Not sure – I like a nice open space, but don’t need want to do the yardwork associated with a house!<br />
+			<input type="radio" name="q6" value="0" />Not yet – I want to keep things simple and don’t need a lot of space<br />
+		</div>
+		<div class="field" question="7">
+			<label>Do you want a separate room for guests or an office, away from the main living space? </label> <br />
+			<input type="radio" name="q7" value="1" />no - i like wide open spaces <br />
+			<input type="radio" name="q7" value="2" />yes - I don’t want to hear the TV when I’m sleeping in my room<br />
+			<input type="radio" name="q7" value="0" />no - I am okay with close quarters<br />
+		</div>
+		<div class="field" question="8">
+			<label>Do you like authentic brick and beam, open spaces? </label> <br />
+			<input type="radio" name="q8" value="1" />yes - I want something that looks old and has character<br />
+			<input type="radio" name="q8" value="2" />no - I want clean lines and the feel of a home <br />
+			<input type="radio" name="q8" value="0" />no - I want modern and clean lines<br />
+		</div>
+		<div class="field" question="9">
+			<label>Do you want a separate room for guests or an office, away from the main living space? </label> <br />
+			<input type="radio" name="q9" value="1" />no - i like wide open spaces <br />
+			<input type="radio" name="q9" value="2" />yes - I don’t want to hear the TV when I’m sleeping in my room<br />
+			<input type="radio" name="q9" value="0" />no - I am okay with close quarters<br />
+		</div>
+		<div class="field" question="10">
+			<label>Do you want to be in the centre of the action: restaurants, shopping, live theatre, sports? </label> <br />
+			<input type="radio" name="q10" value="1" />no - I like the action of the city, but I want to have a bit of distance from it<br />
+			<input type="radio" name="q10" value="2" />no - want to be able to visit the action when I want to then go home<br />
+			<input type="radio" name="q10" value="0" />yes - I love being in the middle of the excitement of the city!<br />
+		</div>
+		<div class="field" question="11">
+			<label>Do you have a dog that you would like to let out/take out to go pee-pee?</label> <br />
+			<input type="radio" name="q11" value="1" />no - i like dogs, but i’m too busy to ever have one<br />
+			<input type="radio" name="q11" value="2" />yes - “Must Love Dogs” is a regular Friday movie at my place<br />
+			<input type="radio" name="q11" value="0" />no - dogs scare me and they can smell fear<br />
+		</div>
+		<div class="field" question="12">
+			<label>Do you hate the sound of trains?</label> <br />
+			<input type="radio" name="q12" value="1" />no - I find them soothing, and I DIG that a lot of lofts can be found near rail lines<br />
+			<input type="radio" name="q12" value="2" />no - they don’t bother me<br />
+			<input type="radio" name="q12" value="0" />yes - I find them grinding to my very soul and they would keep me up all night<br />
+		</div>
+		<div class="field" question="13">
+			<label>Do you want something a bit different and without the "cookie cutter" feel?  </label> <br />
+			<input type="radio" name="q13" value="1" />yes - I want something that can’t be found anywhere else<br />
+			<input type="radio" name="q13" value="2" />no - I want a house feel and know that townhomes are all very simliar<br />
+			<input type="radio" name="q13" value="0" />no - I want a condo and I know that there is a design that works and condos replicate that design to accommodate buyers’ needs <br />
+		</div>
+		<div class="field" question="14">
+			<label>Do you want a space where you can enjoy a live/work type of atmosphere? </label> <br />
+			<input type="radio" name="q14" value="1" />yes - i have a massive workspace and work ideas everywhere <br />
+			<input type="radio" name="q14" value="2" />no - I like separate spaces for working and living <br />
+			<input type="radio" name="q14" value="0" />no - I leave work at work and my home is my space<br />
+		</div>
+		<div class="field" question="15">
+			<label>Do you want to be able to run outside quickly without the hassle of elevators or lots of stairs?  </label> <br />
+			<input type="radio" name="q15" value="1" />no - I don’t mind a short elevator ride <br />
+			<input type="radio" name="q15" value="2" />yes - I leave my cell phone in my car daily<br />
+			<input type="radio" name="q15" value="0" />no - I like long elevator rides <br />
+		</div>
+		<div class="field" question="16">
+			<label>Do you have a very small downpayment and budget, but still want to get in the market to build equity?  </label> <br />
+			<input type="radio" name="q16" value="1" />no - a downpayment is not a problem and I can buy an property that I love<br />
+			<input type="radio" name="q16" value="2" />no - this is my second purchase and I have some money from my last home <br />
+			<input type="radio" name="q16" value="0" />yes - I just graduated and have a bit of cash saved up<br />
+		</div>
+		<div class="field" question="17">
+			<label>Do you want your own greenspace, even if it is a tiny bit of greenspace? </label> <br />
+			<input type="radio" name="q17" value="1" />no - I’ll go to the park for that<br />
+			<input type="radio" name="q17" value="2" />yes - even a tiny patch of grass or garden is good for me<br />
+			<input type="radio" name="q17" value="0" />no - if I want green, I’ll visit my parents in the ‘burbs<br />
+		</div>
+		<div class="field" question="18">
+			<label>Do you hate having someone living above you? </label> <br />
+			<input type="radio" name="q18" value="1" />no - I’m used to my sister’s high heels above me when we were growing up<br />
+			<input type="radio" name="q18" value="2" />yes -  I do not want to hear footsteps <br />
+			<input type="radio" name="q18" value="0" />no - it doesn’t bother me. this is the city! <br />
+		</div>
+				<div class="field" question="19">
+			<label>Do you hate stairs and never want to have to climb stairs where you live? </label> <br />
+			<input type="radio" name="q19" value="1" />yes - any more exercise over and above walking is just vanity<br />
+			<input type="radio" name="q19" value="2" />no - I like the exercise <br />
+			<input type="radio" name="q19" value="0" />yes - I’ll get enough exercise enough at the gym in my condo<br />
+		</div>
+				<div class="field" question="20">
+			<label>Do you have kids and want to live in an area where you see kids playing?</label> <br />
+			<input type="radio" name="q20" value="1" />no - no kids yet, but looking forward to them!<br />
+			<input type="radio" name="q20" value="2" />yes - we have little ones and pray they will get to sleep!<br />
+			<input type="radio" name="q20" value="0" />no - no kids yet - but working on finding someone to have them with <br />
+		</div>
+		
+		<div class="field quiz_complete">
+			<input type="submit" value="complete quiz">
+		</div>
+	</form>
+</div>

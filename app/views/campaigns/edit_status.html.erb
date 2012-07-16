@@ -1,0 +1,54 @@
+<h1>Editing Campaign Status</h1>
+
+<%= form_tag :action => 'update_status', :method => 'put' do %>
+
+<table>
+  <tr>
+  	<th>Effective</th>
+    <th>Camp name</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Exp date</th>
+    <th>Thx frien</th>
+    <th>Init thx</th>
+    <th>Final thx</th>
+    <th>Belongs to</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @campaigns.each do |campaign| %>
+	<%= fields_for "campaign[]", campaign do |campaign_fields| %>
+  <tr>
+  	<td><%= campaign_fields.check_box :status %>
+    <td><%= link_to campaign.camp_name, [@smb, campaign] %></td>
+    <td><%= campaign.start_date.strftime('%Y-%m-%d %H:%M') %></td>
+    <td><%= campaign.end_date.strftime('%Y-%m-%d %H:%M') %></td>
+    <td><%= campaign.exp_date.strftime('%Y-%m-%d %H:%M') %></td>
+    <td><%= campaign.thx_frien %></td>
+    <td><%= campaign.init_thx %></td>
+    <td><%= campaign.final_thx %></td>
+    <td><%= link_to Smb.find(campaign.smb_id).full_name, Smb.find(campaign.smb_id) %></td>
+    <td><%= link_to 'Incentive(s)', smb_campaign_incentives_path(@smb, campaign) %></td>
+    <% if params[:smb_id].present? %>
+    <td><%= link_to 'Edit', edit_smb_campaign_path(@smb, campaign) %></td>
+    <td><%= link_to 'Delete', [@smb, campaign], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% else %>
+    <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+    <td><%= link_to 'Delete', campaign, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<center><p><%= submit_tag "Update" %></p></center>
+<% end %>
+<br />
+
+<% if params[:smb_id].present?%>
+<%= link_to 'Back', smb_campaigns_path(@smb) %>
+<% else %>
+<%= link_to 'Back', campaigns_path %>
+<% end %>
+
+

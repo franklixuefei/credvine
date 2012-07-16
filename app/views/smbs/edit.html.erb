@@ -1,0 +1,12 @@
+<div class="page_header smb_form_header">BUSINESS PROFILE</div>
+<label style="display:block;margin-bottom:40px; margin-top:-20px; font-size:20px">Don't worry, you can update your profile any time!</label>
+<%= render 'form' %>
+
+<!-- <%= link_to 'Show', [@selector, @smb] %> |
+<% if params[:customer_id].present? %>
+<%= link_to 'Back', customer_smbs_path(@selector) %>
+<% elsif params[:friend_id].present? %>
+<%= link_to 'Back', friend_smbs_path(@selector) %>
+<% else %>
+<%= link_to 'Back', smbs_path %>
+<% end %> -->

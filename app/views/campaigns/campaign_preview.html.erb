@@ -1,0 +1,217 @@
+<script type="text/javascript" src="/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/jquery.validate.js"></script>
+
+
+<style>
+a img {
+	border:0;
+}
+	
+div.email_body_container {
+    background-color: white;
+    min-width: 640px;
+}
+div.email_container {
+    background-color: white;
+    border: 1px solid #66cc35;
+    height: auto;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    min-height: 400px;
+    width: 640px;
+}
+div.green_content {
+    background-color: #66CC35;
+    color: white;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-top: 30px;
+    padding: 25px;
+    width: 560px;
+}
+p.email_greetings {
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.text {
+    font-size: 14px;
+    margin-bottom: 5px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+	margin-top: 0px;
+}
+div.their_message_container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 580px;
+}
+p.their_message_header {
+    color: #66CC33;
+    font-size: 22px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+p.their_message_text {
+    font-size: 16px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.image {
+    text-align: center;
+}
+div.bus_info {
+    background-color: black;
+}
+div.bus_info_container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 28px;
+    width: 580px;
+}
+div.bus_desc_container {
+    width: 580px;
+	font-family: AvenirLTStd-Medium,Verdana,Helvetica,Arial;
+}
+div.bus_map {
+    width: 580px;
+    margin-top:5px;
+}
+p.bus_name {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: 0;
+	font-family: AvenirLTStd-Light,Verdana,Helvetica,Arial;
+}
+div.bus_desc {
+    display: inline-block;
+    padding-bottom: 20px;
+}
+p.bus_desc_content {
+    color: white;
+    font-size: 10px;
+    line-height: 5px;
+}
+div.bus_soc {
+    display: inline-block;
+    float: right;
+    width: 170px;
+}
+div.soc_icons {
+    float: right;
+    height: 32px;
+}
+div.soc_icons img {
+    margin-left: 6px;
+    padding-top: 4px;
+    float:right;
+}
+
+
+
+.email_footer {
+    background-color: black;
+    height: 96px;
+}
+
+.email_footer_container {
+    height: 32px;
+    padding: 32px 30px;
+}
+
+.email_footer_text {
+    color: #66CC00;
+    float: right;
+    font-size: 20px;
+    margin-right: 132px;
+    width: 400px;
+}
+	
+.tooltip {
+	z-index:5;
+}
+</style>
+<script type="text/javascript" charset="utf-8">
+	var params_page = <%= params[:page] %>;
+	var loc = "<%= smbs_path %>" + "/" + "<%= @smb.auth_token %>" + "/campaigns/" + "<%= @campaign.id %>" + "/campaign_preview?page=";
+</script>
+<script type="text/javascript" src="/campaign_preview.js"></script>
+
+<div class="page_header campaign_preview_header">CAMPAIGN PREVIEW - <%= @preview_subtitle %></div>
+
+<%= form_for [@smb, @campaign], :validate => true do |f| %>
+<input type="hidden" name="pagenum" value="<%= params[:page] %>">
+<input type="hidden" name="pos" id="pos" />
+<div class="pre_pages" page="1">
+	<a name="cust_init"></a>
+	<div class="page_subheader">Thank You e-mail sent to your Customer after they send a referral</div>
+	<div class="init_thx_email">
+		<%= render "init_thx_email", :f => f %>
+	</div>
+	<a name="cust_suc"></a>
+	<div class="page_subheader">Thank You e-mail sent to your Customer after their Friend uses the referral voucher</div>
+	<div class="cust_success_email">
+		<%= render "cust_success_email", :f => f %>
+	</div>	
+</div>
+
+<div class="pre_pages" page="2">
+	<a name="frien_wel"></a>
+	<div class="page_subheader">Welcome e-mail sent to your Customer's Friend with their referral message</div>
+	<div class="frien_welc_email">
+		<%= render "welc_frien_email", :f => f %>
+	</div>
+	<a name="frien_f"></a>
+	<div class="page_subheader">Thank You e-mail sent to your Customer's Friend after their first visit</div>
+	<div class="frien_final_email">
+		<%= render "frien_final_email", :f => f %>
+	</div>
+</div>
+
+<div class="pre_pages" page="3">
+	<a name="frien_c"></a>
+	<div class="page_subheader">Example voucher to be sent to your Customer's Friend for their first visit</div>
+	<div class="frien_coupon">
+		<%= render "frien_coupon_preview" , :f => f%>
+	</div>
+
+<% if @campaign.give_cust_ref_sent %>
+	<a name="cust_ic"></a>
+	<div class="page_subheader">Example voucher to be sent to your Customer as an initial thank you for sending a referral</div>
+	<div class="cust_init_coupon">
+		<%= render "cust_init_coupon_preview" , :f => f %>
+	</div>
+<% end %>
+<% if @campaign.give_cust_success %>
+	<a name="cust_sc"></a>
+	<div class="page_subheader">Example voucher to be sent to your Customer as a thank you for a successful referral</div>
+	<div class="cust_success_coupon">
+		<%= render "cust_success_coupon_preview" , :f => f %>
+	</div>
+<% end %>
+</div>
+
+<div class="pre_pages" page="4">
+	<div class="page_subheader">Link to promote your referral program on your website and in your newsletter, <br/>email signature and social media: <b><a href="<%= root_url %><%= @smb.username %>" style="text-decoration: underline;"><%= root_url %><%= @smb.username %></a></b></div>
+	<div class="page_subheader">REFERRAL PROGRAM POSTER</div>
+	<div class="page_subheader" style="margin-top:15px">Print this poster to promote your referral program</div>
+	<div class="poster">
+		<%= render "poster_preview" , :f => f %>
+	</div>
+	<div class="page_subheader">REFERRAL CARD</div>
+	<div class="page_subheader" style="margin-top:15px">Print the business card sized cards to give customers access to your referral program</div>
+	<div class="ref_card">
+		<%= render "card_preview" , :f => f %>
+	</div>
+</div>
+
+
+
+<% end %>
+
+<center style="margin-top: 50px"><div id="page_bar" style="color:black">PAGE: <span class="num" id="1" page_clicked="1">1</span>  <span class="num" id="2" page_clicked="2">2</span>  <span class="num" id="3" page_clicked="3">3</span>  <span class="num" id="4" page_clicked="4">4</span></div></center>
+  	
+<button id="prev" class="prev_next_button">BACK</button>
+<button id="next" class="prev_next_button">NEXT</button>
+<a href="<%= (@smb.first_time)? confirm_campaign_smb_campaign_path(@smb, @campaign) : dashboard_smb_path(@smb) %>"><button id="finish" class="preview_finish_button">FINISH</button></a>
+
+<div class="popup" id="block"><span id="x">X</span><p id="ex"></p></div>

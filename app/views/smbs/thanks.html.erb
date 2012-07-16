@@ -1,0 +1,7 @@
+
+
+<div class="customer_thanks_header">THANKS FOR HOOKING UP YOUR FRIEND <br>AT <%= Smb.find_by_username(params[:user]).full_name.upcase %>. </div>
+
+<div class="thanks_text_wrapper"><img src="/facebook48x48.png"><p class="customer_thanks_text">Want to refer other friends <br/> to <%= Smb.find_by_username(params[:user]).full_name %> through Facebook?<br> That's easy!  Just click the back button.</p></div>
+
+<div class="thanks_text_wrapper"><img src="/email_icon_green.png"><p class="customer_thanks_text" style="padding-bottom:60px;margin-bottom:0px">Or would you prefer to refer other friends<br/> to <%= Smb.find_by_username(params[:user]).full_name %> through email? <br>No problem. Just <a href="/signout" style="color:#66cc00">click here</a>.</p></div>

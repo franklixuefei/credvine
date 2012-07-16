@@ -1,0 +1,89 @@
+<link rel="stylesheet" type="text/css" href="/tabs.css"/>
+<script type="text/javascript" src="/jquery-ui-1.8.17.custom.min.js"></script>
+<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+
+<script>
+$(document).ready(function() {
+	$('ul.css-tabs li').hover(function() {
+	  	$(this).find('span#del_camp').show();
+	 }, function() {
+	 	$(this).find('span#del_camp').hide();
+	 });
+});
+</script>
+
+<div class="page_header campaign_index_header">CREATE/EDIT CAMPAIGNS</div>
+
+
+
+<!-- <% if params[:smb_id].present?%>
+<%= link_to 'EDIT STATUS',  edit_status_smb_campaigns_path(@smb), :class => "edit_status" %>
+<% end %> -->
+
+<ul class="css-tabs" style="margin: auto">
+	<% if @smb.first_time %>
+		<% if @smb.campaigns.find(:all, :conditions => ['temp = ?', false]).count == 0 %>
+			<li><a href="campaigns/new">NEW</a></li>
+		<% end %>
+	<% else %>
+		<li><a href="campaigns/new">NEW</a></li>
+	<% end %>
+	<% n = 1 %>
+	<% if @smb and @smb.campaigns %> 
+		<% @smb.campaigns.find(:all, :conditions => ['temp = ?', false]).each do |campaign|%>
+		<li><a href="campaigns/<%= campaign.id%>/edit" id="camp<%= campaign.id%>" num_tab="<%= n %>"><%= (campaign.status)? "ACTIVE" : ("EXISTING " + n.to_s) %></a><span id="del_camp" camp="<%= campaign.id %>"><img src="/x_button.png" /></span></li>
+		<% n = n + 1 %>
+		<% end %>
+	<% else %>
+		<% Campaign.all.each do |campaign|%>
+		<li><a href="campaigns/<%= campaign.id%>/edit" id="camp<%= campaign.id%>" num_tab="<%= n %>"><%= (campaign.status)? "ACTIVE" : ("EXISTING " + n.to_s) %></a></li>
+		<% n = n + 1 %>
+		<% end %>
+	<% end %>
+</ul>
+
+<!-- single pane. it is always visible -->
+<div class="css-panes" style="margin: auto;">
+	<div style="display:block"></div>
+</div>
+
+<!-- activate tabs with JavaScript -->
+<script>
+	$(document).ready(function () {
+		if (window.location.href.substr(-1,1) == '/') {
+			//alert(window.location.href.substr(0, window.location.href.length-1));
+			window.location.href = window.location.href.substr(0, window.location.href.length-1);
+		}
+		$('span#del_camp').click(function() {
+			//alert("hello");
+			//$(this).text('...');
+			var answer = confirm("Delete this campaign?");
+			if (answer) {
+				$.ajax({
+					url: '../../ajax/del_camp/' + $(this).attr('camp'),
+					data: '',
+					type: 'POST',
+					dataType: 'json',
+					success: function (j) {
+						window.location.reload(true);
+					}
+				});
+			} else {
+				//$(this).text('X');
+			}
+		}); 
+
+	});
+
+$(function() {
+	<% if params[:tab].present? %>
+		var n = parseInt($("ul.css-tabs li a#camp<%= params[:tab] %>").attr('num_tab'));
+		$("ul.css-tabs").tabs("div.css-panes > div", {initialIndex: n, effect: 'ajax'});
+	<% else %>
+		$("ul.css-tabs").tabs("div.css-panes > div", {effect: 'ajax'});
+	<% end %>
+});
+
+</script>
+
+

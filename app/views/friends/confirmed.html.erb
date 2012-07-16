@@ -1,0 +1,37 @@
+<style>
+.whitespace {
+	height: 30px;
+}
+
+.body_container {
+	min-height: 0px;
+}
+</style>
+<div class="whitespace"></div>
+<div class="post_referral_green">
+	<p class="post_referral_greetings">Hi <%= @friend.fullname.split(' ').first %>,</p>
+	<p class="post_referral_text">
+		Thanks, you'll receive your voucher shortly via email!  We look forward to seeing you soon.<br/><br/>
+		Stay in touch...
+	</p>
+	<% if @smb.facebook_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @smb.facebook_url.gsub(/http:\/\//, '') %>"><img src="/fb-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @smb.twitter_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @smb.twitter_url.gsub(/http:\/\//, '') %>"><img src="/twitter-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @smb.yelp_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @smb.yelp_url.gsub(/http:\/\//, '') %>"><img src="/yelp-stripe.png" /></a>
+	</div>
+	<% end %>
+	<% if @smb.linkedin_url.present? %>
+	<div class="social_stripe">
+		<a target="_blank" href="http://<%= @smb.linkedin_url.gsub(/http:\/\//, '') %>"><img src="/linkedin-stripe.png" /></a>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,27 @@
+<h1>Listing temp_table_for_custs</h1>
+
+<table>
+  <tr>
+    <th>Fullname</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @temp_table_for_custs.each do |temp_table_for_cust| %>
+  <tr>
+    <td><%= temp_table_for_cust.fullname %></td>
+    <td><%= temp_table_for_cust.phone %></td>
+    <td><%= temp_table_for_cust.email %></td>
+    <td><%= link_to 'Show', temp_table_for_cust %></td>
+    <td><%= link_to 'Edit', edit_temp_table_for_cust_path(temp_table_for_cust) %></td>
+    <td><%= link_to 'Destroy', temp_table_for_cust, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Temp table for cust', new_temp_table_for_cust_path %>

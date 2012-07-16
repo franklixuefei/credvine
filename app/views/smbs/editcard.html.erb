@@ -1,0 +1,86 @@
+<h1>Update Your Card Info</h1>
+<% if current_user %>
+<% if current_user.card_provided? %>
+<form id="card_info" class="card_info" method="post" enctype="multipart/form-data" action="/smbs/<%= current_user.id%>/updatecard" accept-charset="UTF-8">
+	<div style="margin: 0pt; padding: 0pt; display: inline;">
+		<input type="hidden" value="✓" name="utf8">
+		<input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token">
+	</div>
+	<% if current_user.errors.any? %>
+	    <div class="error_messages">
+	      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+	      <ul>
+	      <% current_user.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	<% end %>
+	
+	
+	
+	<div class="field">
+		<label><strong>we accept the following cards: </strong></label><br/>
+		<%= label_tag :pay_with_card do %>
+	      <%= image_tag "visa.png" %>
+	      <%= image_tag "mastercard.png" %>
+	      <%= image_tag "discover.png" %>
+	      <%= image_tag "american_express.png" %>
+	      <%= image_tag "jcb.png" %>
+	    <% end %><br/>
+	 
+	<div id="billing_fields">
+	    <div class="field">
+	      <%= fields_for current_user do |f|%>
+		      <%= f.label :email_for_card %>
+		      <%= f.text_field :email_for_card, :value => current_user.email if current_user.email %>
+		      <%= f.hidden_field :stripe_card_token %>
+	      <% end %>
+	    </div>
+	      <div class="field">
+	        <%= label_tag :card_number, "Credit Card Number" %>
+	        <%= text_field_tag :card_number, nil, :name => nil, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+	        <%= text_field_tag :card_code, nil, :name => nil, :size => 5, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :card_month, "Card Expiration" %>
+	        <%= select_month nil, {:add_month_numbers => true}, {:name => nil, :id => "card_month"} %>
+	        <%= select_year nil, {:start_year => Date.today.year, :end_year => Date.today.year+15}, {:name => nil, :id => "card_year"} %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :name_on_card, "Name on Card" %>
+	        <%= text_field_tag :name_on_card, nil, :name => nil, :size => 10, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_1, "Address Line 1" %>
+	        <%= text_field_tag :address_line_1, nil, :name => nil, :size => 30, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_line_2, "Address Line 2" %>
+	        <%= text_field_tag :address_line_2, nil, :name => nil, :size => 30, :autocomplete => :off %>
+	      </div>
+	      <div class="field">
+	        <%= label_tag :address_country, "Country" %>
+	        <%= text_field_tag :address_country, nil, :name => nil, :size => 12, :autocomplete => :off %>
+	      </div>
+	
+	    <div id="stripe_error">
+	      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+	    </div>
+	    
+
+	<%= submit_tag "Update" %>
+	<label>we will not save your card information</label>
+</form>
+<% else %>
+	<center><p>Card is not on file yet, please <%= link_to 'fill in card information', cardinfo_smb_path(current_user) %></p></center>
+<% end %>
+<% else %>
+	<center><h1>You must login before proceeding</h1></center>
+	<center><%= link_to 'click here to login', log_in_path %></center>
+<% end %>
+
+	

@@ -1,0 +1,55 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.nav_link:hover {
+  background-color: #f1f2f2;
+  color: black;
+  a {
+    color: black;
+  }
+}
+
+.footer_header {
+  float: left;
+  td {
+    width: 245px; 
+    font-family: CalcitePro-Bold;
+    font-size: 26px;
+    color: white;
+  }
+}
+
+.footer_link {
+  float: left;
+  td {
+    width: 245px; 
+    font-family: AvenirLTStd-Medium;
+    font-size: 14px;
+    color: white;
+    line-height: 14px;
+    a {
+      color: white;
+    }
+  }
+}
+
+.footer_icons {
+  float:right;
+  margin-top: 8px;
+  img {
+    margin-left: 4px;
+  }
+}
+
+.slider_content {
+    display: inline-block;
+    height: 354px;
+    width: 596px;
+    margin-left: 6px;
+    overflow: hidden;
+    position: relative;
+    img {
+      position: absolute;
+    }
+}
